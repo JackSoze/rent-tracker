@@ -30,6 +30,11 @@ h1{font-size:28px;font-weight:800;margin:0 0 2px;letter-spacing:-.01em}
 #sub{margin:0 0 16px}
 .month{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .month b{font-size:20px;font-weight:800}
+.mstrip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 0 10px;position:relative;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.mstrip::-webkit-scrollbar{display:none}
+.month .mstrip button{flex:0 0 calc((100% - 16px)/3);width:auto;height:auto;min-height:56px;border-radius:14px;padding:8px 4px;scroll-snap-align:end;text-align:center;line-height:1.25}
+.mstrip b{font-size:16px}.mstrip small{display:block;font-size:12px;font-weight:600;color:var(--mute)}
+.month .mstrip button.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}.mstrip .on small{color:var(--onpri);opacity:.85}
 .month button{width:40px;height:40px;padding:0;border-radius:50%;background:var(--card);border:1px solid var(--line)}
 [data-delb],[data-delu]{background:transparent;color:var(--mute)}
 button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--line);color:var(--ink);font-weight:600}
@@ -41,7 +46,7 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--pri);outline-of
 .bar{height:8px;background:rgba(255,255,255,.28);border-radius:8px;overflow:hidden;margin:10px 0 10px}
 .bar i{display:block;height:100%;background:var(--onpri)}
 .hrow{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
-.t{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.t{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 14px}.section-head h2{font-size:21px;line-height:1.2;margin:0;font-weight:800;letter-spacing:-.02em}.section-head p{font-size:13px;color:var(--mute);margin:4px 0 0}.add-small{white-space:nowrap;padding:9px 12px;font-size:14px}
 .row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .name{font-weight:800}
 .mute{color:var(--mute);font-size:14px}
@@ -73,10 +78,12 @@ input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px soli
 <div class="eyebrow" id="eyebrow">Rent tracker</div>
 <h1 id="title">My buildings</h1>
 <div class="mute" id="sub"></div>
-<div class="month"><button id="prev" aria-label="Previous month">‹</button><b id="mlabel"></b><button id="next" aria-label="Next month">›</button></div>
-<div class="hero"><div class="hrow"><span id="sOwe"></span><span id="sOcc"></span></div></div>
+<div id="demoNote" hidden style="background:var(--warnbg);color:var(--warn);padding:10px 12px;border-radius:10px;font-size:13px;margin:12px 0">Demo mode: sample records only. Changes will not be saved.</div>
+<div class="month" style="display:block"><div class="mstrip" id="mstrip"></div><b id="mlabel" style="display:block;font-size:20px;margin:6px 0 2px"></b><button id="prev" hidden></button><button id="next" hidden></button></div>
+<div class="hero"><div class="hrow" style="align-items:baseline"><span id="sOwe" style="font-size:22px;font-weight:800"></span><span id="sOcc"></span></div><div class="bar" style="margin-bottom:0"><i id="sBar" style="width:0"></i></div></div>
 <div id="list"></div>
-<div class="t" style="margin-top:18px"><div class="name">On your phone</div><div class="mute" style="margin:4px 0 10px">Install it from your browser menu (Add to Home screen / Install app). Works offline. Records are saved on this phone, so back up before switching phones or clearing browser data.</div><div class="acts" style="margin-top:0"><button id="bkBtn">Back up / Restore</button><button id="updBtn">Update app</button></div><div class="mute" id="updMsg" style="margin-top:8px"></div></div>
+<p class="foot" style="margin-bottom:0"><button id="bkBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Back up / Restore</button> · <button id="updBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Update app</button></p>
+<div class="foot" id="updMsg" style="margin-top:0"></div>
 <p class="foot">Your records are saved on this phone only. Clearing browser data erases them.</p>
 </main>
 <button class="pri fab" id="add">+ Add building</button>
@@ -131,14 +138,23 @@ input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px soli
 
 <script>
 (function(){
-var KEY="rentTrackerV2",S={buildings:[],units:[],pays:[]},cur=ym(new Date()),view=null,tgt=null,uOpen=null,showPrev=false,pm=null,yOpen=null,rcpMsg="",rcpPhone="";
+var KEY="rentTrackerV2",S={buildings:[],units:[],pays:[]},cur=ym(new Date()),view=null,tgt=null,uOpen=null,showPrev=false,pm=null,yOpen=null,rcpMsg="",rcpPhone="",demoMode=new URLSearchParams(location.search).get("demo")==="1";
 function $(id){return document.getElementById(id)}
 try{var raw=localStorage.getItem(KEY);if(raw)S=JSON.parse(raw);
  else{var old=JSON.parse(localStorage.getItem("rentTrackerV1")||"null");
   if(old&&old.tenants&&old.tenants.length){var bid=Date.now();S.buildings.push({id:bid,name:"My building"});
    old.tenants.forEach(function(t,i){var tid=t.id;S.units.push({id:bid+i+1,bid:bid,name:t.unit,rent:t.rent,tenant:{id:tid,name:t.name,phone:t.phone,start:t.start}});});
    (old.pays||[]).forEach(function(p){S.pays.push(p)});save()}}}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+if(demoMode){
+ var demoBid=91001,paidTid=91011,partTid=91012,today=new Date().toISOString().slice(0,10);
+ S={buildings:[{id:demoBid,name:"Mwangaza Building"}],units:[
+ {id:91021,bid:demoBid,name:"A1",rent:1500,tenant:{id:paidTid,name:"Mama Kim",phone:"0712345678",start:cur}},
+ {id:91022,bid:demoBid,name:"A2",rent:1800,tenant:{id:partTid,name:"John Mwenda",phone:"0722345678",start:cur}},
+ {id:91023,bid:demoBid,name:"A3",rent:1500,tenant:null}],pays:[
+ {id:91031,tid:paidTid,month:cur,amt:1500,method:"M-Pesa",code:"DEMO123",date:today},
+ {id:91032,tid:partTid,month:cur,amt:800,method:"M-Pesa",code:"DEMO456",date:today}]};view=demoBid;
+}
+function save(){if(demoMode)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ym(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
 function shift(m,n){var p=m.split("-");return ym(new Date(+p[0],+p[1]-1+n,1))}
 function months(a,b){var p=a.split("-"),q=b.split("-");return (+q[0]-+p[0])*12+(+q[1]-+p[1])+1}
@@ -201,29 +217,32 @@ function render(){
   var b=view?find(S.buildings,view):null;if(view&&!b)view=null;
   $("back").hidden=!b;$("eyebrow").hidden=!!b;$("title").textContent=b?b.name:"My buildings";
   $("add").textContent=b?"+ Add unit":"+ Add building";
-  $("mlabel").textContent=label(cur);
+  var mR=ym(new Date()),mS="";for(var mK=11;mK>=0;mK--){var mV=shift(mR,-mK),mP=mV.split("-");mS+='<button data-mo="'+mV+'" class="'+(mV===cur?"on":"")+'"><b>'+new Date(+mP[0],+mP[1]-1,1).toLocaleDateString("en-GB",{month:"long"})+'</b><small>'+mP[0]+'</small></button>'}
+  var mE=$("mstrip");mE.innerHTML=mS;var mO=mE.querySelector(".on");if(mO)mE.scrollLeft=mO.offsetLeft+mO.offsetWidth-mE.clientWidth;
+  var cP=cur.split("-"),cN=new Date(+cP[0],+cP[1]-1,1).toLocaleDateString("en-GB",{month:"long"});$("mlabel").textContent=cN+(cP[0]!==mR.slice(0,4)?" "+cP[0]:"")+" rent report";
   var units=b?S.units.filter(function(u){return u.bid===b.id}):S.units,T=totals(units),h="";
   if(!b){
     S.buildings.forEach(function(bb){
       var us=S.units.filter(function(u){return u.bid===bb.id}),t=totals(us);
-      h+='<div class="t" data-bopen="'+bb.id+'" style="cursor:pointer"><div class="row"><div><div class="name">'+esc(bb.name)+'</div><div class="mute">'+us.length+' units · '+t.occ+' occupied</div></div><span class="sp"><span class="tag '+(t.o>0?"due":"paid")+'">'+(t.o>0?"Owed "+kes(t.o):"All clear")+'</span><span class="chev">›</span></span></div>'+
-      '<div class="acts"><button data-delb="'+bb.id+'">Remove</button></div></div>'});
-    if(!h)h='<div class="empty">No buildings yet.<br>Tap “Add building” to start, then add its units and tenants.</div>';
+      h+='<div class="t" data-bopen="'+bb.id+'" style="cursor:pointer"><div class="row" style="align-items:center"><div class="name" style="font-size:18px">'+esc(bb.name)+'</div><span class="chev">›</span></div></div>'});
+    if(!h)h='<div class="empty">No buildings yet.<br>Add your first building, then its units and tenants.</div>';
   }else{
     units.slice().sort(function(x,y){return (x.tenant?0:1)-(y.tenant?0:1)||String(x.name).localeCompare(String(y.name),undefined,{numeric:true,sensitivity:"base"})}).forEach(function(u){
       var s=stats(u),t=u.tenant,tag="Vacant",cls="part";
       if(t&&s){if(s.owed===0){tag="Paid";cls="paid"}else if(s.thisM>0){tag="Part paid";cls="part"}else{tag="Not paid";cls="due"}}
       else if(t){tag="Starts later";cls="part"}
       var pt=s?s.thisM:0,part=t&&s&&pt>0&&pt<u.rent?" \u00b7 "+kes(pt)+" paid so far":"";
-      h+='<div class="t" data-tog="'+u.id+'" style="cursor:pointer"><div class="row"><div><div class="name">'+esc(u.name)+' \u00b7 <span style="font-weight:600">'+(t?esc(t.name):"No tenant")+'</span></div><div class="mute" style="font-size:13px">'+kes(u.rent)+' per month'+part+'</div></div><span class="sp"><span class="tag '+(tag==="Part paid"?"due":cls)+'">'+(tag==="Part paid"?"Not paid":tag)+'</span><span class="chev">›</span></span></div>'+(t&&s?(tag==="Paid"?'<div class="acts" style="align-items:center"><button data-rcp="'+u.id+'">Send receipt</button>'+'<button data-pay="'+u.id+'">Add payment</button></div>':'<div class="acts" style="align-items:center"><button class="pri" data-pay="'+u.id+'">Record payment</button>'+(pt>0&&pt<u.rent?'<span class="mute">'+kes(u.rent-pt)+' left</span>':'')+'</div>'):'')+'</div>'});
-    if(!h)h='<div class="empty">No units in this building yet.<br>Tap “Add unit”, then add a tenant to each unit.</div>';
+      h+='<div class="t" data-tog="'+u.id+'" style="cursor:pointer;border-left:5px solid '+(tag==="Vacant"||tag==="Starts later"?"var(--line)":tag==="Paid"?"var(--ok)":"var(--bad)")+'"><div class="row"><div><div class="name">'+esc(u.name)+' \u00b7 <span style="font-weight:600">'+(t?esc(t.name):"No tenant")+'</span></div><div class="mute" style="font-size:13px">'+kes(u.rent)+' per month'+part+'</div></div><span class="sp"><span class="tag '+cls+'">'+tag+'</span><span class="chev">›</span></span></div>'+(t&&s?(tag==="Paid"?'<div class="acts" style="align-items:center"><button data-rcp="'+u.id+'">Send receipt</button>'+'<button data-pay="'+u.id+'">Add payment</button></div>':'<div class="acts" style="align-items:center"><button class="pri" data-pay="'+u.id+'">Record payment</button>'+(pt>0&&pt<u.rent?'<span class="mute">'+kes(u.rent-pt)+' left</span>':'')+'</div>'):'')+'</div>'});
+    if(!h)h='<div class="empty">No units in this building yet.<br>Add your first unit, then add a tenant to it.</div>';
   }
-  $("list").innerHTML=h;
+  $("list").innerHTML=(b?'<div class="section-head"><div><h2>Tenants / Rooms</h2><p>Rent status · '+esc(label(cur))+'</p></div><button class="pri add-small" data-add="1">+ Add room</button></div>':'<button class="pri" data-add="1" style="width:100%;margin-bottom:12px">+ Add building</button>')+h+(b?'<div style="text-align:center;margin-top:18px"><button data-delb="'+b.id+'" style="background:transparent;color:var(--bad);font-size:13px;min-height:36px">Delete building</button></div>':'');
+  $("demoNote").hidden=!demoMode;document.querySelector(".hero").hidden=true;document.querySelector(".month").hidden=true;$("add").hidden=true;
   var nb=S.buildings.length;
-  $("sub").textContent=b?units.length+" units · "+T.occ+" occupied · tap a unit for payment records":(nb?nb+(nb>1?" buildings · ":" building · ")+S.units.length+" units":"Add your first building to begin");
-  $("sOwe").textContent=T.o>0?"Owed: "+kes(T.o):"All paid up";$("sOcc").textContent=T.occ+" occupied";
+  var oc=units.filter(function(u){return u.tenant}).length;$("sub").hidden=!b;$("sub").textContent=b?oc+" occupied · "+(units.length-oc)+" vacant · Total "+units.length:"";
+  var pu=0;units.forEach(function(u){var s=stats(u);if(s&&s.owed===0)pu++});$("sOwe").textContent=T.o>0?kes(T.o)+" owed":"All paid up \u2713";$("sOcc").textContent=T.occ?pu+" of "+T.occ+" paid":"No tenants yet";$("sBar").style.width=(T.occ?Math.round(pu/T.occ*100):0)+"%";
   sheet();msheet();ysheet();
 }
+$("mstrip").onclick=function(e){var q=e.target.closest("[data-mo]");if(q){cur=q.dataset.mo;render()}};
 $("prev").onclick=function(){cur=shift(cur,-1);render()};
 $("next").onclick=function(){cur=shift(cur,1);render()};
 $("back").onclick=function(){view=null;render()};
@@ -258,10 +277,11 @@ $("uBody").onclick=$("list").onclick=function(e){
   if(!b){var o=e.target.closest("[data-bopen]");if(o){view=+o.dataset.bopen;render();return}var mo=e.target.closest("[data-month]");if(mo){pm=mo.dataset.month;tgt=uOpen;$("dM").showModal();msheet();return}var c=e.target.closest("[data-tog]");if(c){uOpen=+c.dataset.tog;showPrev=false;sheet();$("dUnit").showModal()}return}
   if(b.dataset.yr!==undefined){yOpen=+cur.slice(0,4)-(+b.dataset.yr);$("dY").showModal();ysheet();return}
   var d=b.dataset,u;
+  if(d.add){$("add").onclick();return}
   if(d.open){view=+d.open;render()}
   if(d.delb&&confirm("Remove this building with all its units and tenants?")){var id=+d.delb;
     S.units.filter(function(x){return x.bid===id}).forEach(function(x){if(x.tenant)S.pays=S.pays.filter(function(p){return p.tid!==x.tenant.id})});
-    S.units=S.units.filter(function(x){return x.bid!==id});S.buildings=S.buildings.filter(function(x){return x.id!==id});save();render()}
+    S.units=S.units.filter(function(x){return x.bid!==id});S.buildings=S.buildings.filter(function(x){return x.id!==id});view=null;save();render()}
   if(d.ten){tgt=+d.ten;u=find(S.units,tgt);$("tTitle").textContent="Add tenant to "+u.name;$("tName").value="";$("tPhone").value="";$("dT").showModal()}
   if(d.pay){tgt=+d.pay;u=find(S.units,tgt);$("pTitle").textContent="Payment from "+u.tenant.name;
     $("pAmt").value=Math.max(0,u.rent-stats(u).thisM)||u.rent;pm=null;$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pCode").value="";$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
