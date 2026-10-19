@@ -95,6 +95,8 @@ input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px soli
 <div class="acts"><button class="pri" id="bkCopy">Copy my records</button><button id="bkRest">Restore from pasted text</button></div>
 <div class="dl"><button data-x="dBk">Close</button></div></dialog>
 
+<dialog id="dNu"><h2 style="margin:0" id="nuT"></h2><div class="mute" style="margin-top:6px">There is no record for this month yet.</div><div class="acts" style="flex-direction:column;margin-top:14px"><button class="pri" id="nuHist">Enter historical record</button><button id="nuNone">Mark as no payment</button></div><div class="dl"><button data-x="dNu">Cancel</button></div></dialog>
+
 <dialog id="dB"><h2 style="margin:0">Add building</h2>
 <label>Building name<input id="bName" placeholder="e.g. Mwangaza Apartments" autocomplete="off"></label>
 <div class="dl"><button data-x="dB">Cancel</button><button class="pri" id="bSave">Save building</button></div></dialog>
@@ -110,6 +112,7 @@ input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px soli
 <div class="dl"><button data-x="dT">Cancel</button><button class="pri" id="tSave">Save tenant</button></div></dialog>
 
 <dialog id="dP"><h2 style="margin:0" id="pTitle">Record payment</h2>
+<div class="mute" id="pSum" style="margin-top:6px"></div>
 <label>Amount received (KES)<input id="pAmt" type="number" inputmode="numeric"></label>
 <label>Paid by<select id="pMeth"><option>M-Pesa</option><option>Cash</option></select></label>
 <label id="pCodeL">M-Pesa code (optional)<input id="pCode" autocomplete="off" style="text-transform:uppercase"></label>
@@ -166,7 +169,8 @@ function wa(p){p=String(p).replace(/\D/g,"");if(p.indexOf("0")===0)p="254"+p.sli
 function showMsg(title,u,msg){rcpMsg=msg;rcpPhone=u.tenant.phone||"";$("rTitle").textContent=title;$("rTo").textContent=u.name+" \u00b7 "+u.tenant.name+(rcpPhone?" \u00b7 "+rcpPhone:" \u00b7 no phone saved");$("rMsg").textContent=msg;
   $("rActs").innerHTML=(rcpPhone?'<button class="pri" data-rs="wa">WhatsApp</button><button data-rs="sms">Text message (SMS)</button>':'')+'<button data-rs="copy">Copy message</button>';$("dR").showModal()}
 function planFor(u,m0,a){var plan=[],rem=a,m=m0,n=0,bal0=null;while(rem>0&&n<60){var done=0,mm=m;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===mm)done+=p.amt});var bal=Math.max(0,u.rent-done);if(bal0===null)bal0=bal;if(bal>0){var put=Math.min(rem,bal);plan.push({m:m,a:put});rem-=put}m=shift(m,1);n++}return{plan:plan,bal0:bal0}}
-function updHint(){var h=$("pHint"),a=+$("pAmt").value,u=find(S.units,tgt);if(!u||!u.tenant||!(a>0)){h.hidden=true;return}
+function updHint(){var uu=find(S.units,tgt);if(uu&&uu.tenant){var m1=pm||cur,dn=0;S.pays.forEach(function(p){if(p.tid===uu.tenant.id&&p.month===m1)dn+=p.amt});$("pSum").textContent="Rent due "+kes(uu.rent)+" \u00b7 Paid "+kes(dn)+" \u00b7 Balance "+kes(Math.max(0,uu.rent-dn))}
+  var h=$("pHint"),a=+$("pAmt").value,u=find(S.units,tgt);if(!u||!u.tenant||!(a>0)){h.hidden=true;return}
   var m0=pm||cur,r=planFor(u,m0,a);h.hidden=false;
   if(r.plan.length>1||r.plan[0].m!==m0){h.style.color="var(--warn)";h.textContent=(r.bal0===0?label(m0)+" is already fully paid. ":label(m0)+" only needs "+kes(r.bal0)+". ")+"This will be carried forward: "+r.plan.map(function(x){return kes(x.a)+" \u2192 "+label(x.m)}).join(", ")+"."}
   else{h.style.color="var(--mute)";h.textContent="This goes to "+label(m0)+"."}}
@@ -183,10 +187,20 @@ function recpay(){var u=find(S.units,uOpen),pdn=0;tgt=uOpen;S.pays.forEach(funct
 function msheet(){
   if(!$("dM").open)return;var u=find(S.units,uOpen);if(!u||!u.tenant){$("dM").close();return}
   var ps=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),sum=0;ps.forEach(function(p){sum+=p.amt});
-  $("mTitle").textContent=label(pm);$("mSub").textContent=u.name+" · "+u.tenant.name+" · "+(sum>=u.rent?"Paid "+kes(sum):kes(sum)+" of "+kes(u.rent));
-  $("mBody").innerHTML=(ps.length?ps.map(function(p){return '<div class="pm"><div class="row"><b>'+kes(p.amt)+'</b><span class="tag paid">'+(p.method||(p.code?"M-Pesa":"Paid"))+'</span></div><div class="mute">Date paid: '+new Date(p.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+(p.code?' · '+esc(p.code):'')+'</div></div>'}).join(""):'<div class="empty">No payments recorded for this month.</div>')+'<button class="pri" data-rp="1" style="width:100%;margin-top:14px">Record payment</button>';
+  var left=Math.max(0,u.rent-sum),row='<div class="row" style="margin-top:8px"><span class="mute">';
+  $("mTitle").textContent=label(pm);$("mSub").textContent=u.name+" \u00b7 "+u.tenant.name;
+  $("mBody").innerHTML='<div class="t" style="margin:14px 0"><div class="row"><span class="mute">Status</span><span class="tag '+(sum>=u.rent?"paid":sum>0?"part":"na")+'">'+(sum>=u.rent?"Paid":sum>0?"Part paid":"No payment")+'</span></div>'+row+'Rent due</span><b>'+kes(u.rent)+'</b></div>'+row+'Paid</span><b>'+kes(sum)+'</b></div>'+row+(sum>=u.rent?'Balance</span><b>KES 0</b>':'Remaining balance</span><b>'+kes(left)+'</b>')+'</div></div>'+
+   '<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Payments</h2>'+
+   (ps.length?ps.map(function(p){return '<div class="pm"><div class="row"><b>'+kes(p.amt)+'</b><span class="tag paid">'+(p.method||(p.code?"M-Pesa":"Paid"))+'</span></div><div class="mute">Date paid: '+new Date(p.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+'</div><div class="mute">'+(p.code?"Reference: "+esc(p.code):(p.method==="Cash"?"Cash, no reference":"No reference saved"))+'</div></div>'}).join(""):'<div class="empty">No payments recorded for this month.</div>')+
+   '<div class="acts" style="margin-top:14px;flex-direction:column">'+(sum>=u.rent?'<button class="pri" data-mrcp="1">Send receipt</button><button data-rp="1">Add payment</button>':'<button class="pri" data-rp="1">'+(sum>0?"Record another payment":"Record payment")+'</button>')+(sum>0&&sum<u.rent?'<button data-mrcp="1">Send receipt for '+kes(sum)+' paid</button>':'')+'</div>';
 }
-function mrows(u,t,list){var rows="";list.forEach(function(m){var ps=S.pays.filter(function(p){return p.tid===t.id&&p.month===m}),sum=0;ps.forEach(function(p){sum+=p.amt});var na=m<t.start&&sum===0;rows+='<div class="pm" data-month="'+m+'" style="cursor:pointer"><div class="row"><b>'+label(m)+'</b><span class="sp"><span class="tag '+(na?"na":sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(na?"Not updated":sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span><span class="chev">›</span></span></div><div class="mute">'+(na?"No data yet":sum>=u.rent?kes(sum):kes(sum)+" of "+kes(u.rent))+'</div></div>'});return rows}
+function mrcpt(){var u=find(S.units,uOpen);if(!u||!u.tenant)return;var rp=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),rs=0,lp=null;rp.forEach(function(p){rs+=p.amt;if(!lp||p.date>=lp.date)lp=p});
+  showMsg("Send receipt",u,"Hello "+u.tenant.name+", we confirm receipt of rent for "+u.name+" for "+label(pm)+": "+kes(rs)+(lp?" (last payment "+new Date(lp.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+" by "+(lp.method||"M-Pesa")+(lp.code?", ref "+lp.code:"")+")":"")+(rs<u.rent?". Balance remaining: "+kes(u.rent-rs):"")+". Thank you.")}
+function openMonth(m){var u=find(S.units,uOpen);if(!u||!u.tenant)return;var t=u.tenant,sum=0;S.pays.forEach(function(p){if(p.tid===t.id&&p.month===m)sum+=p.amt});pm=m;tgt=uOpen;
+  if(m<t.start&&sum===0&&(S.nop||[]).indexOf(t.id+"|"+m)<0){$("nuT").textContent=label(m)+" \u00b7 Not updated";$("dNu").showModal();return}
+  if(sum===0&&m>=t.start){recpay();return}
+  $("dM").showModal();msheet()}
+function mrows(u,t,list){var rows="";list.forEach(function(m){var ps=S.pays.filter(function(p){return p.tid===t.id&&p.month===m}),sum=0;ps.forEach(function(p){sum+=p.amt});var na=m<t.start&&sum===0,nn=na&&(S.nop||[]).indexOf(t.id+"|"+m)>-1;rows+='<div class="pm" data-month="'+m+'" style="cursor:pointer"><div class="row"><b>'+label(m)+'</b><span class="sp"><span class="tag '+(na?"na":sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(nn?"No payment":na?"Not updated":sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span><span class="chev">›</span></span></div><div class="mute">'+(nn?"Confirmed: no payment":na?"No data yet":sum>=u.rent?kes(sum):kes(sum)+" of "+kes(u.rent))+'</div></div>'});return rows}
 function sheet(){
   if(uOpen==null)return;var u=find(S.units,uOpen);if(!u){$("dUnit").close();return}
   var t=u.tenant,s=stats(u),i,ms=[],bd=find(S.buildings,u.bid),h="";
@@ -277,7 +291,7 @@ $("pSave").onclick=function(){var a=+$("pAmt").value;if(!(a>0)){alert("Enter the
   save();$("dP").close();render()};
 $("uBody").onclick=$("list").onclick=function(e){
   var b=e.target.closest("button");
-  if(!b){var o=e.target.closest("[data-bopen]");if(o){view=+o.dataset.bopen;render();return}var mo=e.target.closest("[data-month]");if(mo){pm=mo.dataset.month;tgt=uOpen;$("dM").showModal();msheet();return}var c=e.target.closest("[data-tog]");if(c){uOpen=+c.dataset.tog;showPrev=false;sheet();$("dUnit").showModal()}return}
+  if(!b){var o=e.target.closest("[data-bopen]");if(o){view=+o.dataset.bopen;render();return}var mo=e.target.closest("[data-month]");if(mo){openMonth(mo.dataset.month);return}var c=e.target.closest("[data-tog]");if(c){uOpen=+c.dataset.tog;showPrev=false;sheet();$("dUnit").showModal()}return}
   if(b.dataset.yr!==undefined){yOpen=+cur.slice(0,4)-(+b.dataset.yr);$("dY").showModal();ysheet();return}
   var d=b.dataset,u;
   if(d.add){$("add").onclick();return}
@@ -298,14 +312,16 @@ $("uBody").onclick=$("list").onclick=function(e){
   if(d.delu&&confirm("Delete this unit?")){var uid=+d.delu;u=find(S.units,uid);if(u.tenant)S.pays=S.pays.filter(function(p){return p.tid!==u.tenant.id});S.units=S.units.filter(function(x){return x.id!==uid});save();render()}
 };
 $("pMeth").onchange=function(){$("pCodeL").hidden=this.value==="Cash"};
-$("mBody").onclick=function(e){if(e.target.closest("[data-rp]"))recpay()};
+$("mBody").onclick=function(e){if(e.target.closest("[data-rp]"))recpay();else if(e.target.closest("[data-mrcp]"))mrcpt()};
+$("nuHist").onclick=function(){$("dNu").close();recpay()};
+$("nuNone").onclick=function(){var u=find(S.units,uOpen);if(!u||!u.tenant)return;S.nop=S.nop||[];var k=u.tenant.id+"|"+pm;if(S.nop.indexOf(k)<0)S.nop.push(k);save();$("dNu").close();render()};
 $("rActs").onclick=function(e){var b=e.target.closest("button");if(!b)return;var k=b.dataset.rs;
   if(k==="wa")window.open("https://wa.me/"+wa(rcpPhone)+"?text="+encodeURIComponent(rcpMsg),"_blank");
   else if(k==="sms")window.open("sms:+"+wa(rcpPhone)+"?body="+encodeURIComponent(rcpMsg),"_blank");
   else if(k==="copy"){try{navigator.clipboard.writeText(rcpMsg).then(function(){b.textContent="Copied \u2713"},function(){b.textContent="Press and hold the text above to copy"})}catch(err){b.textContent="Press and hold the text above to copy"}}};
 $("dUnit").addEventListener("close",function(){uOpen=null});
 $("dY").addEventListener("close",function(){yOpen=null});
-$("yBody").onclick=function(e){var mo=e.target.closest("[data-month]");if(mo){pm=mo.dataset.month;tgt=uOpen;$("dM").showModal();msheet()}};
+$("yBody").onclick=function(e){var mo=e.target.closest("[data-month]");if(mo)openMonth(mo.dataset.month)};
 $("bkBtn").onclick=function(){$("bkText").value=JSON.stringify(S);$("bkCopy").textContent="Copy my records";$("dBk").showModal()};
 $("bkCopy").onclick=function(){var t=$("bkText"),b=this;t.value=JSON.stringify(S);t.select();try{navigator.clipboard.writeText(t.value).then(function(){b.textContent="Copied \u2713"},function(){b.textContent="Press and hold the text to copy"})}catch(err){b.textContent="Press and hold the text to copy"}};
 $("bkRest").onclick=function(){var d;try{d=JSON.parse($("bkText").value)}catch(err){d=null}
