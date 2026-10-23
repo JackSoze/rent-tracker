@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#0f5c52">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -61,6 +61,9 @@ dialog::backdrop{background:rgba(0,0,0,.5)}#pCodeL{display:none!important}
 label{display:block;font-size:14px;font-weight:600;margin-top:10px}
 input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
 .dl{display:flex;gap:8px;margin-top:16px}.dl button{flex:1}
+dialog:not(.sheet){max-height:calc(100dvh - 20px);overflow:auto}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.kp button{padding:13px 0;font-size:21px;font-weight:600;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}.kp button:active{background:var(--line)}
+#rIn,#pAmt{caret-color:transparent}
 .back:focus{outline:none}.hcard{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 14px;margin:4px 0 8px}.av{flex:0 0 42px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--okbg);color:var(--pri);font-weight:800;font-size:16px}.av[hidden]{display:none}.hid{min-width:0;flex:1}#uTitle{font-size:20px;margin:0 0 2px;overflow-wrap:anywhere;line-height:1.15}#uBld{display:flex;align-items:center;gap:6px;min-width:0;font-size:14px;color:var(--mute)}#uBld .bn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.ren{background:none;color:var(--pri);padding:0;min-height:0;font-size:14px;font-weight:700;flex:none;border-radius:0}#uTen{font-size:12px;color:var(--mute);margin-top:1px;overflow-wrap:anywhere}.hacts{display:flex;gap:8px;margin:0 0 6px}.ab{flex:1;display:block;text-align:center;text-decoration:none;min-height:36px;line-height:34px;padding:0 6px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--pri);font-size:14px;font-weight:700;font-family:inherit}.ab.bad{color:var(--bad)}.back{margin-bottom:0;padding:2px 0;background:transparent;color:var(--pri);padding:6px 0}
 .foot{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 .sheet{position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100%;max-height:none;border-radius:0;overflow:auto;background:var(--bg);padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,calc((100vw - 560px)/2)) calc(24px + env(safe-area-inset-bottom,0px))}
@@ -69,6 +72,9 @@ input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px soli
 .chips button{padding:7px 12px;font-size:14px}
 .chips .on{background:var(--pri);color:var(--onpri)}
 .pm{border-top:1px solid var(--line);padding:10px 0}
+.pa{display:flex;gap:20px;margin-top:2px}.pa button{background:none;padding:6px 0;min-height:36px;font-size:14px;color:var(--pri);text-decoration:underline}.sl{display:block;text-align:center;padding:13px 14px;border-radius:10px;background:var(--line);color:var(--ink);font-weight:600;text-decoration:none}
+.pa .pdel{color:var(--bad)}
+.ubar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.12)}.ubar button{flex:none;background:var(--pri);color:var(--onpri);padding:11px 16px}.ubar .mute{flex:1;font-size:13px;min-width:0}
 .pl{font-size:13px;color:var(--mute);margin-top:4px}
 
 .kv{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:16px;min-height:52px;padding:6px 0;border-top:1px solid var(--line)}
@@ -112,14 +118,33 @@ dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;
 <div class="month" style="display:block"><div class="mstrip" id="mstrip"></div><b id="mlabel" style="display:block;font-size:20px;margin:6px 0 2px"></b><button id="prev" hidden></button><button id="next" hidden></button></div>
 <div class="hero"><div class="hrow" style="align-items:baseline"><span id="sOwe" style="font-size:22px;font-weight:800"></span><span id="sOcc"></span></div><div class="bar" style="margin-bottom:0"><i id="sBar" style="width:0"></i></div></div>
 <div id="list"></div>
-<p class="foot" style="margin-bottom:0"><button id="bkBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Back up / Restore</button> · <button id="updBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Update app</button></p>
+<p class="foot" id="homeFoot" style="margin-bottom:0"><button id="bkBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Back up / Restore</button> · <button id="supBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Contact support</button> · <button id="updBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Update app</button></p>
+<div class="foot" id="clFoot" style="margin:2px 0 0"></div>
 <div class="foot" id="updMsg" style="margin-top:0"></div>
 <p class="foot">Your records are saved on this phone only. Clearing browser data erases them.</p>
 </main>
 <button class="pri fab" id="add">+ Add building</button>
 
 <dialog id="dC"><h2 style="margin:0;font-size:20px" id="cT"></h2><div id="cM" style="margin-top:8px;white-space:pre-line;font-size:15px;color:var(--mute)"></div><div class="dl"><button id="cNo">Cancel</button><button class="pri" id="cYes">OK</button></div></dialog>
-<dialog id="dBk"><h2 style="margin:0">Back up / Restore</h2>
+<dialog id="dCl"><h2 style="margin:0">Cloud backup</h2>
+<div class="mute" style="margin-top:6px" id="clInfo"></div>
+<div id="clOff" hidden>
+<label id="clEL">Your email<input id="clEm" type="text" inputmode="email" placeholder="you@example.com"></label>
+<label id="clCL" hidden>Code from your email<input id="clCd" type="text" inputmode="numeric" maxlength="8"></label>
+<div class="acts" style="flex-direction:column"><button class="pri" id="clSend">Send code</button><button class="pri" id="clVer" hidden>Sign in</button></div></div>
+<div id="clOn" hidden><div class="acts" style="flex-direction:column"><button class="pri" id="clNow">Back up now</button><button id="clRes">Restore from cloud</button><button id="clOut">Sign out</button></div></div>
+<div class="pl" id="clMsg" style="margin-top:10px"></div>
+<div class="acts" style="margin-top:6px"><button id="clMan" style="background:transparent;color:var(--mute);text-decoration:underline;font-size:13px;padding:6px 0">Manual backup (copy / paste)</button></div>
+<div class="dl"><button data-x="dCl">Close</button></div></dialog>
+
+<dialog id="dSup"><h2 style="margin:0">Contact support</h2><div class="mute" style="margin-top:6px">Something not working or need help? Reach us here.</div>
+<div class="acts" style="flex-direction:column;margin-top:14px">
+<a class="sl" href="tel:+254718882349">📞 Call 0718 882 349</a>
+<a class="sl" href="https://wa.me/254718882349" target="_blank" rel="noopener">💬 WhatsApp 0718 882 349</a>
+<a class="sl" href="mailto:kamonyojack@gmail.com?subject=Rent%20Tracker%20support">✉️ Email kamonyojack@gmail.com</a></div>
+<div class="dl"><button data-x="dSup">Close</button></div></dialog>
+
+<dialog id="dBk"><h2 style="margin:0">Manual backup</h2>
 <div class="mute" style="margin-top:6px">Copy your records and send them to yourself (WhatsApp or email). To load them on another phone, paste the text below and tap Restore.</div>
 <label>Backup text<textarea id="bkText" placeholder="Paste a backup here to restore"></textarea></label>
 <div class="acts"><button class="pri" id="bkCopy">Copy my records</button><button id="bkRest">Restore from pasted text</button></div>
@@ -211,7 +236,7 @@ function showMsg(title,u,msg){rcpMsg=msg;rcpPhone=u.tenant.phone||"";$("rTitle")
   $("rActs").innerHTML=(rcpPhone?'<button class="pri" data-rs="wa">WhatsApp</button><button data-rs="sms">Text message (SMS)</button>':'')+'<button data-rs="copy">Copy message</button>';$("dR").showModal()}
 function planFor(u,m0,a){var plan=[],rem=a,m=m0,n=0,bal0=null;while(rem>0&&n<60){var done=0,mm=m;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===mm)done+=p.amt});var bal=Math.max(0,u.rent-done);if(bal0===null)bal0=bal;if(bal>0){var put=Math.min(rem,bal);plan.push({m:m,a:put});rem-=put}m=shift(m,1);n++}return{plan:plan,bal0:bal0}}
 function updHint(){var uu=find(S.units,tgt);if(uu&&uu.tenant){var m1=pm||cur,dn=0;S.pays.forEach(function(p){if(p.tid===uu.tenant.id&&p.month===m1)dn+=p.amt});$("pSum").textContent="Rent due "+kes(uu.rent)+" \u00b7 Paid "+kes(dn)+" \u00b7 Balance "+kes(Math.max(0,uu.rent-dn))}
-  var h=$("pHint"),a=+$("pAmt").value,u=find(S.units,tgt);if(!u||!u.tenant||!(a>0)){h.hidden=true;return}
+  var h=$("pHint"),a=+$("pAmt").value,u=find(S.units,tgt);if(!u||!u.tenant||!(a>0)||window.__ep){h.hidden=true;return}
   var m0=pm||cur,r=planFor(u,m0,a);h.hidden=false;
   if(r.plan.length>1||r.plan[0].m!==m0){h.style.color="var(--warn)";h.textContent=(r.bal0===0?label(m0)+" is already fully paid. ":label(m0)+" only needs "+kes(r.bal0)+". ")+"This will be carried forward: "+r.plan.map(function(x){return kes(x.a)+" \u2192 "+label(x.m)}).join(", ")+"."}
   else{h.style.color="var(--mute)";h.textContent="This goes to "+label(m0)+"."}}
@@ -224,7 +249,7 @@ function stats(u){
   return{owed:Math.max(0,n*u.rent-paid),thisM:thisM,paid:paid}
 }
 function totals(units){var e=0,c=0,o=0,occ=0;units.forEach(function(u){var s=stats(u);if(!s)return;occ++;e+=u.rent;c+=Math.min(s.thisM,u.rent);o+=s.owed});return{e:e,c:c,o:o,occ:occ}}
-function recpay(){var u=find(S.units,uOpen),pdn=0;tgt=uOpen;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===pm)pdn+=p.amt});$("pTitle").textContent="Payment for "+label(pm)+" · "+u.tenant.name;$("pAmt").value=Math.max(0,u.rent-pdn)||u.rent;$("pCode").value="";$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
+function recpay(){var u=find(S.units,uOpen),pdn=0;tgt=uOpen;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===pm)pdn+=p.amt});$("pTitle").textContent="Payment for "+label(pm)+" · "+u.tenant.name;$("pAmt").value="";$("pCode").value="";$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
 function msheet(){
   if(!$("dM").open)return;var u=find(S.units,uOpen);if(!u||!u.tenant){$("dM").close();return}
   var ps=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),sum=0;ps.forEach(function(p){sum+=p.amt});
@@ -232,8 +257,8 @@ function msheet(){
   $("mTitle").textContent=label(pm);$("mSub").textContent=u.name+" \u00b7 "+u.tenant.name;
   $("mBody").innerHTML='<div class="t" style="margin:14px 0"><div class="row"><span class="mute">Status</span><span class="tag '+(sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span></div>'+row+'Rent due</span><b>'+kes(u.rent)+'</b></div>'+row+'Paid</span><b>'+kes(sum)+'</b></div>'+row+(sum>=u.rent?'Balance</span><b>KES 0</b>':'Remaining balance</span><b>'+kes(left)+'</b>')+'</div></div>'+
    '<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Payments</h2>'+
-   (ps.length?ps.map(function(p){return '<div class="pm"><div class="row"><b>'+kes(p.amt)+'</b><span class="tag paid">'+(p.method||(p.code?"M-Pesa":"Paid"))+'</span></div><div class="mute">Date paid: '+new Date(p.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+'</div><div class="mute">'+(p.code?"Reference: "+esc(p.code):(p.method==="Cash"?"Cash, no reference":"No reference saved"))+'</div></div>'}).join(""):'<div class="empty">No payments recorded for this month.</div>')+
-   '<div class="acts" style="margin-top:14px;flex-direction:column">'+(sum>=u.rent?'<button class="pri" data-mrcp="1">Send receipt</button><button data-rp="1">Add payment</button>':'<button class="pri" data-rp="1">'+(sum>0?"Record another payment":"Record payment")+'</button>')+(sum>0&&sum<u.rent?'<button data-mrcp="1">Send receipt for '+kes(sum)+' paid</button>':'')+'</div>';
+   (ps.length?ps.map(function(p){return '<div class="pm"><div class="row"><b>'+kes(p.amt)+'</b><span class="tag paid">'+(p.method||(p.code?"M-Pesa":"Paid"))+'</span></div><div class="mute">Date paid: '+new Date(p.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+'</div><div class="mute">'+(p.code?"Reference: "+esc(p.code):(p.method==="Cash"?"Cash, no reference":"No reference saved"))+'</div><div class="pa"><button data-pedit="'+p.id+'">\u270e Edit</button><button class="pdel" data-pdel="'+p.id+'">Delete</button></div></div>'}).join(""):'<div class="empty">No payments recorded for this month.</div>')+
+   '<div class="acts" style="margin-top:14px;flex-direction:column">'+(sum>=u.rent?'<button class="pri" data-mrcp="1">Send receipt</button><button data-rp="1">Add payment</button>':'<button class="pri" data-rp="1">'+(sum>0?"Record another payment":"Record payment")+'</button>')+(sum>0&&sum<u.rent?'<button data-mrcp="1">Send receipt for '+kes(sum)+' paid</button>':'')+'</div>'+ubar(u.tenant.id);
 }
 function mrcpt(){var u=find(S.units,uOpen);if(!u||!u.tenant)return;var rp=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),rs=0,lp=null;rp.forEach(function(p){rs+=p.amt;if(!lp||p.date>=lp.date)lp=p});
   showMsg("Send receipt",u,"Hello "+u.tenant.name+", we confirm receipt of rent for "+u.name+" for "+label(pm)+": "+kes(rs)+(lp?" (last payment "+new Date(lp.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+" by "+(lp.method||"M-Pesa")+(lp.code?", ref "+lp.code:"")+")":"")+(rs<u.rent?". Balance remaining: "+kes(u.rent-rs):"")+". Thank you.")}
@@ -258,6 +283,7 @@ function sheet(){
       kv('Status',s?(owed>0?'<span style="color:var(--bad);font-weight:600;font-size:14px">Owes '+kes(owed)+'</span>':'<span class="tag paid">Paid up</span>'):'<span class="tag part">Starts '+label(t.start)+'</span>')+
       kv('Monthly rent',(u.rent>0?'<span style="font-size:15px;font-weight:700">'+kes(u.rent)+'</span>':'')+rentBtn)+'</div>';
     if(s)h+='<div class="acts2">'+(owed>0?'<button class="pri" data-pay="'+u.id+'">Record payment</button><button data-rem="'+u.id+'">Send reminder</button>':'<button class="pri" data-pay="'+u.id+'">Add payment</button><button data-rcp="'+u.id+'">Send receipt</button>')+'</div>';
+    var fut=cur,fm;S.pays.forEach(function(p){if(t&&p.tid===t.id&&p.month>fut)fut=p.month});for(fm=fut;fm>cur;fm=shift(fm,-1))ms.push(fm);
     for(i=0;i<6;i++)ms.push(shift(cur,-i));
     var rows=mrows(u,t,ms);
     h+='<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Months</h2><div class="mute" style="margin-bottom:2px">Tap a month for payment details</div>'+(rows||'<div class="empty">No rent months yet.</div>');
@@ -266,6 +292,7 @@ function sheet(){
 
   if(u.past&&u.past.length)h+='<h2 style="font-size:18px;font-weight:800;margin:14px 0 6px">Previous tenant'+(u.past.length>1?'s':'')+'</h2>'+u.past.map(function(p,ix){return {p:p,ix:ix}}).reverse().map(function(o){var p=o.p;return '<div class="pm" data-past="'+o.ix+'" style="cursor:pointer"><div class="row"><b>'+esc(p.name)+'</b><span class="sp">'+(p.owed>0?'<span style="color:var(--bad);font-weight:700;font-size:14px">Owes '+kes(p.owed)+'</span>':'<span class="tag paid">Cleared</span>')+'<span class="chev">\u203a</span></span></div><div class="mute">Moved out '+(p.out?dfmt(p.out):label(p.end))+'</div></div>'}).join('');
   h+='<div style="text-align:center;margin:30px 0 6px"><button data-delu="'+u.id+'" style="background:none;color:var(--bad);min-height:0;font-size:14px;text-decoration:underline">Delete unit</button></div>';
+  if(t)h+=ubar(t.id);
   $("uBody").innerHTML=h;
 }
 var nFrom=false;
@@ -303,7 +330,7 @@ function ysheet(){
 }
 function render(){
   var b=view?find(S.buildings,view):null;if(view&&!b)view=null;
-  $("back").hidden=!b;$("eyebrow").hidden=!!b;$("title").textContent=b?b.name:"My buildings";
+  $("back").hidden=!b;$("eyebrow").hidden=!!b;$("homeFoot").hidden=!!b;$("clFoot").hidden=!!b;$("title").textContent=b?b.name:"My buildings";
   $("add").textContent=b?"+ Add unit":"+ Add building";
   var mR=ym(new Date()),mS="";for(var mK=11;mK>=0;mK--){var mV=shift(mR,-mK),mP=mV.split("-");mS+='<button data-mo="'+mV+'" class="'+(mV===cur?"on":"")+'"><b>'+new Date(+mP[0],+mP[1]-1,1).toLocaleDateString("en-GB",{month:"long"})+'</b><small>'+mP[0]+'</small></button>'}
   var mE=$("mstrip");mE.innerHTML=mS;var mO=mE.querySelector(".on");if(mO)mE.scrollLeft=mO.offsetLeft+mO.offsetWidth-mE.clientWidth;
@@ -355,9 +382,11 @@ function settle(){if(gOn&&!stk.length&&!view){try{history.back()}catch(e){}}}
 window.addEventListener("popstate",function(){gOn=false;var top=stk[stk.length-1],rem;
   if(top){rem=stk.length>1||!!view;top.close()}else if(view){view=null;render();rem=false}else return;
   if(rem)guard()});
+/* amount fields use the app's own number pad: no phone keyboard, so no autofill icons and nothing covers the Save button */
+["rIn","pAmt"].forEach(function(id){var i=$(id),h=i.closest("label"),w=document.createElement("div");if(h.parentNode.tagName==="DIV"&&h.parentNode.style.display==="grid")h=h.parentNode;w.className="kp";w.innerHTML=["1","2","3","4","5","6","7","8","9","000","0","\u232b"].map(function(k){return '<button type="button" data-k="'+k+'">'+k+'</button>'}).join("");w.onclick=function(e){var b=e.target.closest("[data-k]");if(!b)return;var k=b.dataset.k,v=String(i.value||"");v=k==="\u232b"?v.slice(0,-1):(v+k).replace(/^0+(?=\d)/,"").slice(0,9);i.value=v;i.dispatchEvent(new Event("input",{bubbles:true}))};h.insertAdjacentElement("afterend",w)});
 /* stop the phone's autofill bar (key / card / pin icons) above the keyboard */
-["pAmt","rIn"].forEach(function(id){var i=$(id);i.type="text";i.setAttribute("inputmode","decimal");i.addEventListener("input",function(){this.value=this.value.replace(/[^0-9.]/g,"")})});
-Array.prototype.forEach.call(document.querySelectorAll("input,textarea"),function(i,n){if(i.type==="tel"){i.type="text";i.setAttribute("inputmode","tel")}i.setAttribute("autocomplete","nope");i.setAttribute("readonly","");var un=function(){i.removeAttribute("readonly")};i.addEventListener("pointerdown",un);i.addEventListener("touchstart",un,{passive:true});i.addEventListener("focus",function(){setTimeout(un,60)});i.addEventListener("blur",function(){i.setAttribute("readonly","")});i.setAttribute("name","rt_"+n+"_x");i.setAttribute("autocorrect","off");i.setAttribute("spellcheck","false");i.setAttribute("aria-autocomplete","none");i.setAttribute("data-lpignore","true");i.setAttribute("data-form-type","other")});
+["pAmt","rIn"].forEach(function(id){var i=$(id);i.type="text";i.setAttribute("inputmode","none");i.addEventListener("input",function(){this.value=this.value.replace(/[^0-9.]/g,"")})});
+Array.prototype.forEach.call(document.querySelectorAll("input,textarea"),function(i,n){if(i.id==="rIn"||i.id==="pAmt"){i.setAttribute("readonly","");i.setAttribute("autocomplete","off");return}if(i.type==="tel"){i.type="text";i.setAttribute("inputmode","tel")}i.setAttribute("autocomplete","nope");i.setAttribute("readonly","");var un=function(){i.removeAttribute("readonly")};i.addEventListener("pointerdown",un);i.addEventListener("touchstart",un,{passive:true});i.addEventListener("focus",function(){setTimeout(un,60)});i.addEventListener("blur",function(){i.setAttribute("readonly","")});i.setAttribute("name","rt_"+n+"_x");i.setAttribute("autocorrect","off");i.setAttribute("spellcheck","false");i.setAttribute("aria-autocomplete","none");i.setAttribute("data-lpignore","true");i.setAttribute("data-form-type","other")});
 $("mstrip").onclick=function(e){var q=e.target.closest("[data-mo]");if(q){cur=q.dataset.mo;render()}};
 $("prev").onclick=function(){cur=shift(cur,-1);render()};
 $("next").onclick=function(){cur=shift(cur,1);render()};
@@ -389,11 +418,13 @@ $("nSave").onclick=function(){var u=find(S.units,tgt),n=$("nIn").value.trim();if
 $("pAmt").oninput=updHint;
 $("pSave").onclick=function(){var a=+$("pAmt").value;if(!(a>0)){alert("Enter the amount received.");return}
   var u=find(S.units,tgt),m0=pm||cur,meth=$("pMeth").value,code=meth==="Cash"?"":$("pCode").value.trim().toUpperCase(),date=$("pDate").value||new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10),r=planFor(u,m0,a),plan=r.plan;
-  if(plan.length>1||plan[0].m!==m0){
-    var msg=(r.bal0===0?label(m0)+" is already fully paid.":label(m0)+" only needs "+kes(r.bal0)+" more.")+"\n\nThe payment will be split like this:\n"+plan.map(function(x){return kes(x.a)+" \u2192 "+label(x.m)}).join("\n");
-    if(!cf(this,"Carry payment forward?",msg,"Carry forward",false,"Go back"))return}
-  plan.forEach(function(x,k){S.pays.push({id:Date.now()+k,tid:u.tenant.id,month:x.m,amt:x.a,method:meth,code:code,date:date})});
-  save();$("dP").close();render()};
+  if(window.__ep){var ep=S.pays.filter(function(x){return x.id===window.__ep})[0];if(ep){var o=JSON.parse(JSON.stringify(ep));ep.amt=a;ep.method=meth;ep.code=code;ep.date=date;window.__ep=null;save();$("dP").close();logPush({t:ep.tid,k:"edit",id:ep.id,o:o,m:"Edit of "+kes(a)+" payment"});save();render();return}window.__ep=null;save();$("dP").close();render();return}
+  var big=u.rent>0&&a>2*u.rent;
+  if(big||plan.length>1||plan[0].m!==m0){
+    var msg=(big?"Warning: "+kes(a)+" is more than 2 months of rent ("+kes(u.rent)+" a month). Please check the amount is right.\n\n":"")+(r.bal0===0?label(m0)+" is already fully paid.":label(m0)+" only needs "+kes(r.bal0)+" more.")+"\n\nThe payment will be split like this:\n"+plan.map(function(x){return kes(x.a)+" \u2192 "+label(x.m)}).join("\n");
+    if(!cf(this,big?"Large payment \u2013 check amount":"Carry payment forward?",msg,big?"Yes, add it":"Carry forward",big,"Go back"))return}
+  var nid=[];plan.forEach(function(x,k){var pid=Date.now()+k;nid.push(pid);S.pays.push({id:pid,tid:u.tenant.id,month:x.m,amt:x.a,method:meth,code:code,date:date})});
+  save();$("dP").close();logPush({t:u.tenant.id,k:"add",ids:nid,m:kes(a)+" added"});save();render()};
 $("uBody").onclick=$("list").onclick=function(e){
   var b=e.target.closest("button");
   if(!b){var o=e.target.closest("[data-bopen]");if(o){view=+o.dataset.bopen;render();return}var mo=e.target.closest("[data-month]");if(mo){openMonth(mo.dataset.month);return}var pp=e.target.closest("[data-past]");if(pp){pastOpen=+pp.dataset.past;sx={};$("dS").showModal();ssheet();return}var c=e.target.closest("[data-tog]");if(c){uOpen=+c.dataset.tog;showPrev=false;sheet();$("dUnit").showModal()}return}
@@ -404,10 +435,10 @@ $("uBody").onclick=$("list").onclick=function(e){
   if(d.delb&&cf(b,"Delete this building?","All its rooms, tenants and payment records will be deleted. This can\u2019t be undone.","Delete",true)){var id=+d.delb;
     S.units.filter(function(x){return x.bid===id}).forEach(function(x){if(x.tenant)S.pays=S.pays.filter(function(p){return p.tid!==x.tenant.id})});
     S.units=S.units.filter(function(x){return x.bid!==id});S.buildings=S.buildings.filter(function(x){return x.id!==id});view=null;save();render()}
-  if(d.setrent){window.__afterRent=false;tgt=+d.setrent;u=find(S.units,tgt);$("rIn").value=u.rent>0?u.rent:"";$("dRent").showModal()}
+  if(d.setrent){window.__afterRent=false;tgt=+d.setrent;u=find(S.units,tgt);$("rIn").value="";$("dRent").showModal()}
   if(d.ten){tgt=+d.ten;u=find(S.units,tgt);if(!(u.rent>0)){window.__afterRent=true;$("rIn").value="";$("dRent").showModal();return}$("tTitle").textContent="Add tenant to "+u.name;$("tName").value="";$("tPhone").value="";$("dT").showModal()}
   if(d.pay){tgt=+d.pay;u=find(S.units,tgt);$("pTitle").textContent="Payment from "+u.tenant.name;
-    $("pAmt").value=Math.max(0,u.rent-stats(u).thisM)||u.rent;pm=null;$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pCode").value="";$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
+    $("pAmt").value="";pm=null;$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pCode").value="";$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
   if(d.rcp){u=find(S.units,+d.rcp);var rp=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===cur}),rs=0,lp=null;rp.forEach(function(p){rs+=p.amt;if(!lp||p.date>=lp.date)lp=p});
     showMsg("Send receipt",u,"Hello "+u.tenant.name+", we confirm receipt of rent for "+u.name+" for "+label(cur)+": "+kes(rs||u.rent)+(lp?" (last payment "+new Date(lp.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+" by "+(lp.method||"M-Pesa")+")":"")+". Thank you.")}
   if(d.addph){tgt=+d.addph;u=find(S.units,tgt);$("phIn").value="";$("dPh").showModal()}
@@ -427,10 +458,26 @@ $("rActs").onclick=function(e){var b=e.target.closest("button");if(!b)return;var
   else if(k==="sms")window.open("sms:+"+wa(rcpPhone)+"?body="+encodeURIComponent(rcpMsg),"_blank");
   else if(k==="copy"){try{navigator.clipboard.writeText(rcpMsg).then(function(){b.textContent="Copied \u2713"},function(){b.textContent="Press and hold the text above to copy"})}catch(err){b.textContent="Press and hold the text above to copy"}}};
 $("dUnit").addEventListener("close",function(){uOpen=null});
+$("dP").addEventListener("close",function(){window.__ep=null});
+/* fix a wrongly entered payment: edit it or delete it from the month page */
+document.addEventListener("click",function(e){var b=e.target.closest("[data-pedit],[data-pdel]");if(!b)return;var id=+(b.dataset.pedit||b.dataset.pdel),p=S.pays.filter(function(x){return x.id===id})[0],u=find(S.units,uOpen);if(!p||!u)return;
+  if(b.dataset.pedit){tgt=uOpen;$("dP").close();window.__ep=id;$("pTitle").textContent="Edit payment \u00b7 "+label(p.month);$("pAmt").value=p.amt;$("pMeth").value=p.method||"M-Pesa";$("pCode").value=p.code||"";$("pDate").value=p.date;$("dP").showModal();window.__ep=id;updHint();return}
+  if(!cf(b,"Delete this payment?",kes(p.amt)+" for "+label(p.month)+" will be removed. This can\u2019t be undone.","Delete",true))return;
+  S.pays=S.pays.filter(function(x){return x.id!==id});save();logPush({t:p.tid,k:"del",p:p,m:kes(p.amt)+" payment deleted"});save();render()});
+/* persistent "Undo last record" button (bottom of the unit and month pages) */
+function logPush(e){S.log=S.log||[];S.log.push(e);if(S.log.length>30)S.log.shift()}
+function ubar(tid){var l=S.log||[],i,e=null;for(i=l.length-1;i>=0;i--)if(l[i].t===tid){e=l[i];break}if(!e)return"";return '<div style="height:84px"></div><div class="ubar"><button type="button" data-undo="'+tid+'">\u21b6 Undo last record</button><span class="mute">'+esc(e.m)+'</span></div>'}
+document.addEventListener("click",function(ev){var b=ev.target.closest("[data-undo]");if(!b)return;var tid=+b.dataset.undo,l=S.log||[],i,e=null;for(i=l.length-1;i>=0;i--)if(l[i].t===tid){e=l.splice(i,1)[0];break}if(!e)return;
+  if(e.k==="add")S.pays=S.pays.filter(function(p){return e.ids.indexOf(p.id)<0});
+  else if(e.k==="del")S.pays.push(e.p);
+  else if(e.k==="edit"){var q=S.pays.filter(function(p){return p.id===e.id})[0];if(q){q.amt=e.o.amt;q.method=e.o.method;q.code=e.o.code;q.date=e.o.date}}
+  save();render()});
 $("dY").addEventListener("close",function(){yOpen=null});
 $("dS").addEventListener("close",function(){pastOpen=null});
 $("sBody").onclick=function(e){var t=e.target.closest("[data-sm]");if(t){sx[t.dataset.sm]=!sx[t.dataset.sm];ssheet();return}if(e.target.closest("[data-stmt]"))stmt()};
 $("yBody").onclick=function(e){var mo=e.target.closest("[data-month]");if(mo)openMonth(mo.dataset.month)};
+$("clMan").onclick=function(){$("dCl").close();$("bkText").value="";$("bkCopy").textContent="Copy my records";$("dBk").showModal()};
+$("supBtn").onclick=function(){$("dSup").showModal()};
 $("bkBtn").onclick=function(){$("bkText").value=JSON.stringify(S);$("bkCopy").textContent="Copy my records";$("dBk").showModal()};
 $("bkCopy").onclick=function(){var t=$("bkText"),b=this;t.value=JSON.stringify(S);t.select();try{navigator.clipboard.writeText(t.value).then(function(){b.textContent="Copied \u2713"},function(){b.textContent="Press and hold the text to copy"})}catch(err){b.textContent="Press and hold the text to copy"}};
 $("bkRest").onclick=function(){var d;try{d=JSON.parse($("bkText").value)}catch(err){d=null}
@@ -450,6 +497,54 @@ $("updBtn").onclick=function(){var m=$("updMsg");
   $("aOk").onclick=function(){da.close()};
   window.alert=function(m){$("aM").textContent=String(m);if(!da.open)da.showModal()}})();
 try{if(sessionStorage.getItem("updated")){sessionStorage.removeItem("updated");$("updMsg").textContent="Updated. You have the latest version."}}catch(e){}
+/* ===== Cloud backup (Supabase). Records stay on the phone; a copy goes to the cloud about once a day ===== */
+var CL={url:"",key:""}; /* paste Supabase Project URL and anon public key here */
+var CK="rtCloudAuth",CT="rtCloudLast",clMail="";
+function clOn(){return !!(CL.url&&CL.key)}
+function clAuth(){try{return JSON.parse(localStorage.getItem(CK)||"null")}catch(e){return null}}
+function clSet(a){try{if(a)localStorage.setItem(CK,JSON.stringify(a));else localStorage.removeItem(CK)}catch(e){}}
+function clLast(){try{return +(localStorage.getItem(CT)||0)}catch(e){return 0}}
+function clReq(path,opt,tok){opt=opt||{};var h=opt.headers||{};h.apikey=CL.key;h.Authorization="Bearer "+(tok||CL.key);if(opt.body)h["Content-Type"]="application/json";opt.headers=h;
+  return fetch(CL.url+path,opt).then(function(r){return r.text().then(function(t){var j=null;try{j=t?JSON.parse(t):null}catch(e){}
+    if(!r.ok){var m=(j&&(j.msg||j.error_description||j.message||j.error))||("Error "+r.status),er=new Error(m);er.status=r.status;throw er}return j})})}
+function clSession(r,em){var a={at:r.access_token,rt:r.refresh_token,exp:Date.now()+(r.expires_in||3600)*1000-60000,email:(r.user&&r.user.email)||em||(clAuth()||{}).email||""};clSet(a);return a}
+function clToken(){var a=clAuth();if(!a)return Promise.reject(new Error("Not signed in"));if(Date.now()<a.exp)return Promise.resolve(a.at);
+  return clReq("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:a.rt})}).then(function(r){return clSession(r,a.email).at}).catch(function(e){if(e.status===400||e.status===401)clSet(null);throw e})}
+function clBackup(){if(!clOn())return Promise.reject(new Error("Cloud backup isn\u2019t switched on yet."));
+  if(!S.buildings||!S.buildings.length)return Promise.reject(new Error("There are no records to back up yet."));
+  return clToken().then(function(t){return clReq("/rest/v1/backups",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify({data:S,app:"1"})},t).then(function(){
+    try{localStorage.setItem(CT,String(Date.now()))}catch(e){}
+    return clReq("/rest/v1/backups?select=id&order=created_at.desc&offset=14",{},t).then(function(rows){if(rows&&rows.length)return clReq("/rest/v1/backups?id=in.("+rows.map(function(x){return x.id}).join(",")+")",{method:"DELETE"},t)}).catch(function(){})})})}
+function clLatest(){return clToken().then(function(t){return clReq("/rest/v1/backups?select=data,created_at&order=created_at.desc&limit=1",{},t)}).then(function(rows){return rows&&rows.length?rows[0]:null})}
+function clWhen(ts){return new Date(ts).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
+function clStatus(){var f=$("clFoot");if(!f)return;if(!clOn()){f.textContent="";return}
+  var a=clAuth(),l=clLast();f.style.color="";
+  if(!a){f.textContent="Cloud backup is off. Tap Cloud backup to turn it on.";return}
+  if(!l){f.textContent="Cloud backup: not backed up yet";return}
+  if(Date.now()-l>2*864e5){f.textContent="Last cloud backup: "+clWhen(l)+". Open the app with internet to back up.";f.style.color="var(--bad)"}
+  else f.textContent="Cloud backup: "+clWhen(l)}
+function clView(msg){var a=clAuth(),on=clOn();$("clOff").hidden=!on||!!a;$("clOn").hidden=!on||!a;
+  $("clInfo").textContent=!on?"Cloud backup isn\u2019t switched on yet.":a?"Signed in as "+a.email+(clLast()?". Last backup: "+clWhen(clLast()):". Not backed up yet."):"Keep a safe copy of your records online. Enter your email and we send you a code. No password needed.";
+  $("clMsg").textContent=msg||"";$("clMsg").style.color=""}
+function clErr(e){$("clMsg").textContent=e&&e.message?e.message:"Something went wrong. Check your internet and try again.";$("clMsg").style.color="var(--bad)"}
+function clBusy(b,on,txt){if(on){b.dataset.t=b.textContent;b.textContent=txt;b.disabled=true}else{b.textContent=b.dataset.t||b.textContent;b.disabled=false}}
+$("bkBtn").onclick=function(){$("clEL").hidden=false;$("clCL").hidden=true;$("clSend").hidden=false;$("clVer").hidden=true;$("clCd").value="";clView();$("dCl").showModal()};
+$("clSend").onclick=function(){var b=this,em=$("clEm").value.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){clErr(new Error("Enter a valid email address."));return}
+  clBusy(b,true,"Sending\u2026");clReq("/auth/v1/otp",{method:"POST",body:JSON.stringify({email:em,create_user:true})}).then(function(){clBusy(b,false);clMail=em;$("clEL").hidden=true;$("clCL").hidden=false;$("clSend").hidden=true;$("clVer").hidden=false;clView("We sent a code to "+em+". Type it below.")}).catch(function(e){clBusy(b,false);clErr(e)})};
+$("clVer").onclick=function(){var b=this,c=$("clCd").value.replace(/\s/g,"");if(c.length<6){clErr(new Error("Enter the code from your email."));return}
+  clBusy(b,true,"Checking\u2026");clReq("/auth/v1/verify",{method:"POST",body:JSON.stringify({type:"email",email:clMail,token:c})}).then(function(r){clBusy(b,false);clSession(r,clMail);clStatus();
+    if(!S.buildings.length){clView("Signed in. If you used the app before, tap Restore from cloud to bring your records back.");$("clMsg").textContent="Signed in. If you used the app before, tap Restore from cloud to bring your records back."}else clBackup().then(function(){clStatus();clView("Signed in and backed up.")}).catch(function(e){clView();clErr(e)})}).catch(function(e){clBusy(b,false);clErr(e)})};
+$("clNow").onclick=function(){var b=this;clBusy(b,true,"Backing up\u2026");clBackup().then(function(){clBusy(b,false);clStatus();clView("Backed up \u2713")}).catch(function(e){clBusy(b,false);clErr(e)})};
+$("clRes").onclick=function(){var b=this;if(!cf(b,"Restore from cloud?","All records on this phone will be replaced with your latest cloud backup.","Restore",true))return;
+  clBusy(b,true,"Restoring\u2026");clLatest().then(function(row){clBusy(b,false);if(!row){clView("No cloud backup found for this account yet.");return}var d=row.data;
+    if(!d||!d.buildings||!d.units||!d.pays){clErr(new Error("That backup can\u2019t be read."));return}
+    try{localStorage.setItem(KEY+"_before_restore",JSON.stringify(S))}catch(e){}
+    S=d;save();view=null;render();clStatus();clView("Restored the backup from "+clWhen(row.created_at)+" \u2713")}).catch(function(e){clBusy(b,false);clErr(e)})};
+$("clOut").onclick=function(){clSet(null);try{localStorage.removeItem(CT)}catch(e){}clStatus();$("clEL").hidden=false;$("clCL").hidden=true;$("clSend").hidden=false;$("clVer").hidden=true;clView("Signed out. Your records are still on this phone.")};
+function clAuto(){if(!clOn()||!clAuth()||demoMode)return;if(Date.now()-clLast()<864e5)return;if(!S.buildings||!S.buildings.length)return;clBackup().then(clStatus).catch(function(){})}
+document.addEventListener("visibilitychange",function(){if(!document.hidden)clAuto()});
+setTimeout(clAuto,4000);clStatus();
+
 render();
 })();
 </script>
