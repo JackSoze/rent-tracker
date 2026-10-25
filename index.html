@@ -63,7 +63,7 @@ input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px soli
 .dl{display:flex;gap:8px;margin-top:16px}.dl button{flex:1}
 dialog:not(.sheet){max-height:calc(100dvh - 20px);overflow:auto}
 .kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.kp button{padding:13px 0;font-size:21px;font-weight:600;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}.kp button:active{background:var(--line)}.kp4{grid-template-columns:repeat(12,1fr)}.kp4 button{grid-column:span 4}.kp4 button.k3{grid-column:span 3}.tx{display:block;width:100%;min-height:42px;line-height:20px;font:inherit;font-size:16px;padding:10px;margin-top:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);white-space:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-user-select:text;user-select:text;cursor:text}.tx::-webkit-scrollbar{display:none}.tx:empty:before{content:attr(data-ph);color:var(--mute);pointer-events:none}.tx:focus{outline:3px solid var(--pri);outline-offset:2px}
-#rIn,#pAmt{caret-color:transparent}
+#rIn,#pAmt{caret-color:transparent}#uPre,#uName{text-transform:uppercase}
 .back:focus{outline:none}.hcard{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 14px;margin:4px 0 8px}.av{flex:0 0 42px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--okbg);color:var(--pri);font-weight:800;font-size:16px}.av[hidden]{display:none}.hid{min-width:0;flex:1}#uTitle{font-size:20px;margin:0 0 2px;overflow-wrap:anywhere;line-height:1.15}#uBld{display:flex;align-items:center;gap:6px;min-width:0;font-size:14px;color:var(--mute)}#uBld .bn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.ren{background:none;color:var(--pri);padding:0;min-height:0;font-size:14px;font-weight:700;flex:none;border-radius:0}#uTen{font-size:12px;color:var(--mute);margin-top:1px;overflow-wrap:anywhere}.hacts{display:flex;gap:8px;margin:0 0 6px}.ab{flex:1;display:block;text-align:center;text-decoration:none;min-height:36px;line-height:34px;padding:0 6px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--pri);font-size:14px;font-weight:700;font-family:inherit}.ab.bad{color:var(--bad)}.back{margin-bottom:0;padding:2px 0;background:transparent;color:var(--pri);padding:6px 0}
 .foot{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 .sheet{position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100%;max-height:none;border-radius:0;overflow:auto;background:var(--bg);padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,calc((100vw - 560px)/2)) calc(24px + env(safe-area-inset-bottom,0px))}
@@ -106,6 +106,18 @@ dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;
 .opt .ic{width:40px;height:40px;border-radius:12px;background:var(--okbg);display:grid;place-items:center;font-size:19px;flex:none}
 .opt b{display:block;font-size:16px;font-weight:800}
 .opt small{display:block;color:var(--mute);font-size:13px;font-weight:400}
+.bkwarn{display:flex;gap:10px;align-items:center;background:var(--warnbg);color:var(--warn);border-radius:14px;padding:12px 14px;font-size:14px;font-weight:600;margin:22px 0 0}.bkwarn button{margin-left:auto;padding:8px 14px;min-height:36px;font-size:14px;flex:none}
+.sect{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:26px 2px 10px}
+.tools2{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.tool{display:block;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 6px;min-height:40px;color:var(--ink);font-weight:600;font-size:13px;line-height:1.2}
+
+.bcard-main{min-width:0;flex:1}.chips2{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.chips2 .tag{font-size:12px;padding:2px 8px}.t.bc{padding:9px 12px;margin-bottom:8px;border-radius:14px}
+.steps{text-align:left;margin:12px auto 0;max-width:260px;font-size:15px;color:var(--ink)}.steps div{margin:6px 0}.steps b{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--pri);color:var(--onpri);font-size:13px;margin-right:8px}
+#clFoot{display:none!important}
+
+.chips2 .tag{font-size:13px;font-weight:700;padding:2px 9px}.chips2 .tag.due{background:var(--bad);color:var(--bg)}
+.tool{font-size:13px!important;min-height:42px!important;font-weight:700!important;padding:6px 4px!important}.home .building-copy #sub{font-size:14px}
+.home .building-head{margin:4px 0 14px;padding-bottom:14px;gap:12px}.home .building-icon{width:48px;height:48px;flex-basis:48px;border-radius:14px}.home .building-icon svg{width:28px;height:28px}.home .building-copy h1{font-size:26px;margin:0 0 2px}.home .building-copy #sub{font-size:13px}
 </style>
 </head>
 <body>
@@ -118,7 +130,9 @@ dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;
 <div class="month" style="display:block"><div class="mstrip" id="mstrip"></div><b id="mlabel" style="display:block;font-size:20px;margin:6px 0 2px"></b><button id="prev" hidden></button><button id="next" hidden></button></div>
 <div class="hero"><div class="hrow" style="align-items:baseline"><span id="sOwe" style="font-size:22px;font-weight:800"></span><span id="sOcc"></span></div><div class="bar" style="margin-bottom:0"><i id="sBar" style="width:0"></i></div></div>
 <div id="list"></div>
-<p class="foot" id="homeFoot" style="margin-bottom:0"><button id="bkBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Back up / Restore</button> · <button id="supBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Contact support</button> · <button id="updBtn" style="background:transparent;color:var(--mute);min-height:36px;padding:6px 8px;font-size:12px;text-decoration:underline">Update app</button></p>
+<div id="homeFoot"><div id="bkWarn" class="bkwarn" hidden><span>⚠️ Your records are only on this phone.</span><button id="bkWarnBtn" class="pri">Back up</button></div>
+<div class="tools2"><button id="bkBtn" class="tool">☁️ Back up / Restore</button><button id="supBtn" class="tool">💬 Help</button><button id="updBtn" class="tool">🔄 Update app</button></div>
+<div id="bkSub" class="mute" style="text-align:center;margin-top:8px;font-size:14px">Save a copy of your records</div></div>
 <div class="foot" id="clFoot" style="margin:2px 0 0"></div>
 <div class="foot" id="updMsg" style="margin-top:0"></div>
 <p class="foot">Your records are saved on this phone only. Clearing browser data erases them.</p>
@@ -332,7 +346,7 @@ function ysheet(){
 }
 function render(){
   var b=view?find(S.buildings,view):null;if(view&&!b)view=null;if(!view){selMode=false;sel={}}
-  $("back").hidden=!b;$("eyebrow").hidden=!!b;$("homeFoot").hidden=!!b;$("clFoot").hidden=!!b;$("title").textContent=b?b.name:"My buildings";
+  document.querySelector("main").classList.toggle("home",!b);$("back").hidden=!b;$("eyebrow").hidden=!!b;$("homeFoot").hidden=!!b;$("clFoot").hidden=!!b;$("title").textContent=b?b.name:"My buildings";
   $("add").textContent=b?"+ Add unit":"+ Add building";
   var mR=ym(new Date()),mS="";for(var mK=11;mK>=0;mK--){var mV=shift(mR,-mK),mP=mV.split("-");mS+='<button data-mo="'+mV+'" class="'+(mV===cur?"on":"")+'"><b>'+new Date(+mP[0],+mP[1]-1,1).toLocaleDateString("en-GB",{month:"long"})+'</b><small>'+mP[0]+'</small></button>'}
   var mE=$("mstrip");mE.innerHTML=mS;var mO=mE.querySelector(".on");if(mO)mE.scrollLeft=mO.offsetLeft+mO.offsetWidth-mE.clientWidth;
@@ -341,8 +355,11 @@ function render(){
   if(!b){
     S.buildings.forEach(function(bb){
       var us=S.units.filter(function(u){return u.bid===bb.id}),t=totals(us);
-      h+='<div class="t" data-bopen="'+bb.id+'" style="cursor:pointer"><div class="row" style="align-items:center"><div class="name" style="font-size:18px">'+esc(bb.name)+'</div><span class="chev">›</span></div></div>'});
-    if(!h)h='<div class="empty">No buildings yet.<br>Add your first building, then its units and tenants.</div>';
+      var occN=0,unp=0,pdN=0;us.forEach(function(u){if(u.tenant)occN++;var st=stats(u);if(st){if(st.owed>0)unp++;else pdN++}});var vacN=us.length-occN,chs="";
+      if(!us.length)chs='<span class="tag na">Tap to add rooms</span>';
+      else{if(unp>0)chs+='<span class="tag due">'+unp+' unpaid</span>';if(pdN>0)chs+='<span class="tag paid">'+(unp===0&&pdN===occN?'All paid \u2713':pdN+' paid')+'</span>';if(!occN)chs+='<span class="tag na">No tenants yet</span>';if(vacN>0&&occN>0)chs+='<span class="tag na">'+vacN+' vacant</span>'}
+      h+='<div class="t bc '+(unp>0?'st-bad':(occN>0&&pdN===occN?'st-ok':''))+'" data-bopen="'+bb.id+'" style="cursor:pointer"><div class="row" style="align-items:center"><div class="bcard-main"><div class="name" style="font-size:17px">'+esc(bb.name)+'</div><div class="mute" style="font-size:13.5px">'+(us.length?us.length+(us.length===1?' room':' rooms')+' \u00b7 '+occN+' occupied':'No rooms yet')+'</div></div><span class="chev">›</span></div><div class="chips2">'+chs+'</div></div>'});
+    if(!h)h='<div class="empty"><b style="color:var(--ink);font-size:17px">Welcome! Start here</b><div class="steps"><div><b>1</b>Add your building</div><div><b>2</b>Add its rooms</div><div><b>3</b>Add tenants and record rent</div></div></div>';
   }else{
     units.slice().sort(function(x,y){return (x.tenant?0:1)-(y.tenant?0:1)||String(x.name).localeCompare(String(y.name),undefined,{numeric:true,sensitivity:"base"})}).forEach(function(u){
       var s=stats(u),t=u.tenant,tag="Vacant",cls="part";
@@ -353,12 +370,13 @@ function render(){
       h+='<div class="t room-card" data-tog="'+u.id+'" style="cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none'+(selMode?';grid-template-columns:24px 48px minmax(0,1fr) auto':'')+(selMode&&selLocked(u)?';opacity:.5':'')+'">'+(selMode?ckBox(u):'')+'<div class="room-icon '+(t?'occupied-icon':'vacant-icon')+'" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 27V7.5A2.5 2.5 0 0 1 9.5 5h8A2.5 2.5 0 0 1 20 7.5V27M4 27h24M20 11h4.5A2.5 2.5 0 0 1 27 13.5V27" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 16v.1" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></div><div class="room-info"><div class="room-name">Room '+esc(u.name)+'</div><div class="room-tenant">'+(t?esc(t.name):'No tenant')+'</div>'+(t?'<div class="room-rent">'+(u.rent>0?kes(u.rent)+' / month':'Rent not set')+'</div>':'<div class="room-rent">Available for rent</div>')+'</div><div class="room-side"><span class="tag '+statusClass+'">'+tag+'</span><span class="chev">›</span></div>'+'</div>'});
     if(!h)h='<div class="empty">No units in this building yet.<br>Add your first unit, then add a tenant to it.</div>';
   }
-  $("list").innerHTML=(b?selHead():'<button class="pri" data-add="1" style="width:100%;margin-bottom:12px">+ Add building</button>')+h+(b&&selMode?selBar():'')+(b&&!selMode?'<div style="text-align:center;margin-top:18px"><button data-delb="'+b.id+'" style="background:transparent;color:var(--bad);font-size:13px;min-height:36px">Delete building</button></div>':'');
+  $("list").innerHTML=(b?selHead():(S.buildings.length?'<div class="section-head" style="margin:2px 0 12px"><h2 style="font-size:19px">Buildings</h2><button class="pri add-small" data-add="1">+ Add building</button></div>':'<button class="pri" data-add="1" style="width:100%;margin-bottom:12px">+ Add building</button>'))+h+(b&&selMode?selBar():'')+(b&&!selMode?'<div style="text-align:center;margin-top:18px"><button data-delb="'+b.id+'" style="background:transparent;color:var(--bad);font-size:13px;min-height:36px">Delete building</button></div>':'');
   $("demoNote").hidden=!demoMode;document.querySelector(".hero").hidden=true;document.querySelector(".month").hidden=true;$("add").hidden=true;
   var nb=S.buildings.length;
-  var oc=units.filter(function(u){return u.tenant}).length;$("sub").hidden=!b;$("sub").textContent=b?oc+" occupied · "+(units.length-oc)+" vacant · Total "+units.length:"";
+  var oc=units.filter(function(u){return u.tenant}).length;$("buildingMenu").hidden=!b;$("sub").hidden=false;$("sub").textContent=b?oc+" occupied · "+(units.length-oc)+" vacant · Total "+units.length:(nb?"Rent status for "+cN+" "+cP[0]:"");
   var pu=0;units.forEach(function(u){var s=stats(u);if(s&&s.owed===0)pu++});$("sOwe").textContent=T.o>0?kes(T.o)+" owed":"All paid up \u2713";$("sOcc").textContent=T.occ?pu+" of "+T.occ+" paid":"No tenants yet";$("sBar").style.width=(T.occ?Math.round(pu/T.occ*100):0)+"%";
   sheet();msheet();ysheet();ssheet();
+  if(!view){try{bkSync()}catch(e){}}
   if(view)guard();else setTimeout(settle,80);
 }
 /* in-app dialogs (replace the browser's "site says" boxes) */
@@ -428,10 +446,10 @@ function setUM(m){uMode=m;$("uOne").style.display=m===1?"":"none";$("uMany").sty
 function manyNames(){var p=$("uPre").value.trim().toUpperCase(),a=parseInt($("uFrom").value,10),b=parseInt($("uTo").value,10);if(!(a>=0)||!(b>=a)||b-a>99)return null;var have={};S.units.forEach(function(u){if(u.bid===view)have[String(u.name).toUpperCase()]=1});var add=[],skip=0;for(var n=a;n<=b;n++){var nm=p+n;if(have[nm])skip++;else add.push(nm)}return{add:add,skip:skip}}
 function prevMany(){var r=manyNames(),el=$("uPrev");if(!r){el.textContent="Type a letter (or leave it blank for plain numbers) and the first and last number, e.g. A, 1, 10 (up to 100 rooms).";return}if(!r.add.length){el.textContent="All of these rooms already exist.";return}el.textContent="Will add "+r.add.length+" room"+(r.add.length>1?"s":"")+": "+(r.add.length>1?r.add[0]+" … "+r.add[r.add.length-1]:r.add[0])+(r.skip?" ("+r.skip+" already exist, skipped)":"")}
 function resetU(){$("uName").value="";$("uPre").value="";$("uFrom").value="";$("uTo").value="";setUM(1)}
-$("uM1").onclick=function(){setUM(1)};$("uM2").onclick=function(){setUM(2)};
+$("uPre").setAttribute("autocapitalize","characters");$("uName").setAttribute("autocapitalize","characters");$("uM1").onclick=function(){setUM(1)};$("uM2").onclick=function(){setUM(2)};
 $("dU").addEventListener("input",function(){if(uMode===2)prevMany()});
 function saveMany(){var r=manyNames();if(!r){alert("Enter the first and last number, e.g. 1 and 10. The letter is optional.");return}if(!r.add.length){alert("These rooms already exist.");return}var t=Date.now();snap(r.add.length+" room"+(r.add.length>1?"s":"")+" added");r.add.forEach(function(nm,i){S.units.push({id:t+i,bid:view,name:nm,rent:0,tenant:null})});save();$("dU").close();render()}
-$("uSave").onclick=function(){if(uMode===2){saveMany();return}var n=$("uName").value.trim();
+$("uSave").onclick=function(){if(uMode===2){saveMany();return}var n=$("uName").value.trim().toUpperCase();
   if(!n){alert("Enter the room name or number.");return}
   snap("Room "+n+" added");S.units.push({id:Date.now(),bid:view,name:n,rent:0,tenant:null});save();$("dU").close();render()};
 $("rSave").onclick=function(){var u=find(S.units,tgt),r=+$("rIn").value.replace(/,/g,"");
@@ -548,7 +566,11 @@ function clBackup(){if(!clOn())return Promise.reject(new Error("Cloud backup isn
     return clReq("/rest/v1/backups?select=id&order=created_at.desc&offset=14",{},t).then(function(rows){if(rows&&rows.length)return clReq("/rest/v1/backups?id=in.("+rows.map(function(x){return x.id}).join(",")+")",{method:"DELETE"},t)}).catch(function(){})})})}
 function clLatest(){return clToken().then(function(t){return clReq("/rest/v1/backups?select=data,created_at&order=created_at.desc&limit=1",{},t)}).then(function(rows){return rows&&rows.length?rows[0]:null})}
 function clWhen(ts){return new Date(ts).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
-function clStatus(){var f=$("clFoot");if(!f)return;if(!clOn()){f.textContent="";return}
+function bkSync(){var s=$("bkSub"),w=$("bkWarn");if(!s)return;var bad=false,t="Save a copy of your records";
+  if(clOn()){var a=clAuth(),l=clLast();if(!a||!l){t="Not backed up yet";bad=true}else if(Date.now()-l>2*864e5){t="Last backup "+clWhen(l)+". Open the app online to refresh";bad=true}else t="Last backup: "+clWhen(l)+" \u2713"}
+  s.textContent=t;s.style.color=bad?"var(--bad)":"";w.hidden=!(bad&&S.buildings&&S.buildings.length)}
+$("bkWarnBtn").onclick=function(){$("bkBtn").click()};
+function clStatus(){try{bkSync()}catch(e){}var f=$("clFoot");if(!f)return;if(!clOn()){f.textContent="";return}
   var a=clAuth(),l=clLast();f.style.color="";
   if(!a){f.textContent="Cloud backup is off. Tap Cloud backup to turn it on.";return}
   if(!l){f.textContent="Cloud backup: not backed up yet";return}
