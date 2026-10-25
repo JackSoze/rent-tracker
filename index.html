@@ -116,7 +116,10 @@ dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;
 #clFoot{display:none!important}
 
 .chips2 .tag{font-size:13px;font-weight:700;padding:2px 9px}.chips2 .tag.due{background:var(--bad);color:var(--bg)}
-.tool{font-size:13px!important;min-height:42px!important;font-weight:700!important;padding:6px 4px!important}.home .building-copy #sub{font-size:14px}
+.tool{font-size:13px!important;min-height:40px!important;font-weight:600!important;padding:6px 4px!important;background:transparent!important;border:0!important;color:var(--mute)!important}
+#homeFoot{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.10);padding:6px max(12px,calc((100vw - 560px)/2)) calc(6px + env(safe-area-inset-bottom,0px))}
+#homeFoot .tools2{margin-top:0;gap:4px}#homeFoot .bkwarn{margin:4px 0 6px;padding:8px 12px;font-size:13px}#homeFoot .bkwarn button{min-height:32px;padding:6px 12px;font-size:13px}#bkSub{display:none}
+main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 .home .building-head{margin:4px 0 14px;padding-bottom:14px;gap:12px}.home .building-icon{width:48px;height:48px;flex-basis:48px;border-radius:14px}.home .building-icon svg{width:28px;height:28px}.home .building-copy h1{font-size:26px;margin:0 0 2px}.home .building-copy #sub{font-size:13px}
 </style>
 </head>
@@ -131,17 +134,17 @@ dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;
 <div class="hero"><div class="hrow" style="align-items:baseline"><span id="sOwe" style="font-size:22px;font-weight:800"></span><span id="sOcc"></span></div><div class="bar" style="margin-bottom:0"><i id="sBar" style="width:0"></i></div></div>
 <div id="list"></div>
 <div id="homeFoot"><div id="bkWarn" class="bkwarn" hidden><span>⚠️ Your records are only on this phone.</span><button id="bkWarnBtn" class="pri">Back up</button></div>
-<div class="tools2"><button id="bkBtn" class="tool">☁️ Back up / Restore</button><button id="supBtn" class="tool">💬 Help</button><button id="updBtn" class="tool">🔄 Update app</button></div>
-<div id="bkSub" class="mute" style="text-align:center;margin-top:8px;font-size:14px">Save a copy of your records</div></div>
+<div class="tools2"><button id="bkBtn" class="tool">☁️ Backup</button><button id="supBtn" class="tool">💬 Help</button><button id="updBtn" class="tool">🔄 Update</button></div>
+<div id="bkSub" class="mute"></div></div>
 <div class="foot" id="clFoot" style="margin:2px 0 0"></div>
 <div class="foot" id="updMsg" style="margin-top:0"></div>
-<p class="foot">Your records are saved on this phone only. Clearing browser data erases them.</p>
 </main>
 <button class="pri fab" id="add">+ Add building</button>
 
 <dialog id="dC"><h2 style="margin:0;font-size:20px" id="cT"></h2><div id="cM" style="margin-top:8px;white-space:pre-line;font-size:15px;color:var(--mute)"></div><div class="dl"><button id="cNo">Cancel</button><button class="pri" id="cYes">OK</button></div></dialog>
 <dialog id="dCl"><h2 style="margin:0">Cloud backup</h2>
 <div class="mute" style="margin-top:6px" id="clInfo"></div>
+<div class="mute" style="margin-top:6px;font-size:13px">Your records are saved on this phone only. Clearing browser data erases them, so keep a backup.</div>
 <div id="clOff" hidden>
 <label id="clEL">Your email<input id="clEm" type="text" inputmode="email" placeholder="you@example.com"></label>
 <label id="clCL" hidden>Code from your email<input id="clCd" type="text" inputmode="numeric" maxlength="8"></label>
@@ -567,7 +570,7 @@ function clBackup(){if(!clOn())return Promise.reject(new Error("Cloud backup isn
 function clLatest(){return clToken().then(function(t){return clReq("/rest/v1/backups?select=data,created_at&order=created_at.desc&limit=1",{},t)}).then(function(rows){return rows&&rows.length?rows[0]:null})}
 function clWhen(ts){return new Date(ts).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
 function bkSync(){var s=$("bkSub"),w=$("bkWarn");if(!s)return;var bad=false,t="Save a copy of your records";
-  if(clOn()){var a=clAuth(),l=clLast();if(!a||!l){t="Not backed up yet";bad=true}else if(Date.now()-l>2*864e5){t="Last backup "+clWhen(l)+". Open the app online to refresh";bad=true}else t="Last backup: "+clWhen(l)+" \u2713"}
+  if(clOn()){var a=clAuth(),l=clLast();if(!a||!l){t="Not backed up yet";bad=true}else if(Date.now()-l>7*864e5){t="Last backup "+clWhen(l)+". Open the app online to refresh";bad=true}else t="Last backup: "+clWhen(l)+" \u2713"}
   s.textContent=t;s.style.color=bad?"var(--bad)":"";w.hidden=!(bad&&S.buildings&&S.buildings.length)}
 $("bkWarnBtn").onclick=function(){$("bkBtn").click()};
 function clStatus(){try{bkSync()}catch(e){}var f=$("clFoot");if(!f)return;if(!clOn()){f.textContent="";return}
