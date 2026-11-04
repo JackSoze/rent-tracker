@@ -120,6 +120,7 @@ dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;
 #homeFoot{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.10);padding:6px max(12px,calc((100vw - 560px)/2)) calc(6px + env(safe-area-inset-bottom,0px))}
 #homeFoot .tools2{margin-top:0;gap:4px}#homeFoot .bkwarn{margin:4px 0 6px;padding:8px 12px;font-size:13px}#homeFoot .bkwarn button{min-height:32px;padding:6px 12px;font-size:13px}#bkSub{display:none}
 main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
+.building-head{margin:8px 0 14px;padding-bottom:14px;gap:12px}.building-icon{width:48px;height:48px;flex:0 0 48px;border-radius:14px}.building-icon svg{width:28px;height:28px}.building-copy h1{font-size:24px;line-height:1.15;margin:0 0 2px}.section-head{margin:2px 0 10px}.section-head h2{font-size:20px}.room-card{padding:8px 12px;margin-bottom:8px;gap:10px;border-radius:16px;grid-template-columns:40px minmax(0,1fr) auto}.room-icon{width:40px;height:40px;border-radius:12px}.room-icon svg{width:24px;height:24px}.room-name{font-size:17px;margin-bottom:0}.room-tenant{font-size:15px}.room-rent{font-size:12.5px;margin-top:0}.room-side{flex-direction:row;align-items:center;gap:6px}.room-side .tag{font-size:12px;padding:3px 9px}.room-side .chev{font-size:24px}
 .home .building-head{margin:4px 0 14px;padding-bottom:14px;gap:12px}.home .building-icon{width:48px;height:48px;flex-basis:48px;border-radius:14px}.home .building-icon svg{width:28px;height:28px}.home .building-copy h1{font-size:26px;margin:0 0 2px}.home .building-copy #sub{font-size:13px}
 </style>
 </head>
@@ -211,6 +212,10 @@ main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 <label id="eSL">Moved in (month)<input id="eStart" type="month"></label>
 <div class="dl"><button id="eBack">Back</button><button class="pri" id="eSave">Save</button></div></dialog>
 
+<dialog id="dEar" class="bs"><h2 style="margin:0">Add earlier months</h2><div class="mute" id="earSub" style="margin:6px 0 4px"></div>
+<label>Show rent months from<input id="earFrom" type="month"></label>
+<div class="dl"><button data-x="dEar">Back</button><button class="pri" id="earSave">Add months</button></div></dialog>
+
 <dialog id="dPh"><h2 style="margin:0">Add phone number</h2>
 <label>Phone (WhatsApp)<input id="phIn" type="tel" inputmode="tel" placeholder="0712345678"></label>
 <div class="dl"><button data-x="dPh">Cancel</button><button class="pri" id="phSave">Save number</button></div></dialog>
@@ -260,12 +265,14 @@ function updHint(){var uu=find(S.units,tgt);if(uu&&uu.tenant){var m1=pm||cur,dn=
   if(r.plan.length>1||r.plan[0].m!==m0){h.style.color="var(--warn)";h.textContent=(r.bal0===0?label(m0)+" is already fully paid. ":label(m0)+" only needs "+kes(r.bal0)+". ")+"This will be carried forward: "+r.plan.map(function(x){return kes(x.a)+" \u2192 "+label(x.m)}).join(", ")+"."}
   else{h.style.color="var(--mute)";h.textContent="This goes to "+label(m0)+"."}}
 function find(a,id){return a.filter(function(x){return x.id===id})[0]}
+function ts(t){return t.track&&t.track>t.start?t.track:t.start}
 function stats(u){
   var t=u.tenant;if(!t)return null;
-  var n=months(t.start,cur);if(n<1)return null;
-  var paid=0,thisM=0;
-  S.pays.forEach(function(p){if(p.tid===t.id){if(p.month>=t.start&&p.month<=cur)paid+=p.amt;if(p.month===cur)thisM+=p.amt}});
-  return{owed:Math.max(0,n*u.rent-paid),thisM:thisM,paid:paid}
+  var n=months(ts(t),cur);if(n<1)return null;
+  var paid=0,thisM=0,em={},k;
+  S.pays.forEach(function(p){if(p.tid===t.id){if(p.month<=cur)paid+=p.amt;if(p.month<ts(t))em[p.month]=1;if(p.month===cur)thisM+=p.amt}});
+  (S.nop||[]).forEach(function(k){var a=String(k).split("|");if(a[0]===String(t.id)&&a[1]<ts(t))em[a[1]]=1});
+  return{owed:Math.max(0,(n+Object.keys(em).length)*u.rent-paid),thisM:thisM,paid:paid}
 }
 function totals(units){var e=0,c=0,o=0,occ=0;units.forEach(function(u){var s=stats(u);if(!s)return;occ++;e+=u.rent;c+=Math.min(s.thisM,u.rent);o+=s.owed});return{e:e,c:c,o:o,occ:occ}}
 function recpay(){var u=find(S.units,uOpen),pdn=0;tgt=uOpen;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===pm)pdn+=p.amt});$("pTitle").textContent="Payment for "+label(pm)+" · "+u.tenant.name;$("pAmt").value="";$("pCode").value="";$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
@@ -282,9 +289,9 @@ function msheet(){
 function mrcpt(){var u=find(S.units,uOpen);if(!u||!u.tenant)return;var rp=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),rs=0,lp=null;rp.forEach(function(p){rs+=p.amt;if(!lp||p.date>=lp.date)lp=p});
   showMsg("Send receipt",u,"Hello "+u.tenant.name+", we confirm receipt of rent for "+u.name+" for "+label(pm)+": "+kes(rs)+(lp?" (last payment "+new Date(lp.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+" by "+(lp.method||"M-Pesa")+(lp.code?", ref "+lp.code:"")+")":"")+(rs<u.rent?". Balance remaining: "+kes(u.rent-rs):"")+". Thank you.")}
 function openMonth(m){var u=find(S.units,uOpen);if(!u||!u.tenant)return;var t=u.tenant,sum=0;S.pays.forEach(function(p){if(p.tid===t.id&&p.month===m)sum+=p.amt});pm=m;tgt=uOpen;
-  if(m<t.start&&sum===0&&(S.nop||[]).indexOf(t.id+"|"+m)<0){$("nuT").textContent=label(m)+" \u00b7 Not updated";$("dNu").showModal();return}
+  if(m<ts(t)&&sum===0&&(S.nop||[]).indexOf(t.id+"|"+m)<0){$("nuT").textContent=label(m)+" \u00b7 Not updated";$("dNu").showModal();return}
   $("dM").showModal();msheet()}
-function mrows(u,t,list){var rows="";list.forEach(function(m){var ps=S.pays.filter(function(p){return p.tid===t.id&&p.month===m}),sum=0;ps.forEach(function(p){sum+=p.amt});var na=m<t.start&&sum===0,nn=na&&(S.nop||[]).indexOf(t.id+"|"+m)>-1;rows+='<div class="pm" data-month="'+m+'" style="cursor:pointer"><div class="row"><b>'+label(m)+'</b><span class="sp"><span class="tag '+(na?"na":sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(nn?"No payment":na?"Not updated":sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span><span class="chev">›</span></span></div><div class="mute">'+(nn?"Confirmed: no payment":na?"No data yet":sum>=u.rent?kes(sum):kes(sum)+" of "+kes(u.rent))+'</div></div>'});return rows}
+function mrows(u,t,list){var rows="";list.forEach(function(m){var ps=S.pays.filter(function(p){return p.tid===t.id&&p.month===m}),sum=0;ps.forEach(function(p){sum+=p.amt});var na=m<ts(t)&&sum===0,nn=na&&(S.nop||[]).indexOf(t.id+"|"+m)>-1;if(na&&!nn&&!(t.from&&m>=t.from))return;rows+='<div class="pm" data-month="'+m+'" style="cursor:pointer"><div class="row"><b>'+label(m)+'</b><span class="sp"><span class="tag '+(na?"na":sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(nn?"No payment":na?"Not updated":sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span><span class="chev">›</span></span></div>'+((na&&!nn)?"":'<div class="mute">'+(nn?"Confirmed: no payment":sum>=u.rent?kes(sum):kes(sum)+" of "+kes(u.rent))+'</div>')+'</div>'});return rows}
 function sheet(){
   if(uOpen==null)return;var u=find(S.units,uOpen);if(!u){$("dUnit").close();return}
   var t=u.tenant,s=stats(u),i,ms=[],bd=find(S.buildings,u.bid),h="";
@@ -305,7 +312,7 @@ function sheet(){
     var fut=cur,fm;S.pays.forEach(function(p){if(t&&p.tid===t.id&&p.month>fut)fut=p.month});for(fm=fut;fm>cur;fm=shift(fm,-1))ms.push(fm);
     for(i=0;i<6;i++)ms.push(shift(cur,-i));
     var rows=mrows(u,t,ms);
-    h+='<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Months</h2><div class="mute" style="margin-bottom:2px">Tap a month for payment details</div>'+(rows||'<div class="empty">No rent months yet.</div>');
+    h+='<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Months</h2><div class="mute" style="margin-bottom:2px">Tap a month for payment details</div>'+(rows||'<div class="empty">No rent months yet.</div>')+'<div style="text-align:center;margin:12px 0 0"><button data-early="'+u.id+'" style="background:none;color:var(--mute);min-height:0;font-size:13px;text-decoration:underline">+ Add earlier months</button></div>';
     h+='<div class="mute" style="margin-top:20px">See previous records</div><div class="chips"><button data-yr="0">This year</button><button data-yr="1">Last year</button><button data-yr="2">2 years ago</button></div>';
   }else h+='<div class="t card-dl" style="margin:14px 0"><div class="kv"><span class="mute">Monthly rent</span><span class="v">'+(u.rent>0?'<span>'+kes(u.rent)+'</span>':'')+'<button data-setrent="'+u.id+'">'+(u.rent>0?'Change':'Set rent')+'</button></span></div></div><div class="empty">This unit is vacant.</div><div class="acts" style="margin-top:10px"><button class="pri" data-ten="'+u.id+'">Add tenant</button></div>';
 
@@ -360,8 +367,8 @@ function render(){
       var us=S.units.filter(function(u){return u.bid===bb.id}),t=totals(us);
       var occN=0,unp=0,pdN=0;us.forEach(function(u){if(u.tenant)occN++;var st=stats(u);if(st){if(st.owed>0)unp++;else pdN++}});var vacN=us.length-occN,chs="";
       if(!us.length)chs='<span class="tag na">Tap to add rooms</span>';
-      else{if(unp>0)chs+='<span class="tag due">'+unp+' unpaid</span>';if(pdN>0)chs+='<span class="tag paid">'+(unp===0&&pdN===occN?'All paid \u2713':pdN+' paid')+'</span>';if(!occN)chs+='<span class="tag na">No tenants yet</span>';if(vacN>0&&occN>0)chs+='<span class="tag na">'+vacN+' vacant</span>'}
-      h+='<div class="t bc '+(unp>0?'st-bad':(occN>0&&pdN===occN?'st-ok':''))+'" data-bopen="'+bb.id+'" style="cursor:pointer"><div class="row" style="align-items:center"><div class="bcard-main"><div class="name" style="font-size:17px">'+esc(bb.name)+'</div><div class="mute" style="font-size:13.5px">'+(us.length?us.length+(us.length===1?' room':' rooms')+' \u00b7 '+occN+' occupied':'No rooms yet')+'</div></div><span class="chev">›</span></div><div class="chips2">'+chs+'</div></div>'});
+      else{if(unp>0)chs+='<span class="tag due">'+unp+' not paid</span>';if(pdN>0)chs+='<span class="tag paid">'+(unp===0&&pdN===occN?'All paid up \u2713':pdN+' paid')+'</span>';if(!occN)chs+='<span class="tag na">No tenants yet</span>';}
+      h+='<div class="t bc '+(unp>0?'st-bad':(occN>0&&pdN===occN?'st-ok':''))+'" data-bopen="'+bb.id+'" style="cursor:pointer"><div class="row" style="align-items:center"><div class="bcard-main"><div class="name" style="font-size:17px">'+esc(bb.name)+'</div><div class="mute" style="font-size:13.5px">'+(us.length?occN+' of '+us.length+(us.length===1?' room':' rooms')+' occupied':'No rooms added yet')+'</div></div><span class="chev">›</span></div><div class="chips2">'+chs+'</div></div>'});
     if(!h)h='<div class="empty"><b style="color:var(--ink);font-size:17px">Welcome! Start here</b><div class="steps"><div><b>1</b>Add your building</div><div><b>2</b>Add its rooms</div><div><b>3</b>Add tenants and record rent</div></div></div>';
   }else{
     units.slice().sort(function(x,y){return (x.tenant?0:1)-(y.tenant?0:1)||String(x.name).localeCompare(String(y.name),undefined,{numeric:true,sensitivity:"base"})}).forEach(function(u){
@@ -370,13 +377,13 @@ function render(){
       else if(t){tag="Starts later";cls="part"}
       var pt=s?s.thisM:0,part=t&&s&&pt>0&&pt<u.rent?" · "+kes(pt)+" paid so far":"";
       var statusClass=tag==="Paid"?"paid":tag==="Vacant"?"vacant-tag":tag==="Starts later"?"part":tag==="Part paid"?"part":"due";
-      h+='<div class="t room-card" data-tog="'+u.id+'" style="cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none'+(selMode?';grid-template-columns:24px 48px minmax(0,1fr) auto':'')+(selMode&&selLocked(u)?';opacity:.5':'')+'">'+(selMode?ckBox(u):'')+'<div class="room-icon '+(t?'occupied-icon':'vacant-icon')+'" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 27V7.5A2.5 2.5 0 0 1 9.5 5h8A2.5 2.5 0 0 1 20 7.5V27M4 27h24M20 11h4.5A2.5 2.5 0 0 1 27 13.5V27" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 16v.1" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></div><div class="room-info"><div class="room-name">Room '+esc(u.name)+'</div><div class="room-tenant">'+(t?esc(t.name):'No tenant')+'</div>'+(t?'<div class="room-rent">'+(u.rent>0?kes(u.rent)+' / month':'Rent not set')+'</div>':'<div class="room-rent">Available for rent</div>')+'</div><div class="room-side"><span class="tag '+statusClass+'">'+tag+'</span><span class="chev">›</span></div>'+'</div>'});
+      h+='<div class="t room-card" data-tog="'+u.id+'" style="cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none'+(selMode?';grid-template-columns:24px 40px minmax(0,1fr) auto':'')+(selMode&&selLocked(u)?';opacity:.5':'')+'">'+(selMode?ckBox(u):'')+'<div class="room-icon '+(t?'occupied-icon':'vacant-icon')+'" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 27V7.5A2.5 2.5 0 0 1 9.5 5h8A2.5 2.5 0 0 1 20 7.5V27M4 27h24M20 11h4.5A2.5 2.5 0 0 1 27 13.5V27" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 16v.1" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></div><div class="room-info"><div class="room-name">Room '+esc(u.name)+'</div>'+(t?'<div class="room-tenant">'+esc(t.name)+'</div><div class="room-rent">'+(u.rent>0?kes(u.rent)+' / month':'Rent not set')+'</div>':'')+'</div><div class="room-side"><span class="tag '+statusClass+'">'+tag+'</span><span class="chev">›</span></div>'+'</div>'});
     if(!h)h='<div class="empty">No units in this building yet.<br>Add your first unit, then add a tenant to it.</div>';
   }
-  $("list").innerHTML=(b?selHead():(S.buildings.length?'<div class="section-head" style="margin:2px 0 12px"><h2 style="font-size:19px">Buildings</h2><button class="pri add-small" data-add="1">+ Add building</button></div>':'<button class="pri" data-add="1" style="width:100%;margin-bottom:12px">+ Add building</button>'))+h+(b&&selMode?selBar():'')+(b&&!selMode?'<div style="text-align:center;margin-top:18px"><button data-delb="'+b.id+'" style="background:transparent;color:var(--bad);font-size:13px;min-height:36px">Delete building</button></div>':'');
+  $("list").innerHTML=(b?selHead():(S.buildings.length?'<div class="section-head" style="margin:2px 0 12px;padding:0 13px"><h2 style="font-size:19px">'+S.buildings.length+(S.buildings.length===1?' building':' buildings')+'</h2><button class="pri add-small" data-add="1">+ Add building</button></div>':'<button class="pri" data-add="1" style="width:100%;margin-bottom:12px">+ Add building</button>'))+h+(b&&selMode?selBar():'')+(b&&!selMode?'<div style="text-align:center;margin-top:18px"><button data-delb="'+b.id+'" style="background:transparent;color:var(--bad);font-size:13px;min-height:36px">Delete building</button></div>':'');
   $("demoNote").hidden=!demoMode;document.querySelector(".hero").hidden=true;document.querySelector(".month").hidden=true;$("add").hidden=true;
   var nb=S.buildings.length;
-  var oc=units.filter(function(u){return u.tenant}).length;$("buildingMenu").hidden=!b;$("sub").hidden=false;$("sub").textContent=b?oc+" occupied · "+(units.length-oc)+" vacant · Total "+units.length:(nb?"Rent status for "+cN+" "+cP[0]:"");
+  var oc=units.filter(function(u){return u.tenant}).length;$("buildingMenu").hidden=!b;$("sub").hidden=false;$("sub").textContent=b?oc+" occupied · "+(units.length-oc)+" vacant · Total "+units.length:(nb?cN+" "+cP[0]+" rent status":"");
   var pu=0;units.forEach(function(u){var s=stats(u);if(s&&s.owed===0)pu++});$("sOwe").textContent=T.o>0?kes(T.o)+" owed":"All paid up \u2713";$("sOcc").textContent=T.occ?pu+" of "+T.occ+" paid":"No tenants yet";$("sBar").style.width=(T.occ?Math.round(pu/T.occ*100):0)+"%";
   sheet();msheet();ysheet();ssheet();
   if(!view){try{bkSync()}catch(e){}}
@@ -395,7 +402,7 @@ $("cYes").onclick=function(){var b=cfBtn;cfBtn=null;$("dC").close();if(b){b.data
 $("cNo").onclick=function(){cfBtn=null;$("dC").close()};
 /* moving a tenant out: keep their history */
 function moveMsg(u){var s=stats(u),o=s?s.owed:0;return (o>0?u.tenant.name+" still owes "+kes(o)+". ":u.tenant.name+" is fully paid up. ")+"Their payment records stay saved under Previous tenants on this room\u2019s page, and the room becomes vacant."}
-function moveOut(u){var t=u.tenant,s=stats(u);u.past=u.past||[];u.past.push({id:t.id,name:t.name,phone:t.phone,start:t.start,end:ym(new Date()),out:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10),owed:s?s.owed:0});u.tenant=null;save();render()}
+function moveOut(u){var t=u.tenant,s=stats(u);u.past=u.past||[];u.past.push({id:t.id,name:t.name,phone:t.phone,start:ts(t),end:ym(new Date()),out:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10),owed:s?s.owed:0});u.tenant=null;save();render()}
 /* phone Back button goes to the previous screen instead of closing the app */
 var stk=[],gOn=false,showM=HTMLDialogElement.prototype.showModal;
 HTMLDialogElement.prototype.showModal=function(){if(stk.indexOf(this)<0)stk.push(this);showM.call(this);guard()};
@@ -423,6 +430,7 @@ $("add").onclick=function(){
   if(view){resetU();$("dU").showModal()}else{$("bName").value="";$("dB").showModal()}
 };
 $("uTitle").onclick=$("uTen").onclick=$("uLinks").onclick=function(e){$("uBody").onclick(e)};
+$("earSave").onclick=function(){var u=find(S.units,tgt);if(!u||!u.tenant)return;var v=$("earFrom").value;if(!/^\d{4}-\d{2}$/.test(v)){alert("Pick the month to start from.");return}if(v>=ts(u.tenant)){alert("Pick a month before "+label(ts(u.tenant))+".");return}var os=ts(u.tenant);if(v<u.tenant.start)u.tenant.start=v;u.tenant.track=os;u.tenant.from=v;save();$("dEar").close();render()};
 document.addEventListener("click",function(e){var x=e.target.closest("[data-x]");if(x)$(x.dataset.x).close()});
 
 $("bSave").onclick=function(){var n=$("bName").value.trim();if(!n){alert("Enter the building name.");return}
@@ -464,7 +472,7 @@ $("phSave").onclick=function(){var v=$("phIn").value.trim(),u=find(S.units,tgt);
   if(v.replace(/\D/g,"").length<9){alert("Enter a valid phone number, e.g. 0712345678.");return}
   u.tenant.phone=v;save();$("dPh").close();render()};
 $("eSave").onclick=function(){var u=find(S.units,tgt);
-  if(u.tenant){var tn=$("eName").value.trim();if(!tn){alert("Enter the tenant’s name.");return}var es=$("eStart").value;if(!/^\d{4}-\d{2}$/.test(es)){alert("Enter the month the tenant moved in.");return}u.tenant.name=tn;u.tenant.phone=$("ePhone").value.trim();u.tenant.start=es}
+  if(u.tenant){var tn=$("eName").value.trim();if(!tn){alert("Enter the tenant’s name.");return}var es=$("eStart").value;if(!/^\d{4}-\d{2}$/.test(es)){alert("Enter the month the tenant moved in.");return}u.tenant.name=tn;u.tenant.phone=$("ePhone").value.trim();var os=ts(u.tenant);u.tenant.start=es;u.tenant.track=es>os?es:os}
   save();$("dE").close();render()};
 $("nSave").onclick=function(){var u=find(S.units,tgt),n=$("nIn").value.trim();if(!n){alert("Enter the room name or number.");return}u.name=n;save();$("dN").close();render()};
 $("pAmt").oninput=updHint;
@@ -495,6 +503,7 @@ $("uBody").onclick=$("list").onclick=function(e){
     showMsg("Send receipt",u,"Hello "+u.tenant.name+", we confirm receipt of rent for "+u.name+" for "+label(cur)+": "+kes(rs||u.rent)+(lp?" (last payment "+new Date(lp.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+" by "+(lp.method||"M-Pesa")+")":"")+". Thank you.")}
   if(d.addph){tgt=+d.addph;u=find(S.units,tgt);$("phIn").value="";$("dPh").showModal()}
   if(d.ren){tgt=+d.ren;nFrom=false;openRoomEdit()}
+  if(d.early){tgt=+d.early;u=find(S.units,tgt);if(u&&u.tenant){$("earSub").textContent="Showing from "+label(u.tenant.from&&u.tenant.from<ts(u.tenant)?u.tenant.from:ts(u.tenant))+". Earlier months you add show as Not updated. They only count toward what the tenant owes once you add a payment or mark no payment.";$("earFrom").value="";$("earFrom").max=shift(ts(u.tenant),-1);$("dEar").showModal()}}
   if(d.edit){tgt=+d.edit;openChooser()}
   if(d.rem){u=find(S.units,+d.rem);var s=stats(u),msg="Hello "+u.tenant.name+", this is a reminder that your rent balance is "+kes(s.owed)+" for "+u.name+". Please pay by M-Pesa and send me the confirmation. Thank you.";
     showMsg("Send reminder",u,msg)}
