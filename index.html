@@ -123,6 +123,16 @@ dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;
 main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 .building-head{margin:8px 0 14px;padding-bottom:14px;gap:12px}.building-icon{width:48px;height:48px;flex:0 0 48px;border-radius:14px}.building-icon svg{width:28px;height:28px}.building-copy h1{font-size:24px;line-height:1.15;margin:0 0 2px}.section-head{margin:2px 0 10px}.section-head h2{font-size:20px}.room-card{padding:8px 12px;margin-bottom:8px;gap:10px;border-radius:16px;grid-template-columns:40px minmax(0,1fr) auto}.room-icon{width:40px;height:40px;border-radius:12px}.room-icon svg{width:24px;height:24px}.room-name{font-size:17px;margin-bottom:0}.room-tenant{font-size:15px}.room-rent{font-size:12.5px;margin-top:0}.room-side{flex-direction:row;align-items:center;gap:6px}.room-side .tag{font-size:12px;padding:3px 9px}.room-side .chev{font-size:24px}
 .home .building-head{margin:4px 0 14px;padding-bottom:14px;gap:12px}.home .building-icon{width:48px;height:48px;flex-basis:48px;border-radius:14px}.home .building-icon svg{width:28px;height:28px}.home .building-copy h1{font-size:26px;margin:0 0 2px}.home .building-copy #sub{font-size:13px}
+#gate{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;-webkit-overflow-scrolling:touch;padding:max(28px,env(safe-area-inset-top,0px)) 20px calc(24px + env(safe-area-inset-bottom,0px))}
+#gate .gin{max-width:380px;margin:0 auto;padding-top:6vh}
+#gate .glogo{width:56px;height:56px;border-radius:16px;background:var(--pri);color:var(--onpri);display:grid;place-items:center;font-size:28px;margin-bottom:14px}
+#gate h1{font-size:26px;margin:0 0 4px}
+#gate .gsub{color:var(--mute);font-size:15px;margin:0 0 14px}
+#gate button.gmain{width:100%;margin-top:16px;padding:14px;font-size:16px;font-weight:600;border-radius:12px;background:var(--pri);color:var(--onpri);border:0}
+#gate button.glink{background:transparent;color:var(--pri);text-decoration:underline;font-size:14px;padding:10px 0;border:0}
+#gate #gMsg{font-size:14px;margin-top:10px;min-height:18px}
+.pin{padding-right:64px}.pin:not([data-show="1"]){-webkit-text-security:disc}.pin[data-show="1"]{-webkit-text-security:none!important}.pin.tx:empty:before{-webkit-text-security:none!important}
+.pinw{position:relative}.pinw .eye{position:absolute;right:2px;bottom:1px;margin:0;padding:0 12px;min-height:0;height:42px;background:transparent;color:var(--pri);border:0;font-size:14px;font-weight:600;z-index:2}
 </style>
 </head>
 <body>
@@ -143,14 +153,26 @@ main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 </main>
 <button class="pri fab" id="add">+ Add building</button>
 
+<div id="gate" hidden><div class="gin">
+<div class="glogo">&#8962;</div>
+<h1 id="gT">Create your account</h1>
+<p class="gsub" id="gS">Use your phone number and a 4-digit PIN you choose. Your records are backed up safely online.</p>
+<label>Phone number<input id="gPh" type="text" inputmode="tel" placeholder="Tap to add number" autocomplete="off"></label>
+<div class="pinw"><label>4-digit PIN<input class="pin" id="gPin" type="text" inputmode="numeric" maxlength="4" placeholder="Tap to add PIN" autocomplete="off"></label><button type="button" class="eye" data-eye="gPin,gPin2">Show</button></div>
+<div class="pinw" id="gPin2L"><label>Type the PIN again<input class="pin" id="gPin2" type="text" inputmode="numeric" maxlength="4" placeholder="Tap to repeat PIN" autocomplete="off"></label><button type="button" class="eye" data-eye="gPin,gPin2">Show</button></div>
+<button class="gmain" id="gGo">Create account</button>
+<div id="gMsg" class="pl"></div>
+<div style="text-align:center;margin-top:6px"><button class="glink" id="gSw">I already have an account. Sign in</button></div>
+<div style="text-align:center"><button class="glink" id="gFg" style="color:var(--mute);font-size:13px" hidden>Forgot PIN?</button></div>
+</div></div>
 <dialog id="dC"><h2 style="margin:0;font-size:20px" id="cT"></h2><div id="cM" style="margin-top:8px;white-space:pre-line;font-size:15px;color:var(--mute)"></div><div class="dl"><button id="cNo">Cancel</button><button class="pri" id="cYes">OK</button></div></dialog>
 <dialog id="dCl"><h2 style="margin:0">Cloud backup</h2>
 <div class="mute" style="margin-top:6px" id="clInfo"></div>
 <div class="mute" style="margin-top:6px;font-size:13px">Your records are saved on this phone only. Clearing browser data erases them, so keep a backup.</div>
 <div id="clOff" hidden>
-<label id="clEL">Your email<input id="clEm" type="text" inputmode="email" placeholder="you@example.com"></label>
-<label id="clCL" hidden>Code from your email<input id="clCd" type="text" inputmode="numeric" maxlength="8"></label>
-<div class="acts" style="flex-direction:column"><button class="pri" id="clSend">Send code</button><button class="pri" id="clVer" hidden>Sign in</button></div></div>
+<label>Phone number<input id="clEm" type="text" inputmode="tel" placeholder="Tap to add number" autocomplete="off"></label>
+<div class="pinw"><label>4-digit PIN<input class="pin" id="clCd" type="text" inputmode="numeric" maxlength="4" placeholder="Tap to add PIN" autocomplete="off"></label><button type="button" class="eye" data-eye="clCd">Show</button></div>
+<div class="acts" style="flex-direction:column"><button class="pri" id="clVer">Sign in</button><button id="clSend">Create account</button><button id="clFg" style="background:transparent;color:var(--mute);text-decoration:underline;font-size:13px;padding:6px 0">Forgot PIN?</button></div></div>
 <div id="clOn" hidden><div class="acts" style="flex-direction:column"><button class="pri" id="clNow">Back up now</button><button id="clRes">Restore from cloud</button><button id="clOut">Sign out</button></div></div>
 <div class="pl" id="clMsg" style="margin-top:10px"></div>
 <div class="acts" style="margin-top:6px"><button id="clMan" style="background:transparent;color:var(--mute);text-decoration:underline;font-size:13px;padding:6px 0">Manual backup (copy / paste)</button></div>
@@ -249,7 +271,7 @@ if(demoMode){
  {id:91031,tid:paidTid,month:cur,amt:1500,method:"M-Pesa",code:"DEMO123",date:today},
  {id:91032,tid:partTid,month:cur,amt:800,method:"M-Pesa",code:"DEMO456",date:today}]};view=demoBid;
 }
-function save(){if(demoMode)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function save(){if(demoMode)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}try{clQueue()}catch(e){}}
 function ym(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
 function shift(m,n){var p=m.split("-");return ym(new Date(+p[0],+p[1]-1+n,1))}
 function months(a,b){var p=a.split("-"),q=b.split("-");return (+q[0]-+p[0])*12+(+q[1]-+p[1])+1}
@@ -416,7 +438,7 @@ window.addEventListener("popstate",function(){gOn=false;var top=stk[stk.length-1
 /* amount fields use the app's own number pad: no phone keyboard, so no autofill icons and nothing covers the Save button */
 ["rIn","pAmt"].forEach(function(id){var i=$(id),h=i.closest("label"),w=document.createElement("div");if(h.parentNode.tagName==="DIV"&&h.parentNode.style.display==="grid")h=h.parentNode;var dec=id==="pAmt";w.className="kp";w.innerHTML=["1","2","3","4","5","6","7","8","9"].concat(dec?[".","0"]:["000","0"],["\u232b"]).map(function(k,x){return '<button type="button" data-k="'+k+'"'+''+'>'+k+'</button>'}).join("");w.onclick=function(e){var b=e.target.closest("[data-k]");if(!b)return;var k=b.dataset.k,v=String(i.value||"").replace(/,/g,"");if(k==="\u232b")v=v.slice(0,-1);else{if(k==="."&&(!dec||v.indexOf(".")>-1))return;var nv=(k==="."&&v===""?"0":v)+k;nv=nv.replace(/^0+(?=\d)/,"");if(nv.indexOf(".")>-1&&nv.split(".")[1].length>2)return;v=nv.slice(0,9)}i.value=v.replace(/^\d+/,function(m){return m.replace(/\B(?=(\d{3})+$)/g,",")});i.dispatchEvent(new Event("input",{bubbles:true}))};h.insertAdjacentElement("afterend",w)});
 /* text boxes become plain editable fields: the phone's autofill (key / card / pin bar) cannot attach to them */
-Array.prototype.forEach.call(document.querySelectorAll("input"),function(i){var t=i.type;if(t==="date"||t==="month"||t==="hidden"||i.id==="rIn"||i.id==="pAmt")return;var d=document.createElement("div"),mx=+i.getAttribute("maxlength")||0,im=i.getAttribute("inputmode")||(t==="tel"?"tel":"text"),cap=/^(bName|uName|tName|eName|nIn)$/.test(i.id)?"words":"off";d.id=i.id;d.className="tx";if(i.getAttribute("style"))d.setAttribute("style",i.getAttribute("style"));d.setAttribute("contenteditable","plaintext-only");d.setAttribute("role","textbox");d.setAttribute("inputmode",im);d.setAttribute("enterkeyhint","done");d.setAttribute("autocapitalize",cap);d.setAttribute("autocorrect","off");d.setAttribute("spellcheck","false");d.setAttribute("data-ph",i.getAttribute("placeholder")||"");Object.defineProperty(d,"value",{get:function(){return d.textContent},set:function(v){d.textContent=v==null?"":String(v)}});d.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();d.blur()}});d.addEventListener("paste",function(e){e.preventDefault();var s=((e.clipboardData||window.clipboardData).getData("text")||"").replace(/[\r\n]+/g," ");document.execCommand("insertText",false,s)});d.addEventListener("input",function(){var s=d.textContent;if(!s){d.innerHTML="";return}if(mx&&s.length>mx){d.textContent=s.slice(0,mx);var r=document.createRange();r.selectNodeContents(d);r.collapse(false);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r)}});i.parentNode.replaceChild(d,i)});
+Array.prototype.forEach.call(document.querySelectorAll("input"),function(i){var t=i.type;if(t==="date"||t==="month"||t==="hidden"||i.id==="rIn"||i.id==="pAmt")return;var d=document.createElement("div"),mx=+i.getAttribute("maxlength")||0,im=i.getAttribute("inputmode")||(t==="tel"?"tel":"text"),cap=/^(bName|uName|tName|eName|nIn)$/.test(i.id)?"words":"off";d.id=i.id;d.className="tx"+(i.classList.contains("pin")?" pin":"");if(i.getAttribute("style"))d.setAttribute("style",i.getAttribute("style"));d.setAttribute("contenteditable","plaintext-only");d.setAttribute("role","textbox");d.setAttribute("inputmode",im);d.setAttribute("enterkeyhint","done");d.setAttribute("autocapitalize",cap);d.setAttribute("autocorrect","off");d.setAttribute("spellcheck","false");d.setAttribute("data-ph",i.getAttribute("placeholder")||"");Object.defineProperty(d,"value",{get:function(){return d.textContent},set:function(v){d.textContent=v==null?"":String(v)}});d.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();d.blur()}});d.addEventListener("paste",function(e){e.preventDefault();var s=((e.clipboardData||window.clipboardData).getData("text")||"").replace(/[\r\n]+/g," ");document.execCommand("insertText",false,s)});d.addEventListener("input",function(){var s=d.textContent;if(!s){d.innerHTML="";return}if(mx&&s.length>mx){d.textContent=s.slice(0,mx);var r=document.createRange();r.selectNodeContents(d);r.collapse(false);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r)}});i.parentNode.replaceChild(d,i)});
 /* dialogs must not pop the keyboard open by themselves */
 (function(){var o=HTMLDialogElement.prototype.showModal;HTMLDialogElement.prototype.showModal=function(){o.call(this);var a=document.activeElement;if(a&&a.classList&&a.classList.contains("tx"))a.blur()}})();
 /* stop the phone's autofill bar (key / card / pin icons) above the keyboard */
@@ -559,25 +581,41 @@ $("updBtn").onclick=function(){var m=$("updMsg");
   $("aOk").onclick=function(){da.close()};
   window.alert=function(m){$("aM").textContent=String(m);if(!da.open)da.showModal()}})();
 try{if(sessionStorage.getItem("updated")){sessionStorage.removeItem("updated");$("updMsg").textContent="Updated. You have the latest version."}}catch(e){}
-/* ===== Cloud backup (Supabase). Records stay on the phone; a copy goes to the cloud about once a day ===== */
-var CL={url:"",key:""}; /* paste Supabase Project URL and anon public key here */
-var CK="rtCloudAuth",CT="rtCloudLast",clMail="";
-function clOn(){return !!(CL.url&&CL.key)}
+/* ===== Cloud backup (Firebase). Sign in with phone number + 4-digit PIN. Records stay on the phone; a copy is kept in Firestore ===== */
+var FB={apiKey:"AIzaSyBt2Jp3fhj68TX--2Ztk5JxE1DTgXBfeug",projectId:"imara-rent-tracker",ownerMail:"kamonyojack@gmail.com"}; /* ownerMail: your Gmail address; PIN reset links go to it */
+function clMail(ph){var m=FB.ownerMail.split("@");return m.length===2&&m[0]?m[0]+"+"+ph+"@"+m[1]:"p"+ph+"@rt.imaradsb.co.ke"} /* paste apiKey and projectId from the Firebase web app config here */
+var CK="rtCloudAuth",CT="rtCloudLast",CR="rtCloudReady",clT=null;
+function clOn(){return !!(FB.apiKey&&FB.projectId)}
 function clAuth(){try{return JSON.parse(localStorage.getItem(CK)||"null")}catch(e){return null}}
 function clSet(a){try{if(a)localStorage.setItem(CK,JSON.stringify(a));else localStorage.removeItem(CK)}catch(e){}}
 function clLast(){try{return +(localStorage.getItem(CT)||0)}catch(e){return 0}}
-function clReq(path,opt,tok){opt=opt||{};var h=opt.headers||{};h.apikey=CL.key;h.Authorization="Bearer "+(tok||CL.key);if(opt.body)h["Content-Type"]="application/json";opt.headers=h;
-  return fetch(CL.url+path,opt).then(function(r){return r.text().then(function(t){var j=null;try{j=t?JSON.parse(t):null}catch(e){}
-    if(!r.ok){var m=(j&&(j.msg||j.error_description||j.message||j.error))||("Error "+r.status),er=new Error(m);er.status=r.status;throw er}return j})})}
-function clSession(r,em){var a={at:r.access_token,rt:r.refresh_token,exp:Date.now()+(r.expires_in||3600)*1000-60000,email:(r.user&&r.user.email)||em||(clAuth()||{}).email||""};clSet(a);return a}
-function clToken(){var a=clAuth();if(!a)return Promise.reject(new Error("Not signed in"));if(Date.now()<a.exp)return Promise.resolve(a.at);
-  return clReq("/auth/v1/token?grant_type=refresh_token",{method:"POST",body:JSON.stringify({refresh_token:a.rt})}).then(function(r){return clSession(r,a.email).at}).catch(function(e){if(e.status===400||e.status===401)clSet(null);throw e})}
-function clBackup(){if(!clOn())return Promise.reject(new Error("Cloud backup isn\u2019t switched on yet."));
+function clReady(){try{return localStorage.getItem(CR)==="1"}catch(e){return false}}
+function clPhone(v){var d=String(v||"").replace(/\D/g,"");if(/^0[17]\d{8}$/.test(d))d="254"+d.slice(1);return /^254[17]\d{8}$/.test(d)?d:""}
+function clNice(m){var t={EMAIL_EXISTS:"This number already has an account. Tap Sign in.",INVALID_LOGIN_CREDENTIALS:"Wrong number or PIN.",INVALID_PASSWORD:"Wrong number or PIN.",EMAIL_NOT_FOUND:"No account for this number. Tap Create account.",TOO_MANY_ATTEMPTS_TRY_LATER:"Too many tries. Wait a few minutes and try again.",OPERATION_NOT_ALLOWED:"Sign-in is not switched on in Firebase yet."};return t[String(m||"").split(" ")[0]]||m}
+function clReq(url,opt){return fetch(url,opt||{}).then(function(r){return r.text().then(function(t){var j=null;try{j=t?JSON.parse(t):null}catch(e){}
+  if(!r.ok){var m=j&&j.error&&j.error.message,er=new Error(clNice(typeof m==="string"?m:"Error "+r.status));er.status=r.status;er.fb=String(typeof m==="string"?m:"").split(" ")[0];throw er}return j})})}
+function clSession(r,ph){var a={at:r.idToken||r.id_token,rt:r.refreshToken||r.refresh_token,uid:r.localId||r.user_id,exp:Date.now()+(+(r.expiresIn||r.expires_in)||3600)*1000-60000,phone:ph||(clAuth()||{}).phone||""};clSet(a);return a}
+/* Firebase needs passwords of at least 6 characters, so the 4-digit PIN is sent with "00" added */
+function clPw(pin){return String(pin)+"00"}
+/* Wrong-PIN lockout (kept on the phone): 5 wrong tries = 1 minute wait, 5 more tries, then blocked until Forgot PIN / call admin */
+var LK="rt_lock_v1",LKHARD="Too many wrong tries. Tap Forgot PIN, then call the Imara DSB admin to reset your PIN.";
+function lkGet(){try{return JSON.parse(localStorage.getItem(LK))||{}}catch(e){return {}}}
+function lkSet(o){try{localStorage.setItem(LK,JSON.stringify(o))}catch(e){}}
+function lkClear(){try{localStorage.removeItem(LK)}catch(e){}}
+function lkCheck(){var o=lkGet();if(o.hard)return LKHARD;if(o.until&&Date.now()<o.until)return "Too many wrong tries. Try again in "+Math.ceil((o.until-Date.now())/1000)+" seconds.";return ""}
+function lkFail(){var o=lkGet(),left;o.n=(o.n||0)+1;if(o.n===5)o.until=Date.now()+6e4;if(o.n>=10)o.hard=1;lkSet(o);
+  if(o.hard)return LKHARD;if(o.n===5)return "Too many wrong tries. Wait 1 minute, then you get 5 more tries.";
+  left=o.n<5?5-o.n:10-o.n;return "Wrong number or PIN. "+left+(left===1?" try":" tries")+" left."}
+function clIdt(act,ph,pin){var sin=act==="signInWithPassword";if(sin){var lm=lkCheck();if(lm)return Promise.reject(new Error(lm))}
+  return clReq("https://identitytoolkit.googleapis.com/v1/accounts:"+act+"?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:clMail(ph),password:clPw(pin),returnSecureToken:true})}).then(function(r){if(sin)lkClear();return clSession(r,ph)}).catch(function(e){if(sin&&/^(INVALID_LOGIN_CREDENTIALS|INVALID_PASSWORD|EMAIL_NOT_FOUND)$/.test(e.fb||""))e.message=lkFail();throw e})}
+function clToken(){var a=clAuth();if(!a)return Promise.reject(new Error("Not signed in"));if(Date.now()<a.exp)return Promise.resolve(a);
+  return clReq("https://securetoken.googleapis.com/v1/token?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+encodeURIComponent(a.rt)}).then(function(r){return clSession(r,a.phone)}).catch(function(e){if(e.status===400||e.status===401)clSet(null);throw e})}
+function clDoc(a){return "https://firestore.googleapis.com/v1/projects/"+FB.projectId+"/databases/(default)/documents/landlords/"+a.uid}
+function clBackup(){if(!clOn())return Promise.reject(new Error("Cloud backup isn't switched on yet."));
   if(!S.buildings||!S.buildings.length)return Promise.reject(new Error("There are no records to back up yet."));
-  return clToken().then(function(t){return clReq("/rest/v1/backups",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify({data:S,app:"1"})},t).then(function(){
-    try{localStorage.setItem(CT,String(Date.now()))}catch(e){}
-    return clReq("/rest/v1/backups?select=id&order=created_at.desc&offset=14",{},t).then(function(rows){if(rows&&rows.length)return clReq("/rest/v1/backups?id=in.("+rows.map(function(x){return x.id}).join(",")+")",{method:"DELETE"},t)}).catch(function(){})})})}
-function clLatest(){return clToken().then(function(t){return clReq("/rest/v1/backups?select=data,created_at&order=created_at.desc&limit=1",{},t)}).then(function(rows){return rows&&rows.length?rows[0]:null})}
+  return clToken().then(function(a){var now=Date.now();return clReq(clDoc(a)+"?updateMask.fieldPaths=data&updateMask.fieldPaths=savedAt",{method:"PATCH",headers:{"Content-Type":"application/json",Authorization:"Bearer "+a.at},body:JSON.stringify({fields:{data:{stringValue:JSON.stringify(S)},savedAt:{integerValue:String(now)}}})}).then(function(){try{localStorage.setItem(CT,String(now));localStorage.setItem(CR,"1")}catch(e){}})})}
+function clLatest(){return clToken().then(function(a){return clReq(clDoc(a),{headers:{Authorization:"Bearer "+a.at}})}).then(function(d){var f=d&&d.fields;if(!f||!f.data)return null;return {data:JSON.parse(f.data.stringValue),created_at:+((f.savedAt&&f.savedAt.integerValue)||0)}}).catch(function(e){if(e.status===404)return null;throw e})}
+function clQueue(){if(!clOn()||!clAuth()||!clReady()||demoMode)return;clearTimeout(clT);clT=setTimeout(function(){clT=null;clBackup().then(clStatus).catch(function(){})},20000)}
 function clWhen(ts){return new Date(ts).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
 function bkSync(){var s=$("bkSub"),w=$("bkWarn");if(!s)return;var bad=false,t="Save a copy of your records";
   if(clOn()){var a=clAuth(),l=clLast();if(!a||!l){t="Not backed up yet";bad=true}else if(Date.now()-l>7*864e5){t="Last backup "+clWhen(l)+". Open the app online to refresh";bad=true}else t="Last backup: "+clWhen(l)+" \u2713"}
@@ -590,25 +628,66 @@ function clStatus(){try{bkSync()}catch(e){}var f=$("clFoot");if(!f)return;if(!cl
   if(Date.now()-l>2*864e5){f.textContent="Last cloud backup: "+clWhen(l)+". Open the app with internet to back up.";f.style.color="var(--bad)"}
   else f.textContent="Cloud backup: "+clWhen(l)}
 function clView(msg){var a=clAuth(),on=clOn();$("clOff").hidden=!on||!!a;$("clOn").hidden=!on||!a;
-  $("clInfo").textContent=!on?"Cloud backup isn\u2019t switched on yet.":a?"Signed in as "+a.email+(clLast()?". Last backup: "+clWhen(clLast()):". Not backed up yet."):"Keep a safe copy of your records online. Enter your email and we send you a code. No password needed.";
+  $("clInfo").textContent=!on?"Cloud backup isn't switched on yet.":a?"Signed in as 0"+String(a.phone).slice(3)+(clLast()?". Last backup: "+clWhen(clLast()):". Not backed up yet."):"Keep a safe copy of your records online. Use your phone number and a 4-digit PIN you choose. If you forget it, call the Imara DSB admin.";
   $("clMsg").textContent=msg||"";$("clMsg").style.color=""}
 function clErr(e){$("clMsg").textContent=e&&e.message?e.message:"Something went wrong. Check your internet and try again.";$("clMsg").style.color="var(--bad)"}
 function clBusy(b,on,txt){if(on){b.dataset.t=b.textContent;b.textContent=txt;b.disabled=true}else{b.textContent=b.dataset.t||b.textContent;b.disabled=false}}
-$("bkBtn").onclick=function(){$("clEL").hidden=false;$("clCL").hidden=true;$("clSend").hidden=false;$("clVer").hidden=true;$("clCd").value="";clView();$("dCl").showModal()};
-$("clSend").onclick=function(){var b=this,em=$("clEm").value.trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){clErr(new Error("Enter a valid email address."));return}
-  clBusy(b,true,"Sending\u2026");clReq("/auth/v1/otp",{method:"POST",body:JSON.stringify({email:em,create_user:true})}).then(function(){clBusy(b,false);clMail=em;$("clEL").hidden=true;$("clCL").hidden=false;$("clSend").hidden=true;$("clVer").hidden=false;clView("We sent a code to "+em+". Type it below.")}).catch(function(e){clBusy(b,false);clErr(e)})};
-$("clVer").onclick=function(){var b=this,c=$("clCd").value.replace(/\s/g,"");if(c.length<6){clErr(new Error("Enter the code from your email."));return}
-  clBusy(b,true,"Checking\u2026");clReq("/auth/v1/verify",{method:"POST",body:JSON.stringify({type:"email",email:clMail,token:c})}).then(function(r){clBusy(b,false);clSession(r,clMail);clStatus();
-    if(!S.buildings.length){clView("Signed in. If you used the app before, tap Restore from cloud to bring your records back.");$("clMsg").textContent="Signed in. If you used the app before, tap Restore from cloud to bring your records back."}else clBackup().then(function(){clStatus();clView("Signed in and backed up.")}).catch(function(e){clView();clErr(e)})}).catch(function(e){clBusy(b,false);clErr(e)})};
+function clForm(){var ph=clPhone($("clEm").value),pin=$("clCd").value.trim();if(!ph){clErr(new Error("Enter a valid phone number, e.g. 0712 345 678."));return null}
+  if(!/^\d{4}$/.test(pin)){clErr(new Error("The PIN must be 4 digits."));return null}return {ph:ph,pin:pin}}
+$("bkBtn").onclick=function(){$("clEm").value="";$("clCd").value="";clView();$("dCl").showModal()};
+$("clSend").onclick=function(){var b=this,f=clForm();if(!f)return;clBusy(b,true,"Creating\u2026");
+  clIdt("signUp",f.ph,f.pin).then(function(){try{localStorage.setItem(CR,"1")}catch(e){}clStatus();
+    if(S.buildings&&S.buildings.length)return clBackup().then(function(){clStatus();clView("Account created and backed up \u2713")});clView("Account created.")}).then(function(){clBusy(b,false)}).catch(function(e){clBusy(b,false);clErr(e)})};
+$("clVer").onclick=function(){var b=this,f=clForm();if(!f)return;clBusy(b,true,"Signing in\u2026");
+  clIdt("signInWithPassword",f.ph,f.pin).then(function(){clStatus();return clLatest()}).then(function(row){clBusy(b,false);
+    if(!row){if(S.buildings&&S.buildings.length)return clBackup().then(function(){clStatus();clView("Signed in and backed up \u2713")});try{localStorage.setItem(CR,"1")}catch(e){}clView("Signed in. No cloud copy yet.");return}
+    var d=row.data;if(!d||!d.buildings||!d.units||!d.pays){clErr(new Error("The cloud copy can't be read."));return}
+    if(!S.buildings||!S.buildings.length){S=d;save();try{localStorage.setItem(CR,"1");localStorage.setItem(CT,String(row.created_at))}catch(e){}view=null;render();clStatus();clView("Signed in. Restored your records from "+clWhen(row.created_at)+" \u2713")}
+    else clView("Signed in. The cloud already has a copy from "+clWhen(row.created_at)+". Tap Restore from cloud to use it, or Back up now to replace it with this phone's records.")}).catch(function(e){clBusy(b,false);clErr(e)})};
+$("clFg").onclick=function(){var b=this,ph=clPhone($("clEm").value);if(!ph){clErr(new Error("Enter your phone number above first."));return}
+  clBusy(b,true,"Sending...");clReq("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestType:"PASSWORD_RESET",email:clMail(ph)})}).then(function(){clBusy(b,false);lkClear();clView("Reset request sent. Contact Imara DSB on WhatsApp to get the link for setting a new PIN.")}).catch(function(e){clBusy(b,false);clErr(e)})};
 $("clNow").onclick=function(){var b=this;clBusy(b,true,"Backing up\u2026");clBackup().then(function(){clBusy(b,false);clStatus();clView("Backed up \u2713")}).catch(function(e){clBusy(b,false);clErr(e)})};
 $("clRes").onclick=function(){var b=this;if(!cf(b,"Restore from cloud?","All records on this phone will be replaced with your latest cloud backup.","Restore",true))return;
   clBusy(b,true,"Restoring\u2026");clLatest().then(function(row){clBusy(b,false);if(!row){clView("No cloud backup found for this account yet.");return}var d=row.data;
-    if(!d||!d.buildings||!d.units||!d.pays){clErr(new Error("That backup can\u2019t be read."));return}
-    try{localStorage.setItem(KEY+"_before_restore",JSON.stringify(S))}catch(e){}
+    if(!d||!d.buildings||!d.units||!d.pays){clErr(new Error("That backup can't be read."));return}
+    try{localStorage.setItem(KEY+"_before_restore",JSON.stringify(S));localStorage.setItem(CR,"1");localStorage.setItem(CT,String(row.created_at))}catch(e){}
     S=d;save();view=null;render();clStatus();clView("Restored the backup from "+clWhen(row.created_at)+" \u2713")}).catch(function(e){clBusy(b,false);clErr(e)})};
-$("clOut").onclick=function(){clSet(null);try{localStorage.removeItem(CT)}catch(e){}clStatus();$("clEL").hidden=false;$("clCL").hidden=true;$("clSend").hidden=false;$("clVer").hidden=true;clView("Signed out. Your records are still on this phone.")};
-function clAuto(){if(!clOn()||!clAuth()||demoMode)return;if(Date.now()-clLast()<864e5)return;if(!S.buildings||!S.buildings.length)return;clBackup().then(clStatus).catch(function(){})}
-document.addEventListener("visibilitychange",function(){if(!document.hidden)clAuto()});
+$("clOut").onclick=function(){clSet(null);try{localStorage.removeItem(CT);localStorage.removeItem(CR)}catch(e){}$("dCl").close();clStatus();gateShow()};
+function clAuto(){if(!clOn()||!clAuth()||!clReady()||demoMode)return;if(Date.now()-clLast()<864e5)return;if(!S.buildings||!S.buildings.length)return;clBackup().then(clStatus).catch(function(){})}
+document.addEventListener("visibilitychange",function(){if(document.hidden){if(clT){clearTimeout(clT);clT=null;clBackup().then(clStatus).catch(function(){})}}else clAuto()});
+/* ===== Compulsory sign-in screen (shown until the landlord is signed in) ===== */
+var gMode="up";
+function gateNeeded(){return clOn()&&!clAuth()&&!demoMode}
+function gMsg(t,bad){var m=$("gMsg");m.textContent=t||"";m.style.color=bad?"var(--bad)":""}
+var gLocked=false,gLkT=null;
+function gLockUI(){clearTimeout(gLkT);var b=$("gGo"),m=gMode==="in"?lkCheck():"";if(m){gLocked=true;b.disabled=true;gMsg(m,1);if(!lkGet().hard)gLkT=setTimeout(gLockUI,1000)}else if(gLocked){gLocked=false;b.disabled=false;gMsg("")}}
+function gMode_(m){gMode=m;var up=m==="up";$("gT").textContent=up?"Create your account":"Welcome back";
+  $("gS").textContent=up?"Use your phone number and a 4-digit PIN you choose. Your records are backed up safely online.":"Sign in with your phone number and PIN.";
+  $("gPin2L").hidden=!up;$("gGo").textContent=up?"Create account":"Sign in";
+  $("gSw").textContent=up?"I already have an account. Sign in":"New here? Create an account";$("gFg").hidden=up;gMsg("");gLockUI()}
+function gateShow(){if(!gateNeeded()){$("gate").hidden=true;return}document.querySelectorAll("#gate [data-eye]").forEach(function(b){b.textContent="Show"});eyeSet(["gPin","gPin2"],false);$("gPh").value="";$("gPin").value="";$("gPin2").value="";gMode_("up");$("gate").hidden=false}
+function gateDone(msg){$("gate").hidden=true;view=null;render();clStatus();if(msg){clView(msg);$("dCl").showModal()}}
+function gForm(){var ph=clPhone($("gPh").value),pin=$("gPin").value.trim();
+  if(!ph){gMsg("Enter a valid phone number, e.g. 0712 345 678.",1);return null}
+  if(!/^\d{4}$/.test(pin)){gMsg("The PIN must be 4 digits.",1);return null}
+  if(gMode==="up"&&$("gPin2").value.trim()!==pin){gMsg("The two PINs don't match.",1);return null}
+  return {ph:ph,pin:pin}}
+$("gSw").onclick=function(){gMode_(gMode==="up"?"in":"up")};
+$("gGo").onclick=function(){var b=this,f=gForm();if(!f)return;gMsg("");
+  if(gMode==="up"){clBusy(b,true,"Creating\u2026");
+    clIdt("signUp",f.ph,f.pin).then(function(){try{localStorage.setItem(CR,"1")}catch(e){}
+      if(S.buildings&&S.buildings.length)return clBackup().catch(function(){});}).then(function(){clBusy(b,false);gateDone()}).catch(function(e){clBusy(b,false);gMsg(e.message||"Something went wrong. Check your internet and try again.",1)});return}
+  clBusy(b,true,"Signing in\u2026");
+  clIdt("signInWithPassword",f.ph,f.pin).then(function(){return clLatest()}).then(function(row){clBusy(b,false);
+    if(!row){try{localStorage.setItem(CR,"1")}catch(e){}if(S.buildings&&S.buildings.length)clBackup().catch(function(){});gateDone();return}
+    var d=row.data;if(!d||!d.buildings||!d.units||!d.pays){gMsg("The cloud copy can't be read.",1);return}
+    if(!S.buildings||!S.buildings.length){S=d;save();try{localStorage.setItem(CR,"1");localStorage.setItem(CT,String(row.created_at))}catch(e){}gateDone();return}
+    gateDone("Signed in. The cloud already has a copy from "+clWhen(row.created_at)+". Tap Restore from cloud to use it, or Back up now to replace it with this phone's records.")}).catch(function(e){clBusy(b,false);gMsg(e.message||"Something went wrong. Check your internet and try again.",1);gLockUI()})};
+$("gFg").onclick=function(){var b=this,ph=clPhone($("gPh").value);if(!ph){gMsg("Enter your phone number above first.",1);return}
+  clBusy(b,true,"Sending...");clReq("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestType:"PASSWORD_RESET",email:clMail(ph)})}).then(function(){clBusy(b,false);lkClear();gLockUI();gMsg("Reset request sent. Contact Imara DSB on WhatsApp to get the link for setting a new PIN.")}).catch(function(e){clBusy(b,false);gMsg(e.message,1)})};
+function eyeSet(ids,on){ids.forEach(function(id){var i=$(id);if(i){if(on)i.setAttribute("data-show","1");else i.removeAttribute("data-show")}});document.querySelectorAll("[data-eye]").forEach(function(x){if(x.getAttribute("data-eye").split(",").some(function(id){return ids.indexOf(id)>-1}))x.textContent=on?"Hide":"Show"})}
+document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-eye]"):null;if(!b)return;e.preventDefault();e.stopPropagation();var ids=b.getAttribute("data-eye").split(","),f=$(ids[0]);eyeSet(ids,!(f&&f.getAttribute("data-show")==="1"))},true);
+gateShow();
 setTimeout(clAuto,4000);clStatus();
 
 render();
