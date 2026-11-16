@@ -57,14 +57,14 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--pri);outline-of
 .empty{text-align:center;color:var(--mute);padding:36px 12px;border:1px dashed var(--line);border-radius:14px}
 .fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 4px 14px rgba(0,0,0,.25);padding:14px 18px;border-radius:30px}
 dialog{border:0;border-radius:16px;padding:18px;width:min(92vw,420px);background:var(--card);color:var(--ink)}
-dialog::backdrop{background:rgba(0,0,0,.5)}#pCodeL{display:none!important}
+dialog::backdrop{background:rgba(0,0,0,.5)}#pCodeL{display:none!important}#dT label{margin-top:8px;font-size:13px}#dT .dl{margin-top:12px}
 label{display:block;font-size:14px;font-weight:600;margin-top:10px}
 input,select{width:100%;font:inherit;padding:10px;margin-top:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
 .dl{display:flex;gap:8px;margin-top:16px}.dl button{flex:1}
 dialog:not(.sheet){max-height:calc(100dvh - 20px);overflow:auto}
 .kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.kp button{padding:13px 0;font-size:21px;font-weight:600;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}.kp button:active{background:var(--line)}.kp4{grid-template-columns:repeat(12,1fr)}.kp4 button{grid-column:span 4}.kp4 button.k3{grid-column:span 3}.tx{display:block;width:100%;min-height:42px;line-height:20px;font:inherit;font-size:16px;padding:10px;margin-top:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);white-space:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-user-select:text;user-select:text;cursor:text}.tx::-webkit-scrollbar{display:none}.tx:empty:before{content:attr(data-ph);color:var(--mute);pointer-events:none}.tx:focus{outline:3px solid var(--pri);outline-offset:2px}
 #rIn,#pAmt{caret-color:transparent}#uPre,#uName{text-transform:uppercase}
-.back:focus{outline:none}.hcard{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 14px;margin:4px 0 8px}.av{flex:0 0 42px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--okbg);color:var(--pri);font-weight:800;font-size:16px}.av[hidden]{display:none}.hid{min-width:0;flex:1}#uTitle{font-size:20px;margin:0 0 2px;overflow-wrap:anywhere;line-height:1.15}#uBld{display:flex;align-items:center;gap:6px;min-width:0;font-size:14px;color:var(--mute)}#uBld .bn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.ren{background:none;color:var(--pri);padding:0;min-height:0;font-size:14px;font-weight:700;flex:none;border-radius:0}#uTen{font-size:12px;color:var(--mute);margin-top:1px;overflow-wrap:anywhere}.hacts{display:flex;gap:8px;margin:0 0 6px}.ab{flex:1;display:block;text-align:center;text-decoration:none;min-height:36px;line-height:34px;padding:0 6px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--pri);font-size:14px;font-weight:700;font-family:inherit}.ab.bad{color:var(--bad)}.back{margin-bottom:0;padding:2px 0;background:transparent;color:var(--pri);padding:6px 0}
+.back:focus{outline:none}.hcard{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 14px;margin:4px 0 8px}.av{flex:0 0 42px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--okbg);color:var(--pri);font-weight:800;font-size:16px}.av[hidden]{display:none}.hid{min-width:0;flex:1}#uTitle{font-size:20px;margin:0 0 2px;overflow-wrap:anywhere;line-height:1.15}#uBld{display:flex;flex-wrap:wrap;align-items:center;gap:0 6px;min-width:0;font-size:14px;color:var(--mute)}#uBld .bn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.ren{background:none;color:var(--pri);padding:0;min-height:0;font-size:14px;font-weight:700;flex:none;border-radius:0}#uTen{font-size:12px;color:var(--mute);margin-top:1px;overflow-wrap:anywhere}.hacts{display:flex;gap:8px;margin:0 0 6px}.ab{flex:1;display:block;text-align:center;text-decoration:none;min-height:36px;line-height:34px;padding:0 6px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--pri);font-size:14px;font-weight:700;font-family:inherit}.ab.bad{color:var(--bad)}.back{margin-bottom:0;padding:2px 0;background:transparent;color:var(--pri);padding:6px 0}
 .foot{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
 .sheet{position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100%;max-height:none;border-radius:0;overflow:auto;background:var(--bg);padding:calc(14px + env(safe-area-inset-top,0px)) max(16px,calc((100vw - 560px)/2)) calc(24px + env(safe-area-inset-bottom,0px))}
 .sheet h1{font-size:24px}
@@ -74,6 +74,7 @@ dialog:not(.sheet){max-height:calc(100dvh - 20px);overflow:auto}
 .pm{border-top:1px solid var(--line);padding:10px 0}
 .pa{display:flex;gap:20px;margin-top:2px}.pa button{background:none;padding:6px 0;min-height:36px;font-size:14px;color:var(--pri);text-decoration:underline}.sl{display:block;text-align:center;padding:13px 14px;border-radius:10px;background:var(--line);color:var(--ink);font-weight:600;text-decoration:none}
 .pa .pdel{color:var(--bad)}
+.pm.pmx{padding:4px 0!important}.pmx .tag{padding:1px 8px;font-size:12px}.pmx .row{align-items:center;min-height:0}.pmx .pa button{min-height:26px!important;padding:0!important;font-size:13px!important}.pmx .mute{font-size:13px}
 .ubar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.12)}.ubar button{flex:none;background:var(--pri);color:var(--onpri);padding:11px 16px}.ubar .mute{flex:1;font-size:13px;min-width:0}.ubar.slim{padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px));gap:10px;animation:ubfade .3s ease forwards}.ubar.slim .mute{font-size:14px;color:var(--ink)}.ubar.slim button{background:none;color:var(--pri);min-height:36px;padding:6px 4px;font-size:14px;font-weight:700}@keyframes ubfade{to{opacity:0;visibility:hidden;pointer-events:none}}
 .pl{font-size:13px;color:var(--mute);margin-top:4px}
 
@@ -83,7 +84,7 @@ dialog:not(.sheet){max-height:calc(100dvh - 20px);overflow:auto}
 .kv>.v{justify-self:end;display:flex;align-items:center;gap:10px;font-weight:800;text-align:right;min-width:0}
 .kv>.v button{min-height:36px;padding:6px 14px;font-size:14px;border-radius:999px}
 .kv .tag{font-size:14px;padding:5px 12px}
-.card-dl{padding:6px 18px!important}
+.card-dl{padding:6px 18px!important}.card-dl.tcard{padding:0 18px!important}.fhead{display:flex;justify-content:space-between;align-items:center;margin:10px 4px 6px;font-size:14px;font-weight:700;color:var(--mute);cursor:pointer}
 .acts2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 22px}
 .acts2 button{min-height:48px;font-size:15px;border-radius:14px}
 #dUnit,#dS,#dEm,#dE,#dN{font-family:Inter,Helvetica,Arial,sans-serif}
@@ -95,12 +96,12 @@ dialog:not(.sheet){max-height:calc(100dvh - 20px);overflow:auto}
 #dUnit .hacts,#dS .hacts{gap:6px;margin:0 0 6px}
 #dUnit .ab,#dS .ab{min-height:34px;line-height:32px}
 #dUnit .t,#dS .t{padding:2px 14px;border-radius:16px}
-#dUnit .kv,#dS .kv{min-height:38px;padding:3px 0}
+#dUnit .kv,#dS .kv{min-height:38px;padding:4px 0}#dUnit .kv .tag{padding:3px 12px}
 #dUnit .kv>.mute,#dS .kv>.mute{font-size:14px}
-#dUnit .acts2{gap:8px;margin:0 0 8px}
+#dUnit .acts2{gap:8px;margin:0 0 6px}
 #dUnit .acts2 button{min-height:42px}
-#dUnit .pm,#dS .pm{padding:7px 0}
-#dUnit .chips{margin:8px 0}
+#dUnit .pm,#dS .pm{padding:6px 0}
+#dUnit .chips{margin:6px 0}
 dialog.bs{margin:auto 0 0;width:100%;max-width:none;border-radius:24px 24px 0 0;padding:12px 18px calc(18px + env(safe-area-inset-bottom,0px));max-height:90%;overflow:auto}
 .grab{width:42px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 12px}
 .opt{display:flex;justify-content:flex-start;gap:14px;align-items:center;width:100%;text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:10px;font-weight:400}
@@ -133,6 +134,8 @@ main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 #gate #gMsg{font-size:14px;margin-top:10px;min-height:18px}
 .pin{padding-right:64px}.pin:not([data-show="1"]){-webkit-text-security:disc}.pin[data-show="1"]{-webkit-text-security:none!important}.pin.tx:empty:before{-webkit-text-security:none!important}
 .pinw{position:relative}.pinw .eye{position:absolute;right:2px;bottom:1px;margin:0;padding:0 12px;min-height:0;height:42px;background:transparent;color:var(--pri);border:0;font-size:14px;font-weight:600;z-index:2}
+.fchips{display:inline-flex;max-width:100%;gap:2px;overflow-x:auto;margin:2px 0 10px;padding:3px;background:var(--line);border-radius:999px;scrollbar-width:none}.fchip{flex:none;padding:6px 16px;border-radius:999px;background:transparent;border:0;color:var(--mute);font-size:14px;font-weight:700;min-height:34px;line-height:1.2}.fchip.on{background:var(--pri);color:var(--onpri)}.fd{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--bad);margin-left:6px;vertical-align:1px}.fchip.on .fd{box-shadow:0 0 0 1.5px var(--onpri)}.fsel{font-size:14px;color:var(--mute);margin:0 4px 8px}.fsel b{color:var(--ink);font-size:16px}.tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tile{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;cursor:pointer}.tile.sel{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri)}.tile .tn{font-size:19px;font-weight:800;line-height:1.2;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tile .tt{font-size:12.5px;color:var(--mute);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tile .tag{font-size:11px;padding:3px 8px}.tile .ck{position:absolute;top:5px;right:5px}
+.tychips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.tych{padding:6px 12px;border-radius:999px;background:var(--bg);border:1px solid var(--line);font-size:14px;font-weight:600;min-height:34px;color:var(--ink)}.tych.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
 </style>
 </head>
 <body>
@@ -169,7 +172,7 @@ main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 <dialog id="dC"><h2 style="margin:0;font-size:20px" id="cT"></h2><div id="cM" style="margin-top:8px;white-space:pre-line;font-size:15px;color:var(--mute)"></div><div class="dl"><button id="cNo">Cancel</button><button class="pri" id="cYes">OK</button></div></dialog>
 <dialog id="dCl"><h2 style="margin:0">Cloud backup</h2>
 <div class="mute" style="margin-top:6px" id="clInfo"></div>
-<div class="mute" style="margin-top:6px;font-size:13px">Your records are saved on this phone only. Clearing browser data erases them, so keep a backup.</div>
+<div class="mute" style="margin-top:6px;font-size:13px">Your records are stored on this phone. Back up regularly: a backup lets you restore them if you change phones or clear the app’s data.</div>
 <div id="clOff" hidden>
 <label>Phone number<input id="clEm" type="text" inputmode="tel" placeholder="Tap to add number" autocomplete="off"></label>
 <div class="pinw"><label>4-digit PIN<input class="pin" id="clCd" type="text" inputmode="numeric" maxlength="4" placeholder="Tap to add PIN" autocomplete="off"></label><button type="button" class="eye" data-eye="clCd">Show</button></div>
@@ -194,6 +197,10 @@ main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 
 <dialog id="dNu"><h2 style="margin:0" id="nuT"></h2><div class="mute" style="margin-top:6px">There is no record for this month yet.</div><div class="acts" style="flex-direction:column;margin-top:14px"><button class="pri" id="nuHist">Enter historical record</button><button id="nuNone">Mark as no payment</button></div><div class="dl"><button data-x="dNu">Cancel</button></div></dialog>
 
+<dialog id="dRf"><h2 style="margin:0;font-size:19px">Rename floor</h2><div class="mute" style="margin-top:4px">Rooms on <b id="rfOld"></b> move to the new name. Tenants and payments stay as they are.</div>
+<div class="tychips" id="rfChips"></div>
+<label>Floor name<input id="rfName" placeholder="e.g. Ground, First, Block B" autocomplete="off"></label>
+<div class="dl"><button data-x="dRf">Cancel</button><button class="pri" id="rfSave">Save name</button></div></dialog>
 <dialog id="dB"><h2 style="margin:0">Add building</h2>
 <label>Building name<input id="bName" placeholder="e.g. Mwangaza Apartments" autocomplete="off"></label>
 <div class="dl"><button data-x="dB">Cancel</button><button class="pri" id="bSave">Save building</button></div></dialog>
@@ -202,16 +209,21 @@ main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"><button type="button" id="uM1" class="pri">One room</button><button type="button" id="uM2">Many rooms</button></div>
 <div id="uOne"><label>Room name or number<input id="uName" placeholder="e.g. B4" autocomplete="off"></label></div>
 <div id="uMany" style="display:none"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><label>Letter<input id="uPre" placeholder="A" maxlength="3" autocomplete="off"></label><label>From<input id="uFrom" type="text" inputmode="numeric" placeholder="1" maxlength="3"></label><label>To<input id="uTo" type="text" inputmode="numeric" placeholder="10" maxlength="3"></label></div><div id="uPrev" class="mute" style="margin-top:10px">Type a letter (or leave it blank for plain numbers) and the first and last number, e.g. A, 1, 10.</div></div>
+<label>Floor (optional)<select id="uFl"></select></label>
+<label style="margin-top:10px">Room type (optional)</label><div class="tychips" id="uTy"></div>
 <div class="dl"><button data-x="dU">Cancel</button><button class="pri" id="uSave">Save rooms</button></div></dialog>
 
 <dialog id="dRent"><h2 style="margin:0">Monthly rent</h2>
 <label>Agreed rent (KES)<input id="rIn" type="number" inputmode="numeric"></label>
-<div class="pl" style="font-size:13px;margin-top:10px">A rent change applies to every month, including past ones.</div>
+<div class="pl" id="rNote" style="font-size:13px;margin-top:10px">A rent change applies from this month onward. Past months keep their old rent.</div>
 <div class="dl"><button data-x="dRent">Cancel</button><button class="pri" id="rSave">Save rent</button></div></dialog>
 
-<dialog id="dT"><h2 style="margin:0" id="tTitle">Add tenant</h2>
+<dialog id="dT" style="padding:14px 16px"><h2 style="margin:0;font-size:17px;font-weight:700" id="tTitle">Add tenant</h2>
+<button type="button" id="tPick" style="width:100%;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--pri);border:1.5px solid var(--pri);min-height:42px;font-size:15px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="15" height="18" rx="2"/><circle cx="11.5" cy="10" r="2.5"/><path d="M7.5 17c.6-2 2.2-3 4-3s3.4 1 4 3"/><path d="M21 8v3M21 13v3"/></svg>Choose from contacts</button>
+<div class="mute" style="text-align:center;font-size:13px;margin:6px 0 0">or type the details below</div>
 <label>Tenant name<input id="tName" autocomplete="off"></label>
-<label>Phone (WhatsApp)<input id="tPhone" type="tel" placeholder="0712345678"></label>
+<div style="position:relative"><label>Phone (WhatsApp)<input id="tPhone" type="tel" placeholder="Tap to add number" style="padding-right:52px"></label><button type="button" id="tPick2" aria-label="Choose from contacts" style="position:absolute;right:4px;bottom:1px;width:42px;height:42px;min-height:0;padding:0;background:none;color:var(--pri);display:grid;place-items:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="15" height="18" rx="2"/><circle cx="11.5" cy="10" r="2.5"/><path d="M7.5 17c.6-2 2.2-3 4-3s3.4 1 4 3"/><path d="M21 8v3M21 13v3"/></svg></button></div>
+<div id="tOk" hidden style="color:var(--ok);font-size:13px;font-weight:600;margin-top:6px">Filled from your contacts ✓</div>
 <div class="dl"><button data-x="dT">Cancel</button><button class="pri" id="tSave">Save tenant</button></div></dialog>
 
 <dialog id="dP" style="margin:10px auto auto;padding:14px;max-height:calc(100% - 20px);overflow:auto"><h2 style="margin:0;font-size:18px" id="pTitle">Record payment</h2>
@@ -225,6 +237,7 @@ main.home{padding-bottom:150px}.home .building-copy #sub{font-size:14px}
 
 <dialog id="dN" class="bs"><h2 style="margin:0">Edit room</h2>
 <label>Room name or number<input id="nIn" autocomplete="off"></label>
+<label style="margin-top:10px">Room type (optional)</label><div class="tychips" id="nTy"></div>
 <div class="mute" id="nBld" style="margin-top:10px"></div>
 <div class="dl"><button id="nBack">Back</button><button class="pri" id="nSave">Save</button></div></dialog>
 
@@ -282,62 +295,63 @@ function label(m){var p=m.split("-");return new Date(+p[0],+p[1]-1,1).toLocaleDa
 function wa(p){p=String(p).replace(/\D/g,"");if(p.indexOf("0")===0)p="254"+p.slice(1);return p}
 function showMsg(title,u,msg){rcpMsg=msg;rcpPhone=u.tenant.phone||"";$("rTitle").textContent=title;$("rTo").textContent=u.name+" \u00b7 "+u.tenant.name+(rcpPhone?" \u00b7 "+rcpPhone:" \u00b7 no phone saved");$("rMsg").textContent=msg;
   $("rActs").innerHTML=(rcpPhone?'<button class="pri" data-rs="wa">WhatsApp</button><button data-rs="sms">Text message (SMS)</button>':'')+'<button data-rs="copy">Copy message</button>';$("dR").showModal()}
-function planFor(u,m0,a){var plan=[],rem=a,m=m0,n=0,bal0=null;while(rem>0&&n<60){var done=0,mm=m;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===mm)done+=p.amt});var bal=Math.max(0,u.rent-done);if(bal0===null)bal0=bal;if(bal>0){var put=Math.min(rem,bal);plan.push({m:m,a:put});rem-=put}m=shift(m,1);n++}return{plan:plan,bal0:bal0}}
-function updHint(){var uu=find(S.units,tgt);if(uu&&uu.tenant){var m1=pm||cur,dn=0;S.pays.forEach(function(p){if(p.tid===uu.tenant.id&&p.month===m1)dn+=p.amt});$("pSum").textContent="Rent due "+kes(uu.rent)+" \u00b7 Paid "+kes(dn)+" \u00b7 Balance "+kes(Math.max(0,uu.rent-dn))}
+function planFor(u,m0,a){var plan=[],rem=a,m=m0,n=0,bal0=null;while(rem>0&&n<60){var done=0,mm=m;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===mm)done+=p.amt});var bal=Math.max(0,rentAt(u,mm)-done);if(bal0===null)bal0=bal;if(bal>0){var put=Math.min(rem,bal);plan.push({m:m,a:put});rem-=put}m=shift(m,1);n++}return{plan:plan,bal0:bal0}}
+function updHint(){var uu=find(S.units,tgt);if(uu&&uu.tenant){var m1=pm||cur,dn=0;S.pays.forEach(function(p){if(p.tid===uu.tenant.id&&p.month===m1)dn+=p.amt});$("pSum").textContent="Rent due "+kes(rentAt(uu,m1))+" \u00b7 Paid "+kes(dn)+" \u00b7 Balance "+kes(Math.max(0,rentAt(uu,m1)-dn))}
   var h=$("pHint"),a=+$("pAmt").value.replace(/,/g,""),u=find(S.units,tgt);if(!u||!u.tenant||!(a>0)||window.__ep){h.hidden=true;return}
   var m0=pm||cur,r=planFor(u,m0,a);h.hidden=false;
   if(r.plan.length>1||r.plan[0].m!==m0){h.style.color="var(--warn)";h.textContent=(r.bal0===0?label(m0)+" is already fully paid. ":label(m0)+" only needs "+kes(r.bal0)+". ")+"This will be carried forward: "+r.plan.map(function(x){return kes(x.a)+" \u2192 "+label(x.m)}).join(", ")+"."}
   else{h.style.color="var(--mute)";h.textContent="This goes to "+label(m0)+"."}}
 function find(a,id){return a.filter(function(x){return x.id===id})[0]}
 function ts(t){return t.track&&t.track>t.start?t.track:t.start}
+function rentAt(u,m){var h=u.rh;if(!h||!h.length||!m)return u.rent;var r=u.rent,best="";h.forEach(function(x){if(x.from<=m&&x.from>=best){best=x.from;r=x.rent}});return best?r:u.rent}
 function stats(u){
   var t=u.tenant;if(!t)return null;
   var n=months(ts(t),cur);if(n<1)return null;
   var paid=0,thisM=0,em={},k;
   S.pays.forEach(function(p){if(p.tid===t.id){if(p.month<=cur)paid+=p.amt;if(p.month<ts(t))em[p.month]=1;if(p.month===cur)thisM+=p.amt}});
   (S.nop||[]).forEach(function(k){var a=String(k).split("|");if(a[0]===String(t.id)&&a[1]<ts(t))em[a[1]]=1});
-  return{owed:Math.max(0,(n+Object.keys(em).length)*u.rent-paid),thisM:thisM,paid:paid}
+  var due=0,i;for(i=0;i<n;i++)due+=rentAt(u,shift(ts(t),i));Object.keys(em).forEach(function(k){due+=rentAt(u,k)});return{owed:Math.max(0,due-paid),thisM:thisM,paid:paid}
 }
 function totals(units){var e=0,c=0,o=0,occ=0;units.forEach(function(u){var s=stats(u);if(!s)return;occ++;e+=u.rent;c+=Math.min(s.thisM,u.rent);o+=s.owed});return{e:e,c:c,o:o,occ:occ}}
 function recpay(){var u=find(S.units,uOpen),pdn=0;tgt=uOpen;S.pays.forEach(function(p){if(p.tid===u.tenant.id&&p.month===pm)pdn+=p.amt});$("pTitle").textContent="Payment for "+label(pm)+" · "+u.tenant.name;$("pAmt").value="";$("pCode").value="";$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
 function msheet(){
-  if(!$("dM").open)return;var u=find(S.units,uOpen);if(!u||!u.tenant){$("dM").close();return}
+  if(!$("dM").open)return;var u=find(S.units,uOpen);if(!u||!u.tenant){$("dM").close();return}u=Object.assign({},u,{rent:rentAt(u,pm)});
   var ps=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),sum=0;ps.forEach(function(p){sum+=p.amt});
   var left=Math.max(0,u.rent-sum),row='<div class="row" style="margin-top:8px"><span class="mute">';
   $("mTitle").textContent=label(pm);$("mSub").textContent=u.name+" \u00b7 "+u.tenant.name+((find(S.buildings,u.bid)||{}).name?" \u00b7 "+find(S.buildings,u.bid).name:"");
   $("mBody").innerHTML='<div class="t" style="margin:14px 0"><div class="row" style="align-items:center"><b style="font-size:20px">'+(sum>=u.rent?kes(sum)+' paid':sum>0?kes(left)+' left':kes(u.rent)+' due')+'</b><span class="tag '+(sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span></div>'+(sum>0&&sum<u.rent?'<div class="mute" style="margin-top:6px">'+kes(sum)+' paid of '+kes(u.rent)+'</div>':'')+'</div>'+
    '<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Payments</h2>'+
-   (ps.length?ps.map(function(p){return '<div class="pm"><div class="row"><b>'+kes(p.amt)+'</b><span class="tag paid">'+(p.method||(p.code?"M-Pesa":"Paid"))+'</span></div><div class="mute">'+new Date(p.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+(p.code?" \u00b7 Ref "+esc(p.code):"")+'</div><div class="pa"><button data-pedit="'+p.id+'">\u270e Edit</button><button class="pdel" data-pdel="'+p.id+'">Delete</button></div></div>'}).join(""):'<div class="empty">No payments recorded for this month.</div>')+
+   (ps.length?ps.map(function(p,i){return '<div class="pm pmx"><div class="row"><b><span style="color:var(--mute);margin-right:8px">'+(i+1)+'.</span>'+kes(p.amt)+'</b><span class="tag paid">'+(p.method||(p.code?"M-Pesa":"Paid"))+'</span></div><div class="row" style="align-items:center"><div class="mute">'+new Date(p.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+(p.code?" \u00b7 Ref "+esc(p.code):"")+'</div><div class="pa" style="margin:0;gap:14px"><button data-pedit="'+p.id+'">\u270e Edit</button><button class="pdel" data-pdel="'+p.id+'">Delete</button></div></div></div>'}).join(""):'<div class="empty">No payments recorded for this month.</div>')+
    '<div class="acts" style="margin-top:14px;flex-direction:column">'+(sum>=u.rent?'<button class="pri" data-mrcp="1">Send receipt</button><button data-rp="1">Add payment</button>':'<button class="pri" data-rp="1">'+(sum>0?"Record another payment":"Record payment")+'</button>')+(sum>0&&sum<u.rent?'<button data-mrcp="1">Send receipt</button>':'')+'</div>';
 }
-function mrcpt(){var u=find(S.units,uOpen);if(!u||!u.tenant)return;var rp=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),rs=0,lp=null;rp.forEach(function(p){rs+=p.amt;if(!lp||p.date>=lp.date)lp=p});
+function mrcpt(){var u=find(S.units,uOpen);if(!u||!u.tenant)return;u=Object.assign({},u,{rent:rentAt(u,pm)});var rp=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===pm}),rs=0,lp=null;rp.forEach(function(p){rs+=p.amt;if(!lp||p.date>=lp.date)lp=p});
   showMsg("Send receipt",u,"Hello "+u.tenant.name+", we confirm receipt of rent for "+u.name+" for "+label(pm)+": "+kes(rs)+(lp?" (last payment "+new Date(lp.date+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})+" by "+(lp.method||"M-Pesa")+(lp.code?", ref "+lp.code:"")+")":"")+(rs<u.rent?". Balance remaining: "+kes(u.rent-rs):"")+". Thank you.")}
 function openMonth(m){try{localStorage.setItem("rtMonthTap","1")}catch(e){}var u=find(S.units,uOpen);if(!u||!u.tenant)return;var t=u.tenant,sum=0;S.pays.forEach(function(p){if(p.tid===t.id&&p.month===m)sum+=p.amt});pm=m;tgt=uOpen;
   if(m<ts(t)&&sum===0&&(S.nop||[]).indexOf(t.id+"|"+m)<0){$("nuT").textContent=label(m)+" \u00b7 Not updated";$("dNu").showModal();return}
   $("dM").showModal();msheet()}
-function mrows(u,t,list){var rows="";list.forEach(function(m){var ps=S.pays.filter(function(p){return p.tid===t.id&&p.month===m}),sum=0;ps.forEach(function(p){sum+=p.amt});var na=m<ts(t)&&sum===0,nn=na&&(S.nop||[]).indexOf(t.id+"|"+m)>-1;if(na&&!nn&&!(t.from&&m>=t.from))return;rows+='<div class="pm" data-month="'+m+'" style="cursor:pointer"><div class="row"><b>'+label(m)+'</b><span class="sp"><span class="tag '+(na?"na":sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(nn?"No payment":na?"Not updated":sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span><span class="chev">›</span></span></div>'+((na&&!nn)?"":'<div class="mute">'+(nn?"Confirmed: no payment":sum>=u.rent?kes(sum):kes(sum)+" of "+kes(u.rent))+'</div>')+'</div>'});return rows}
+function mrows(u0,t,list){var rows="";list.forEach(function(m){var u=Object.assign({},u0,{rent:rentAt(u0,m)});var ps=S.pays.filter(function(p){return p.tid===t.id&&p.month===m}),sum=0;ps.forEach(function(p){sum+=p.amt});var na=m<ts(t)&&sum===0,nn=na&&(S.nop||[]).indexOf(t.id+"|"+m)>-1;if(na&&!nn&&!(t.from&&m>=t.from))return;rows+='<div class="pm" data-month="'+m+'" style="cursor:pointer"><div class="row"><b>'+label(m)+'</b><span class="sp"><span class="tag '+(na?"na":sum>=u.rent?"paid":sum>0?"part":"due")+'">'+(nn?"No payment":na?"Not updated":sum>=u.rent?"Paid":sum>0?"Part paid":"Not paid")+'</span><span class="chev">›</span></span></div>'+((na&&!nn)?"":'<div class="mute" style="font-weight:700">'+(nn?"Confirmed: no payment":sum>=u.rent?kes(sum):sum>0?'<span style="color:var(--warn);font-weight:700"><b>'+sum.toLocaleString("en-US")+'</b> of '+u.rent.toLocaleString("en-US")+'</span>':kes(sum)+" of "+kes(u.rent))+'</div>')+'</div>'});return rows}
 function sheet(){
   if(uOpen==null)return;var u=find(S.units,uOpen);if(!u){$("dUnit").close();return}
   var t=u.tenant,s=stats(u),i,ms=[],bd=find(S.buildings,u.bid),h="";
   var ren='<button data-ren="'+u.id+'" aria-label="Rename room" class="ren">Room '+esc(u.name)+' \u270e</button>';
   $("uAv").hidden=!t;$("uAv").textContent=t?t.name.trim().split(/\s+/).slice(0,2).map(function(w){return w.charAt(0)}).join("").toUpperCase():"";
   $("uTitle").innerHTML=t?esc(t.name):ren;
-  $("uBld").innerHTML=(t?'<b style="color:var(--pri);white-space:nowrap">Room '+esc(u.name)+'</b><span>\u00b7</span>':'')+'<span class="bn">'+esc(bd?bd.name:"")+'</span>';
-  $("uTen").textContent=t?(t.phone?t.phone+" \u00b7 ":"")+"Since "+label(t.start):"Vacant";
+  var bp=[];if(t)bp.push('<b style="color:var(--pri);white-space:nowrap">Room '+esc(u.name)+"</b>");if(u.ty)bp.push('<span class="bn">'+esc(u.ty)+"</span>");if(!t)bp.push('<span class="bn">'+esc(bd?bd.name:"")+"</span>");$("uBld").innerHTML=bp.join("<span>\u00b7</span>");
+  $("uTen").textContent=t?(t.phone?t.phone+" \u00b7 ":"")+(u.fl?u.fl+" \u00b7 ":"")+"Since "+new Date(+t.start.slice(0,4),+t.start.slice(5,7)-1,1).toLocaleDateString("en-US",{month:"short",year:"numeric"}):"Vacant"+(u.fl?" \u00b7 "+u.fl:"");
   $("uLinks").innerHTML=t?(t.phone?'<a class="ab" href="tel:'+esc(t.phone)+'">Call</a>':'<button class="ab" data-addph="'+u.id+'">Add phone</button>')+'<button class="ab" data-edit="'+u.id+'">Edit</button><button class="ab bad" data-out="'+u.id+'">Move out</button>':'';
   if(t){
     var owed=s?s.owed:0;
     function kv(k,v){return '<div class="kv"><span class="mute">'+k+'</span><span class="v">'+v+'</span></div>'}
     var rentBtn='<button data-setrent="'+u.id+'" style="background:none;color:var(--pri);min-height:0;padding:0;border-radius:0;font-size:13px;font-weight:600;text-decoration:underline">'+(u.rent>0?'Change':'Set rent')+'</button>';
-    h+='<div class="t card-dl" style="margin:8px 0">'+
+    h+='<div class="t card-dl tcard" style="margin:6px 0">'+
       kv('Status',s?(owed>0?'<span style="color:var(--bad);font-weight:600;font-size:14px">Owes '+kes(owed)+'</span>':'<span class="tag paid">Paid up</span>'):'<span class="tag part">Starts '+label(t.start)+'</span>')+
       kv('Monthly rent',(u.rent>0?'<span style="font-size:15px;font-weight:700">'+kes(u.rent)+'</span>':'')+rentBtn)+'</div>';
     if(s)h+='<div class="acts2">'+(owed>0?'<button class="pri" data-pay="'+u.id+'">Record payment</button><button data-rem="'+u.id+'">Send reminder</button>':'<button class="pri" data-pay="'+u.id+'">Add payment</button><button data-rcp="'+u.id+'">Send receipt</button>')+'</div>';
     var fut=cur,fm;S.pays.forEach(function(p){if(t&&p.tid===t.id&&p.month>fut)fut=p.month});for(fm=fut;fm>cur;fm=shift(fm,-1))ms.push(fm);
     for(i=0;i<6;i++)ms.push(shift(cur,-i));
     var rows=mrows(u,t,ms);
-    h+='<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Months</h2><div class="mute" style="margin-bottom:2px">Tap a month for payment details<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;margin-left:5px;transform:rotate(180deg)" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 3.14-2.5L6 16"/></svg></div>'+(rows||'<div class="empty">No rent months yet.</div>')+'<div style="text-align:center;margin:12px 0 0"><button data-early="'+u.id+'" style="background:none;color:var(--mute);min-height:0;font-size:13px;text-decoration:underline">+ Add earlier months</button></div>';
-    h+='<div class="mute" style="margin-top:20px">See previous records</div><div class="chips"><button data-yr="0">This year</button><button data-yr="1">Last year</button><button data-yr="2">2 years ago</button></div>';
+    h+='<h2 style="font-size:18px;font-weight:800;margin:0;line-height:1.1">Months</h2><div style="margin:3px 0 3px;line-height:1.2;color:var(--ink);font-weight:700;font-size:15px">Tap a month for payment details<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em;margin-left:5px;transform:rotate(180deg);color:var(--ok);fill:var(--ok);fill-opacity:.45" aria-hidden="true"><path d="M22 14a8 8 0 0 1-8 8"/><path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 3.14-2.5L6 16"/></svg></div>'+(rows||'<div class="empty">No rent months yet.</div>')+'<div style="text-align:center;margin:8px 0 0"><button data-early="'+u.id+'" style="background:none;color:var(--mute);min-height:0;font-size:13px;font-weight:700;text-decoration:underline">+ Add earlier months</button></div>';
+    h+='<div class="mute" style="margin-top:14px;font-weight:700">See previous records</div><div class="chips"><button data-yr="0">This year</button><button data-yr="1">Last year</button><button data-yr="2">2 years ago</button></div>';
   }else h+='<div class="t card-dl" style="margin:14px 0"><div class="kv"><span class="mute">Monthly rent</span><span class="v">'+(u.rent>0?'<span>'+kes(u.rent)+'</span>':'')+'<button data-setrent="'+u.id+'">'+(u.rent>0?'Change':'Set rent')+'</button></span></div></div><div class="empty">This unit is vacant.</div><div class="acts" style="margin-top:10px"><button class="pri" data-ten="'+u.id+'">Add tenant</button></div>';
 
   if(u.past&&u.past.length)h+='<h2 style="font-size:18px;font-weight:800;margin:14px 0 6px">Previous tenant'+(u.past.length>1?'s':'')+'</h2>'+u.past.map(function(p,ix){return {p:p,ix:ix}}).reverse().map(function(o){var p=o.p;return '<div class="pm" data-past="'+o.ix+'" style="cursor:pointer"><div class="row"><b>'+esc(p.name)+'</b><span class="sp">'+(p.owed>0?'<span style="color:var(--bad);font-weight:700;font-size:14px">Owes '+kes(p.owed)+'</span>':'<span class="tag paid">Cleared</span>')+'<span class="chev">\u203a</span></span></div><div class="mute">Moved out '+(p.out?dfmt(p.out):label(p.end))+'</div></div>'}).join('');
@@ -348,13 +362,13 @@ function sheet(){
 var nFrom=false;
 function openChooser(){var u=find(S.units,tgt);if(!u||!u.tenant)return;var bd=find(S.buildings,u.bid);$("emBody").innerHTML='<button class="opt" data-em="tenant"><span class="ic">👤</span><span><b>Tenant details</b><small>'+esc(u.tenant.name)+(u.tenant.phone?' \u00b7 '+esc(u.tenant.phone):'')+'</small></span></button><button class="opt" data-em="room"><span class="ic">🚪</span><span><b>Room / unit</b><small>Room '+esc(u.name)+' \u00b7 '+esc(bd?bd.name:"")+'</small></span></button>';$("dEm").showModal()}
 function openTenantEdit(){var u=find(S.units,tgt);if(!u||!u.tenant)return;$("eName").value=u.tenant.name;$("ePhone").value=u.tenant.phone||"";$("eStart").value=u.tenant.start;$("dE").showModal()}
-function openRoomEdit(){var u=find(S.units,tgt);if(!u)return;var bd=find(S.buildings,u.bid);$("nIn").value=u.name;$("nBld").innerHTML='Building: <b>'+esc(bd?bd.name:"")+'</b>';$("dN").showModal()}
+function openRoomEdit(){var u=find(S.units,tgt);if(!u)return;var bd=find(S.buildings,u.bid);$("nIn").value=u.name;tyDraw("nTy",u.ty||"");$("nBld").innerHTML='Building: <b>'+esc(bd?bd.name:"")+'</b>';$("dN").showModal()}
 $("emBody").onclick=function(e){var b=e.target.closest("[data-em]");if(!b)return;$("dEm").close();if(b.dataset.em==="tenant")openTenantEdit();else{nFrom=true;openRoomEdit()}};
 $("eBack").onclick=function(){$("dE").close();openChooser()};
 $("nBack").onclick=function(){$("dN").close();if(nFrom){nFrom=false;openChooser()}};
 $("dEm").addEventListener("click",function(e){var r=this.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)this.close()});
 function dfmt(d){return new Date(d+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}
-function pinfo(u,p){var ms=[],i,m;for(i=0;i<6;i++){m=shift(p.end,-i);if(m<p.start)break;ms.push(m)}var due=ms.length*u.rent,pd=0,full=0;ms.forEach(function(m){var s=0;S.pays.forEach(function(x){if(x.tid===p.id&&x.month===m)s+=x.amt});pd+=s;if(u.rent>0&&s>=u.rent)full++});return{ms:ms,due:due,pd:pd,full:full}}
+function pinfo(u,p){var ms=[],i,m;for(i=0;i<6;i++){m=shift(p.end,-i);if(m<p.start)break;ms.push(m)}var due=0,pd=0,full=0;ms.forEach(function(m){var rm=rentAt(u,m);due+=rm;var s=0;S.pays.forEach(function(x){if(x.tid===p.id&&x.month===m)s+=x.amt});pd+=s;if(rm>0&&s>=rm)full++});return{ms:ms,due:due,pd:pd,full:full}}
 function ssheet(){
   if(pastOpen==null||!$("dS").open)return;
   var u=find(S.units,uOpen),p=u&&u.past&&u.past[pastOpen];
@@ -365,8 +379,8 @@ function ssheet(){
   h+='<div class="hacts">'+(p.phone?'<a class="ab" href="tel:'+esc(p.phone)+'">Call</a>':'')+'<button class="ab" data-stmt="1" style="background:var(--pri);color:var(--onpri);border-color:var(--pri)">Share statement</button></div>';
   h+='<div class="t card-dl" style="margin:14px 0"><div class="name" style="margin-bottom:2px">Last '+n+' month'+(n===1?'':'s')+'</div>'+ln('Rent due',kes(r.due))+ln('Total paid',kes(r.pd))+ln('Paid in full',r.full+' of '+n+' months')+ln('Balance owed',p.owed>0?'<span style="color:var(--bad);font-weight:800">'+kes(p.owed)+'</span>':'<span style="color:var(--ok);font-weight:800">Cleared</span>')+'</div>';
   h+='<h2 style="font-size:18px;font-weight:800;margin:6px 0 2px">Month by month</h2><div class="mute" style="margin-bottom:2px">Tap a month for payment details</div>';
-  r.ms.forEach(function(m){var ps=S.pays.filter(function(x){return x.tid===p.id&&x.month===m}),s=0;ps.forEach(function(x){s+=x.amt});var full=u.rent>0&&s>=u.rent;
-    h+='<div class="pm" data-sm="'+m+'" style="cursor:pointer"><div class="row"><div><b>'+label(m)+'</b><div class="mute">'+kes(s)+' of '+kes(u.rent)+'</div></div><span class="tag '+(full?'paid':s>0?'part':'due')+'">'+(full?'Paid':s>0?'Part paid':'Unpaid')+'</span></div>'+(sx[m]?'<div class="pl">'+(ps.length?ps.map(function(x){return dfmt(x.date)+' \u00b7 '+kes(x.amt)+' \u00b7 '+(x.method||'M-Pesa')+(x.code?' \u00b7 '+esc(x.code):'')}).join('<br>'):'No payments recorded')+'</div>':'')+'</div>'});
+  r.ms.forEach(function(m){var ps=S.pays.filter(function(x){return x.tid===p.id&&x.month===m}),s=0;ps.forEach(function(x){s+=x.amt});var rm=rentAt(u,m),full=rm>0&&s>=rm;
+    h+='<div class="pm" data-sm="'+m+'" style="cursor:pointer"><div class="row"><div><b>'+label(m)+'</b><div class="mute">'+kes(s)+' of '+kes(rm)+'</div></div><span class="tag '+(full?'paid':s>0?'part':'due')+'">'+(full?'Paid':s>0?'Part paid':'Unpaid')+'</span></div>'+(sx[m]?'<div class="pl">'+(ps.length?ps.map(function(x){return dfmt(x.date)+' \u00b7 '+kes(x.amt)+' \u00b7 '+(x.method||'M-Pesa')+(x.code?' \u00b7 '+esc(x.code):'')}).join('<br>'):'No payments recorded')+'</div>':'')+'</div>'});
   $("sBody").innerHTML=h;
 }
 function stmt(){var u=find(S.units,uOpen),p=u&&u.past&&u.past[pastOpen];if(!p)return;var r=pinfo(u,p);
@@ -395,16 +409,18 @@ function render(){
       h+='<div class="t bc '+(unp>0?'st-bad':(occN>0&&pdN===occN?'st-ok':''))+'" data-bopen="'+bb.id+'" style="cursor:pointer"><div class="row" style="align-items:center"><div class="bcard-main"><div class="name" style="font-size:17px">'+esc(bb.name)+'</div><div class="mute" style="font-size:13.5px">'+(us.length?occN+' of '+us.length+(us.length===1?' room':' rooms')+' occupied':'No rooms added yet')+'</div></div><span class="chev">›</span></div><div class="chips2">'+chs+'</div></div>'});
     if(!h)h='<div class="empty"><b style="color:var(--ink);font-size:17px">Welcome! Start here</b><div class="steps"><div><b>1</b>Add your building</div><div><b>2</b>Add its rooms</div><div><b>3</b>Add tenants and record rent</div></div></div>';
   }else{
-    units.slice().sort(function(x,y){return (x.tenant?0:1)-(y.tenant?0:1)||String(x.name).localeCompare(String(y.name),undefined,{numeric:true,sensitivity:"base"})}).forEach(function(u){
-      var s=stats(u),t=u.tenant,tag="Vacant",cls="part";
+    var anyFl=units.some(function(u){return u.fl}),lastG=null,fk=function(u){return u.fl||"-"};if(anyFl){var fls=[];units.forEach(function(u){if(fls.indexOf(fk(u))<0)fls.push(fk(u))});fls.sort(function(a,b){return flRank(a==="-"?"":a)-flRank(b==="-"?"":b)});if(fls.indexOf(curFl)<0)curFl=fls[0];h+='<div class="fchips">';fls.forEach(function(k){var n=0;units.forEach(function(x){if(fk(x)===k){var q=stats(x);if(x.tenant&&q&&q.owed>0)n++}});h+='<button type="button" class="fchip'+(k===curFl?" on":"")+'" data-fl="'+esc(k)+'">'+esc(flShort(k))+(n?'<b class="fd"></b>':"")+"</button>"});var cn=0,co=0;units.forEach(function(x){if(fk(x)===curFl){cn++;var q=stats(x);if(x.tenant&&q&&q.owed>0)co++}});h+='</div><div class="fsel"><b>'+esc(curFl==="-"?"No floor":curFl)+'</b> · '+cn+(cn===1?" room":" rooms")+(co?' · <span style="color:var(--bad);font-weight:700">'+co+' owe</span>':"")+(selMode||curFl==="-"?"":' <button type="button" data-rnf="1" style="background:transparent;border:0;color:var(--pri);font-weight:700;font-size:13px;text-decoration:underline;min-height:28px;padding:0 0 0 6px">Rename floor</button>')+'</div><div class="tgrid">'}units.slice().sort(function(x,y){return flRank(x.fl)-flRank(y.fl)||(x.tenant?0:1)-(y.tenant?0:1)||String(x.name).localeCompare(String(y.name),undefined,{numeric:true,sensitivity:"base"})}).forEach(function(u){
+      var s=stats(u),t=u.tenant,tag="Vacant",cls="part";if(anyFl&&fk(u)!==curFl)return;
       if(t&&s){if(s.owed===0){tag="Paid";cls="paid"}else if(s.thisM>0){tag="Part paid";cls="part"}else{tag="Not paid";cls="due"}}
       else if(t){tag="Starts later";cls="part"}
       var pt=s?s.thisM:0,part=t&&s&&pt>0&&pt<u.rent?" · "+kes(pt)+" paid so far":"";
       var statusClass=tag==="Paid"?"paid":tag==="Vacant"?"vacant-tag":tag==="Starts later"?"part":tag==="Part paid"?"part":"due";
-      h+='<div class="t room-card" data-tog="'+u.id+'" style="cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none'+(selMode?';grid-template-columns:24px 40px minmax(0,1fr) auto':'')+(selMode&&selLocked(u)?';opacity:.5':'')+'">'+(selMode?ckBox(u):'')+'<div class="room-icon '+(t?'occupied-icon':'vacant-icon')+'" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 27V7.5A2.5 2.5 0 0 1 9.5 5h8A2.5 2.5 0 0 1 20 7.5V27M4 27h24M20 11h4.5A2.5 2.5 0 0 1 27 13.5V27" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 16v.1" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></div><div class="room-info"><div class="room-name">Room '+esc(u.name)+'</div>'+(t?'<div class="room-tenant">'+esc(t.name)+'</div><div class="room-rent">'+(u.rent>0?kes(u.rent)+' / month':'Rent not set')+'</div>':'')+'</div><div class="room-side"><span class="tag '+statusClass+'">'+tag+'</span><span class="chev">›</span></div>'+'</div>'});
+      if(anyFl){h+='<div class="tile'+(selMode&&sel[u.id]?" sel":"")+'" data-tog="'+u.id+'" style="-webkit-user-select:none;user-select:none;-webkit-touch-callout:none">'+(selMode?'<span class="ck">'+ckBox(u)+"</span>":"")+'<div class="tn">'+esc(u.name)+'</div><div class="tt">'+(t?esc(t.name):(u.ty?esc(u.ty):"Available"))+'</div><span class="tag '+statusClass+'">'+tag+"</span></div>";return}
+      h+='<div class="t room-card" data-tog="'+u.id+'" style="cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none'+(selMode?';grid-template-columns:24px 40px minmax(0,1fr) auto':'')+'">'+(selMode?ckBox(u):'')+'<div class="room-icon '+(t?'occupied-icon':'vacant-icon')+'" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M7 27V7.5A2.5 2.5 0 0 1 9.5 5h8A2.5 2.5 0 0 1 20 7.5V27M4 27h24M20 11h4.5A2.5 2.5 0 0 1 27 13.5V27" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 16v.1" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg></div><div class="room-info"><div class="room-name">Room '+esc(u.name)+'</div>'+(t?'<div class="room-tenant">'+esc(t.name)+'</div><div class="room-rent">'+(u.rent>0?kes(u.rent)+' / month':'Rent not set')+'</div>':'')+(!t&&u.ty?'<div class="room-rent">'+esc(u.ty)+'</div>':'')+'</div><div class="room-side"><span class="tag '+statusClass+'">'+tag+'</span><span class="chev">›</span></div>'+'</div>'});
+    if(anyFl)h+="</div>";
     if(!h)h='<div class="empty">No units in this building yet.<br>Add your first unit, then add a tenant to it.</div>';
   }
-  $("list").innerHTML=(b?selHead():(S.buildings.length?'<div class="section-head" style="margin:2px 0 12px;padding:0 13px"><h2 style="font-size:19px">'+S.buildings.length+(S.buildings.length===1?' building':' buildings')+'</h2><button class="pri add-small" data-add="1">+ Add building</button></div>':'<button class="pri" data-add="1" style="width:100%;margin-bottom:12px">+ Add building</button>'))+h+(b&&selMode?selBar():'')+(b&&!selMode?'<div style="text-align:center;margin-top:18px"><button data-delb="'+b.id+'" style="background:transparent;color:var(--bad);font-size:13px;min-height:36px">Delete building</button></div>':'');
+  $("list").innerHTML=(b?selHead():(S.buildings.length?'<div class="section-head" style="margin:2px 0 12px;padding:0 13px"><h2 style="font-size:19px">'+S.buildings.length+(S.buildings.length===1?' building':' buildings')+'</h2><button class="pri add-small" data-add="1">+ Add building</button></div>':'<button class="pri" data-add="1" style="width:100%;margin-bottom:12px">+ Add building</button>'))+h+(b&&selMode?selBar2():'')+(b&&!selMode?'<div style="text-align:center;margin-top:18px"><button data-delb="'+b.id+'" style="background:transparent;color:var(--bad);font-size:13px;min-height:36px">Delete building</button></div>':'');
   $("demoNote").hidden=!demoMode;document.querySelector(".hero").hidden=true;document.querySelector(".month").hidden=true;$("add").hidden=true;
   var nb=S.buildings.length;
   var oc=units.filter(function(u){return u.tenant}).length;$("buildingMenu").hidden=!b;$("sub").hidden=false;$("sub").textContent=b?oc+" occupied · "+(units.length-oc)+" vacant · Total "+units.length:(nb?cN+" "+cP[0]+" rent status":"");
@@ -451,7 +467,7 @@ $("next").onclick=function(){cur=shift(cur,1);render()};
 $("back").onclick=function(){view=null;render()};
 $("buildingMenu").onclick=function(){if(!view){alert("Open a building to see its options.");return}var b=find(S.buildings,view);if(b&&cf($("buildingMenu"),"Delete "+b.name+"?","All its rooms, tenants and payment records will be deleted. This can\u2019t be undone.","Delete",true)){var id=+view;S.units.filter(function(x){return x.bid===id}).forEach(function(x){if(x.tenant)S.pays=S.pays.filter(function(p){return p.tid!==x.tenant.id})});S.units=S.units.filter(function(x){return x.bid!==id});S.buildings=S.buildings.filter(function(x){return x.id!==id});view=null;save();render()}};
 $("add").onclick=function(){
-  if(view){resetU();$("dU").showModal()}else{$("bName").value="";$("dB").showModal()}
+  if(view){resetU();tyDraw("uTy","");$("dU").showModal()}else{$("bName").value="";$("dB").showModal()}
 };
 $("uTitle").onclick=$("uTen").onclick=$("uLinks").onclick=function(e){$("uBody").onclick(e)};
 $("earSave").onclick=function(){var u=find(S.units,tgt);if(!u||!u.tenant)return;var v=$("earFrom").value;if(!/^\d{4}-\d{2}$/.test(v)){alert("Pick the month to start from.");return}if(v>=ts(u.tenant)){alert("Pick a month before "+label(ts(u.tenant))+".");return}var os=ts(u.tenant);if(v<u.tenant.start)u.tenant.start=v;u.tenant.track=os;u.tenant.from=v;save();$("dEar").close();render()};
@@ -459,37 +475,52 @@ document.addEventListener("click",function(e){var x=e.target.closest("[data-x]")
 
 $("bSave").onclick=function(){var n=$("bName").value.trim();if(!n){alert("Enter the building name.");return}
   S.buildings.push({id:Date.now(),name:n});save();$("dB").close();render()};
-var uMode=1,selMode=false,sel={},undoSnap=null,undoTimer=null;
+var uMode=1,selMode=false,sel={},undoSnap=null,undoTimer=null,lastFl="",fold={},mvF="",curFl="";
+function flName(n){var v=n%100,x=["th","st","nd","rd"];return n===0?"Ground floor":n+(x[(v-20)%10]||x[v]||x[0])+" floor"}
+var TYPES=["Single room","Bedsitter","1 bedroom","2 bedroom","3 bedroom","Shop","Other"];
+function tyDraw(id,v){var el=$(id);el.dataset.v=v||"";el.innerHTML=TYPES.map(function(t){return '<button type="button" class="tych'+(t===v?" on":"")+'" data-ty="'+t+'">'+t+"</button>"}).join("")}
+function tyGet(id){return $(id).dataset.v||""}
+document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-ty]"):null;if(!b)return;var el=b.parentNode;tyDraw(el.id,el.dataset.v===b.dataset.ty?"":b.dataset.ty)});
+function flShort(k){return k==="-"?"No floor":/^ground/i.test(k)?"Ground":k.replace(/ floor$/i,"")}
+var FLW=["ground","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh","twelfth"];
+function flRank(f){if(!f)return 999;if(/^basement/i.test(f))return -1;var w=FLW.indexOf(String(f).trim().split(/\s+/)[0].toLowerCase());if(w>-1)return w;var m=parseInt(f,10);return m>0?m:500}
+function flClean(s){s=String(s).trim().replace(/\s+/g," ");if(!s)return "";if(/ floor$/i.test(s))return s;var w=s.toLowerCase();if(FLW.indexOf(w)>-1||/^\d+(st|nd|rd|th)$/i.test(w))return s+" floor";return s}
+function openRf(){var cur=curFl==="-"?"":curFl;$("rfName").value=cur;$("rfOld").textContent=cur?flShort(cur):"";$("rfChips").innerHTML=["Ground","First","Second","Third","Fourth","Fifth","Basement"].map(function(t){return '<button type="button" class="tych" data-rfp="'+t+'">'+t+'</button>'}).join("");$("dRf").showModal()}
+function saveRf(){var nn=flClean($("rfName").value);if(!nn){alert("Type the new floor name.");return}var old=curFl==="-"?"":curFl;if(nn===old){$("dRf").close();return}var n=0;S.units.forEach(function(u){if(u.bid===view&&(u.fl||"")===old)n++});if(!n){$("dRf").close();return}snap("Floor renamed to "+flShort(nn));S.units.forEach(function(u){if(u.bid===view&&(u.fl||"")===old)u.fl=nn});curFl=nn;if(lastFl===old)lastFl=nn;save();$("dRf").close();render()}
+document.addEventListener("click",function(e){var p=e.target&&e.target.closest?e.target.closest("[data-rfp]"):null;if(p){$("rfName").value=p.dataset.rfp;return}if(e.target&&e.target.id==="rfSave"){var rn=flClean($("rfName").value),ro=curFl==="-"?"":curFl;if(!rn||rn===ro){saveRf();return}if(cf(e.target,"Rename this floor?","Rename "+flShort(ro)+" to "+flShort(rn)+"? All its rooms move to the new name. Tenants and payments stay as they are. You can undo straight after.","Yes, rename"))saveRf()}});
+function flOpts(s){var o='<option value="">No floor</option>',i,n,seen={};for(i=0;i<=12;i++){n=flName(i);seen[n]=1;o+='<option'+(n===s?' selected':'')+'>'+n+'</option>'}var ex=[];S.units.forEach(function(u){if(u.bid===view&&u.fl&&!seen[u.fl]&&ex.indexOf(u.fl)<0)ex.push(u.fl)});ex.sort(function(a,b){return flRank(a)-flRank(b)});ex.forEach(function(n){o+='<option'+(n===s?' selected':'')+'>'+esc(n)+'</option>'});return o}
+function selBar2(){var all=Object.keys(sel).length,n=selIds().length;return '<div style="height:84px"></div><div class="ubar"><select id="mvFl" onchange="mvF=this.value" style="flex:1;margin:0;min-width:0">'+flOpts(mvF)+'</select><button type="button" data-bmove="1" class="pri"'+(all?'':' disabled style="opacity:.5"')+'>Move '+(all||'')+'</button><button type="button" data-bdel="1" style="background:var(--bad);color:var(--onpri)'+(n?'':';opacity:.5')+'"'+(n?'':' disabled')+'>Delete '+(n||'')+'</button></div>'}
 function selLocked(u){return !!(u.tenant||(u.past&&u.past.length))}
 function selIds(){return Object.keys(sel).map(Number).filter(function(id){var u=find(S.units,id);return u&&!selLocked(u)})}
-function ckBox(u){var lk=selLocked(u),on=!!sel[u.id];return '<span style="flex:none;width:24px;height:24px;border-radius:7px;border:2px solid '+(lk?'var(--line)':'var(--pri)')+';background:'+(on?'var(--pri)':'transparent')+';color:var(--onpri);display:inline-flex;align-items:center;justify-content:center;font-size:14px">'+(on?'\u2713':'')+'</span>'}
-function selHead(){return '<div class="section-head"><div><h2>Tenants / Rooms</h2>'+(!selMode&&S.units.filter(function(u){return u.bid===view}).length>1?'<p>Hold a room to select several</p>':'')+'</div>'+(selMode?'<button class="add-small" data-sel="0">Cancel</button>':'<button class="pri add-small" data-add="1">+ Add room</button>')+'</div>'+(selMode?'<div style="display:flex;gap:8px;margin:-6px 0 10px"><button class="add-small" data-sel="all">All empty rooms</button><button class="add-small" data-sel="none">Clear</button></div>':'')}
+function ckBox(u){var lk=false,on=!!sel[u.id];return '<span style="flex:none;width:24px;height:24px;border-radius:7px;border:2px solid '+(lk?'var(--line)':'var(--pri)')+';background:'+(on?'var(--pri)':'transparent')+';color:var(--onpri);display:inline-flex;align-items:center;justify-content:center;font-size:14px">'+(on?'\u2713':'')+'</span>'}
+function selHead(){return '<div class="section-head"><div><h2>Tenants / Rooms</h2>'+(!selMode&&S.units.filter(function(u){return u.bid===view}).length>1?'<p>Hold a room to select several</p>':'')+'</div>'+(selMode?'<button class="add-small" data-sel="0">Cancel</button>':'<button class="pri add-small" data-add="1">+ Add room</button>')+'</div>'+(selMode?'<div style="display:flex;gap:8px;margin:-6px 0 10px">'+(S.units.some(function(u){return u.bid===view&&u.fl})?'<button class="add-small" data-sel="floor">This floor</button>':'')+'<button class="add-small" data-sel="all">All rooms</button><button class="add-small" data-sel="none">Clear</button></div>':'')}
 function selBar(){var n=selIds().length;return '<div style="height:84px"></div><div class="ubar"><button type="button" data-bdel="1" style="background:var(--bad);color:var(--onpri)'+(n?'':';opacity:.5')+'"'+(n?'':' disabled')+'>Delete '+n+' room'+(n===1?'':'s')+'</button><span class="mute">'+(n?'Rooms with tenants can\u2019t be selected':'Tap the rooms to delete')+'</span></div>'}
-function selAct(v){if(v==="1"){selMode=true;sel={}}else if(v==="0"){selMode=false;sel={}}else if(v==="none"){sel={}}else if(v==="all"){sel={};S.units.forEach(function(u){if(u.bid===view&&!selLocked(u))sel[u.id]=1})}render()}
-function selToggle(id){var u=find(S.units,id);if(!u||selLocked(u))return;if(sel[id])delete sel[id];else sel[id]=1;render()}
+function selAct(v){if(v==="1"){selMode=true;sel={}}else if(v==="0"){selMode=false;sel={}}else if(v==="none"){sel={}}else if(v==="floor"){sel={};S.units.forEach(function(u){if(u.bid===view&&(u.fl||"-")===curFl)sel[u.id]=1})}else if(v==="all"){sel={};S.units.forEach(function(u){if(u.bid===view)sel[u.id]=1})}render()}
+function selToggle(id){var u=find(S.units,id);if(!u)return;if(sel[id])delete sel[id];else sel[id]=1;render()}
 function selMsg(){var nm=selIds().map(function(id){return find(S.units,id)}).sort(function(x,y){return String(x.name).localeCompare(String(y.name),undefined,{numeric:true,sensitivity:"base"})}).map(function(u){return u.name}),s=nm.length>6?nm[0]+", "+nm[1]+" \u2026 "+nm[nm.length-1]:nm.join(", ");return "Rooms "+s+" will be deleted. You can undo straight after."}
 function bulkDel(){var ids=selIds();if(!ids.length)return;snap(ids.length+" room"+(ids.length>1?"s":"")+" deleted");S.units=S.units.filter(function(x){return ids.indexOf(x.id)<0});selMode=false;sel={};save();render()}
 var lpT=null,lpFired=false,lpX=0,lpY=0,lpL=$("list");
-lpL.addEventListener("pointerdown",function(e){lpFired=false;clearTimeout(lpT);if(selMode||!view)return;var c=e.target.closest("[data-tog]");if(!c)return;lpX=e.clientX;lpY=e.clientY;lpT=setTimeout(function(){lpFired=true;var id=+c.dataset.tog,u=find(S.units,id);selMode=true;sel={};if(u&&!selLocked(u))sel[id]=1;try{if(navigator.vibrate)navigator.vibrate(15)}catch(x){}render()},450)});
+lpL.addEventListener("pointerdown",function(e){lpFired=false;clearTimeout(lpT);if(selMode||!view)return;var c=e.target.closest("[data-tog]");if(!c)return;lpX=e.clientX;lpY=e.clientY;lpT=setTimeout(function(){lpFired=true;var id=+c.dataset.tog,u=find(S.units,id);selMode=true;sel={};if(u)sel[id]=1;try{if(navigator.vibrate)navigator.vibrate(15)}catch(x){}render()},450)});
 ["pointerup","pointercancel","pointerleave"].forEach(function(n){lpL.addEventListener(n,function(){clearTimeout(lpT)})});
 lpL.addEventListener("pointermove",function(e){if(Math.abs(e.clientX-lpX)>10||Math.abs(e.clientY-lpY)>10)clearTimeout(lpT)});
 lpL.addEventListener("contextmenu",function(e){if(e.target.closest("[data-tog]"))e.preventDefault()});
+lpL.addEventListener("click",function(e){var fc=e.target.closest("[data-fl]");if(fc){curFl=fc.dataset.fl;render();return}if(e.target.closest("[data-rnf]")){openRf();return}var f=e.target.closest("[data-fold]");if(f){var k=f.dataset.fold;fold[k]=!fold[k];render();return}var m=e.target.closest("[data-bmove]");if(m){var ids=Object.keys(sel).map(Number);if(!ids.length)return;snap(ids.length+" room"+(ids.length>1?"s":"")+" moved");S.units.forEach(function(u){if(ids.indexOf(u.id)>-1)u.fl=mvF});selMode=false;sel={};save();render()}});
 lpL.addEventListener("click",function(e){if(lpFired){lpFired=false;e.stopPropagation();e.preventDefault()}},true);
 function snap(msg){undoSnap=JSON.stringify(S);showUndo(msg)}
 function showUndo(msg){var el=$("utoast");if(!el){el=document.createElement("div");el.id="utoast";el.className="ubar";el.style.zIndex=60;document.body.appendChild(el)}el.innerHTML='<button type="button" id="utBtn">\u21b6 Undo</button><span class="mute">'+esc(msg)+'</span>';el.style.display="flex";clearTimeout(undoTimer);undoTimer=setTimeout(function(){el.style.display="none";undoSnap=null},8000);$("utBtn").onclick=function(){if(!undoSnap)return;S=JSON.parse(undoSnap);undoSnap=null;save();el.style.display="none";clearTimeout(undoTimer);selMode=false;sel={};render()}}
 function setUM(m){uMode=m;$("uOne").style.display=m===1?"":"none";$("uMany").style.display=m===2?"":"none";$("uM1").className=m===1?"pri":"";$("uM2").className=m===2?"pri":"";if(m===2)prevMany()}
-function manyNames(){var p=$("uPre").value.trim().toUpperCase(),a=parseInt($("uFrom").value,10),b=parseInt($("uTo").value,10);if(!(a>=0)||!(b>=a)||b-a>99)return null;var have={};S.units.forEach(function(u){if(u.bid===view)have[String(u.name).toUpperCase()]=1});var add=[],skip=0;for(var n=a;n<=b;n++){var nm=p+n;if(have[nm])skip++;else add.push(nm)}return{add:add,skip:skip}}
-function prevMany(){var r=manyNames(),el=$("uPrev");if(!r){el.textContent="Type a letter (or leave it blank for plain numbers) and the first and last number, e.g. A, 1, 10 (up to 100 rooms).";return}if(!r.add.length){el.textContent="All of these rooms already exist.";return}el.textContent="Will add "+r.add.length+" room"+(r.add.length>1?"s":"")+": "+(r.add.length>1?r.add[0]+" … "+r.add[r.add.length-1]:r.add[0])+(r.skip?" ("+r.skip+" already exist, skipped)":"")}
-function resetU(){$("uName").value="";$("uPre").value="";$("uFrom").value="";$("uTo").value="";setUM(1)}
+function manyNames(){var p=$("uPre").value.trim().toUpperCase(),a=parseInt($("uFrom").value,10),b=parseInt($("uTo").value,10);if(!(a>=0)||!(b>=a)||b-a>99)return null;var have={};S.units.forEach(function(u){if(u.bid===view)have[(u.fl||"")+"|"+String(u.name).toUpperCase()]=1});var add=[],skip=0;for(var n=a;n<=b;n++){var nm=p+n;if(have[$("uFl").value+"|"+nm])skip++;else add.push(nm)}return{add:add,skip:skip}}
+function prevMany(){var r=manyNames(),el=$("uPrev");if(!r){el.textContent="Type a letter (or leave it blank for plain numbers) and the first and last number, e.g. A, 1, 10 (up to 100 rooms).";return}if(!r.add.length){el.textContent="All of these rooms already exist on this floor.";return}el.textContent="Will add "+r.add.length+" room"+(r.add.length>1?"s":"")+": "+(r.add.length>1?r.add[0]+" … "+r.add[r.add.length-1]:r.add[0])+(r.skip?" ("+r.skip+" already exist, skipped)":"")}
+function resetU(){$("uFl").innerHTML=flOpts();$("uFl").value=S.units.some(function(u){return u.bid===view&&u.fl})?lastFl:"";$("uName").value="";$("uPre").value="";$("uFrom").value="";$("uTo").value="";setUM(1)}
 $("uPre").setAttribute("autocapitalize","characters");$("uName").setAttribute("autocapitalize","characters");$("uM1").onclick=function(){setUM(1)};$("uM2").onclick=function(){setUM(2)};
-$("dU").addEventListener("input",function(){if(uMode===2)prevMany()});
-function saveMany(){var r=manyNames();if(!r){alert("Enter the first and last number, e.g. 1 and 10. The letter is optional.");return}if(!r.add.length){alert("These rooms already exist.");return}var t=Date.now();snap(r.add.length+" room"+(r.add.length>1?"s":"")+" added");r.add.forEach(function(nm,i){S.units.push({id:t+i,bid:view,name:nm,rent:0,tenant:null})});save();$("dU").close();render()}
+$("dU").addEventListener("change",function(){if(uMode===2)prevMany()});$("dU").addEventListener("input",function(){if(uMode===2)prevMany()});
+function saveMany(){var r=manyNames();if(!r){alert("Enter the first and last number, e.g. 1 and 10. The letter is optional.");return}if(!r.add.length){alert("These rooms already exist on this floor.");return}var t=Date.now();snap(r.add.length+" room"+(r.add.length>1?"s":"")+" added");r.add.forEach(function(nm,i){S.units.push({id:t+i,bid:view,name:nm,rent:0,tenant:null,fl:(lastFl=$("uFl").value),ty:tyGet("uTy")})});save();$("dU").close();render()}
 $("uSave").onclick=function(){if(uMode===2){saveMany();return}var n=$("uName").value.trim().toUpperCase();
   if(!n){alert("Enter the room name or number.");return}
-  snap("Room "+n+" added");S.units.push({id:Date.now(),bid:view,name:n,rent:0,tenant:null});save();$("dU").close();render()};
+  snap("Room "+n+" added");S.units.push({id:Date.now(),bid:view,name:n,rent:0,tenant:null,fl:(lastFl=$("uFl").value),ty:tyGet("uTy")});save();$("dU").close();render()};
 $("rSave").onclick=function(){var u=find(S.units,tgt),r=+$("rIn").value.replace(/,/g,"");
   if(!(r>0)){alert("Enter the monthly rent.");return}
-  u.rent=r;save();$("dRent").close();render();if(window.__afterRent){window.__afterRent=false;$("tTitle").textContent="Add tenant to "+u.name;$("tName").value="";$("tPhone").value="";$("dT").showModal()}};
+  if(u.rent>0&&u.rent!==r){if(!u.rh)u.rh=[{from:"0000-00",rent:u.rent}];u.rh=u.rh.filter(function(x){return x.from!==cur});u.rh.push({from:cur,rent:r})}u.rent=r;save();$("dRent").close();render();if(window.__afterRent){window.__afterRent=false;$("tTitle").textContent="Add tenant to "+u.name;$("tName").value="";$("tPhone").value="";$("dT").showModal()}};
 $("tSave").onclick=function(){var n=$("tName").value.trim();if(!n){alert("Enter the tenant’s name.");return}
   find(S.units,tgt).tenant={id:Date.now(),name:n,phone:$("tPhone").value.trim(),start:cur};save();$("dT").close();render()};
 $("phSave").onclick=function(){var v=$("phIn").value.trim(),u=find(S.units,tgt);
@@ -498,7 +529,7 @@ $("phSave").onclick=function(){var v=$("phIn").value.trim(),u=find(S.units,tgt);
 $("eSave").onclick=function(){var u=find(S.units,tgt);
   if(u.tenant){var tn=$("eName").value.trim();if(!tn){alert("Enter the tenant’s name.");return}var es=$("eStart").value;if(!/^\d{4}-\d{2}$/.test(es)){alert("Enter the month the tenant moved in.");return}u.tenant.name=tn;u.tenant.phone=$("ePhone").value.trim();var os=ts(u.tenant);u.tenant.start=es;u.tenant.track=es>os?es:os}
   save();$("dE").close();render()};
-$("nSave").onclick=function(){var u=find(S.units,tgt),n=$("nIn").value.trim();if(!n){alert("Enter the room name or number.");return}u.name=n;save();$("dN").close();render()};
+$("nSave").onclick=function(){var u=find(S.units,tgt),n=$("nIn").value.trim();if(!n){alert("Enter the room name or number.");return}u.name=n;u.ty=tyGet("nTy");save();$("dN").close();render()};
 $("pAmt").oninput=updHint;
 $("pSave").onclick=function(){var a=+$("pAmt").value.replace(/,/g,"");if(!(a>0)){alert("Enter the amount received.");return}
   var u=find(S.units,tgt),m0=pm||cur,meth=$("pMeth").value,code=meth==="Cash"?"":$("pCode").value.trim().toUpperCase(),date=$("pDate").value||new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10),r=planFor(u,m0,a),plan=r.plan;
@@ -519,8 +550,8 @@ $("uBody").onclick=$("list").onclick=function(e){
   if(d.delb&&cf(b,"Delete this building?","All its rooms, tenants and payment records will be deleted. This can\u2019t be undone.","Delete",true)){var id=+d.delb;
     S.units.filter(function(x){return x.bid===id}).forEach(function(x){if(x.tenant)S.pays=S.pays.filter(function(p){return p.tid!==x.tenant.id})});
     S.units=S.units.filter(function(x){return x.bid!==id});S.buildings=S.buildings.filter(function(x){return x.id!==id});view=null;save();render()}
-  if(d.setrent){window.__afterRent=false;tgt=+d.setrent;u=find(S.units,tgt);$("rIn").value="";$("dRent").showModal()}
-  if(d.ten){tgt=+d.ten;u=find(S.units,tgt);if(!(u.rent>0)){window.__afterRent=true;$("rIn").value="";$("dRent").showModal();return}$("tTitle").textContent="Add tenant to "+u.name;$("tName").value="";$("tPhone").value="";$("dT").showModal()}
+  if(d.setrent){window.__afterRent=false;tgt=+d.setrent;u=find(S.units,tgt);$("rNote").textContent=u&&u.rent>0?"A rent change applies from this month onward. Past months keep their old rent.":"This rent applies to all months since the tenant moved in.";$("rIn").value="";$("dRent").showModal()}
+  if(d.ten){tgt=+d.ten;u=find(S.units,tgt);if(!(u.rent>0)){window.__afterRent=true;$("rNote").textContent="This rent applies to all months since the tenant moved in.";$("rIn").value="";$("dRent").showModal();return}$("tTitle").textContent="Add tenant to "+u.name;$("tName").value="";$("tPhone").value="";$("dT").showModal()}
   if(d.pay){tgt=+d.pay;u=find(S.units,tgt);$("pTitle").textContent="Payment from "+u.tenant.name;
     $("pAmt").value="";pm=null;$("pMeth").value="M-Pesa";$("pCodeL").hidden=false;$("pCode").value="";$("pDate").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);$("dP").showModal();updHint()}
   if(d.rcp){u=find(S.units,+d.rcp);var rp=S.pays.filter(function(p){return p.tid===u.tenant.id&&p.month===cur}),rs=0,lp=null;rp.forEach(function(p){rs+=p.amt;if(!lp||p.date>=lp.date)lp=p});
@@ -569,6 +600,15 @@ $("bkRest").onclick=function(){var d;try{d=JSON.parse($("bkText").value)}catch(e
   if(!d||!d.buildings||!d.units||!d.pays){alert("That doesn\u2019t look like a Rent Tracker backup.");return}
   if(!cf(this,"Restore this backup?","All records on this phone will be replaced with the backup.","Restore",true))return;
   S=d;save();view=null;$("dBk").close();render()};
+$("dT").addEventListener("close",function(){$("tOk").hidden=true});
+$("tPick").onclick=$("tPick2").onclick=function(){
+  function fill(name,tel){var d=String(tel||"").replace(/[^\d+]/g,"");if(d.indexOf("+254")===0)d="0"+d.slice(4);else if(d.indexOf("254")===0&&d.length===12)d="0"+d.slice(3);d=d.replace(/\D/g,"");if(d)$("tPhone").value=d;if(name&&!$("tName").value.trim())$("tName").value=name;if(d||name)$("tOk").hidden=false}
+  function no(){alert("Your contacts can't be opened here. Please type the number.")}
+  try{var cp=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Contacts;
+    if(cp&&cp.pickContact){cp.pickContact({projection:{name:true,phones:true}}).then(function(r){var c=(r&&r.contact)||{};fill(c.name&&(c.name.display||c.name.given)||"",c.phones&&c.phones[0]&&c.phones[0].number)}).catch(function(){});return}
+    if(navigator.contacts&&navigator.contacts.select){navigator.contacts.select(["name","tel"],{multiple:false}).then(function(r){if(r&&r[0])fill(r[0].name&&r[0].name[0],r[0].tel&&r[0].tel[0])}).catch(no);return}
+  }catch(e){}
+  no()};
 $("updBtn").onclick=function(){var m=$("updMsg");
   if(!navigator.onLine){m.textContent="No internet. Try again when connected.";return}
   m.textContent="Updating...";
@@ -608,7 +648,7 @@ function acctSwitch(){if(demoMode)return;var a=clAuth();if(!a||!a.uid)return;var
     clearTimeout(clT);clT=null;view=null;try{render()}catch(e){}}
   try{localStorage.setItem(OW,a.uid)}catch(e){}}
 /* Wrong-PIN lockout (kept on the phone): 5 wrong tries = 1 minute wait, 5 more tries, then blocked until Forgot PIN / call admin */
-var LK="rt_lock_v1",LKHARD="Too many wrong tries. Tap Forgot PIN, then call the Imara DSB admin to reset your PIN.";
+var LK="rt_lock_v1",LKHARD="Too many wrong tries. Tap Forgot PIN, then call admin at 0718882349 to reset your PIN.";
 function lkGet(){try{return JSON.parse(localStorage.getItem(LK))||{}}catch(e){return {}}}
 function lkSet(o){try{localStorage.setItem(LK,JSON.stringify(o))}catch(e){}}
 function lkClear(){try{localStorage.removeItem(LK)}catch(e){}}
@@ -629,8 +669,8 @@ function clQueue(){if(!clOn()||!clAuth()||!clReady()||demoMode)return;clearTimeo
 function clWhen(ts){return new Date(ts).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
 function bkSync(){var s=$("bkSub"),w=$("bkWarn");if(!s)return;var bad=false,t="Save a copy of your records";
   if(clOn()){var a=clAuth(),l=clLast();if(!a||!l){t="Not backed up yet";bad=true}else if(Date.now()-l>7*864e5){t="Last backup "+clWhen(l)+". Open the app online to refresh";bad=true}else t="Last backup: "+clWhen(l)+" \u2713"}
-  s.textContent=t;s.style.color=bad?"var(--bad)":"";w.hidden=!(bad&&S.buildings&&S.buildings.length);
-  var sp=w.querySelector("span"),bt=$("bkWarnBtn");if(gSkip&&!clAuth()&&navigator.onLine!==false){sp.textContent="\ud83d\udcf6 Internet found. Create your account to back up your records.";bt.textContent="Create account";w.hidden=false}else{sp.textContent="\u26a0\ufe0f Your records are only on this phone.";bt.textContent="Back up"}}
+  s.textContent=t;s.style.color=bad?"var(--bad)":"";w.hidden=!(bad&&S.buildings&&S.buildings.length)||inFrame;
+  var sp=w.querySelector("span"),bt=$("bkWarnBtn");if(gSkip&&!inFrame&&!clAuth()&&navigator.onLine!==false){sp.textContent="\ud83d\udcf6 Internet found. Create your account to back up your records.";bt.textContent="Create account";w.hidden=false}else{sp.textContent="\u26a0\ufe0f Your records are only on this phone.";bt.textContent="Back up"}}
 $("bkWarnBtn").onclick=function(){$("bkBtn").click()};
 function clStatus(){try{bkSync()}catch(e){}var f=$("clFoot");if(!f)return;if(!clOn()){f.textContent="";return}
   var a=clAuth(),l=clLast();f.style.color="";
@@ -639,7 +679,7 @@ function clStatus(){try{bkSync()}catch(e){}var f=$("clFoot");if(!f)return;if(!cl
   if(Date.now()-l>2*864e5){f.textContent="Last cloud backup: "+clWhen(l)+". Open the app with internet to back up.";f.style.color="var(--bad)"}
   else f.textContent="Cloud backup: "+clWhen(l)}
 function clView(msg){var a=clAuth(),on=clOn();$("clOff").hidden=!on||!!a;$("clOn").hidden=!on||!a;
-  $("clInfo").textContent=!on?"Cloud backup isn't switched on yet.":a?"Signed in as 0"+String(a.phone).slice(3)+(clLast()?". Last backup: "+clWhen(clLast()):". Not backed up yet."):"Keep a safe copy of your records online. Use your phone number and a 4-digit PIN you choose. If you forget it, call the Imara DSB admin.";
+  $("clInfo").textContent=!on?"Cloud backup isn't switched on yet.":a?"Signed in as 0"+String(a.phone).slice(3)+(clLast()?". Last backup: "+clWhen(clLast()):". Not backed up yet."):"Keep a safe copy of your records online. Use your phone number and a 4-digit PIN you choose. If you forget it, call admin at 0718882349.";
   $("clMsg").textContent=msg||"";$("clMsg").style.color=""}
 function clErr(e){$("clMsg").textContent=e&&e.message?e.message:"Something went wrong. Check your internet and try again.";$("clMsg").style.color="var(--bad)"}
 function clBusy(b,on,txt){if(on){b.dataset.t=b.textContent;b.textContent=txt;b.disabled=true}else{b.textContent=b.dataset.t||b.textContent;b.disabled=false}}
@@ -656,7 +696,7 @@ $("clVer").onclick=function(){var b=this,f=clForm();if(!f)return;clBusy(b,true,"
     if(!S.buildings||!S.buildings.length){S=d;save();try{localStorage.setItem(CR,"1");localStorage.setItem(CT,String(row.created_at))}catch(e){}view=null;render();clStatus();clView("Signed in. Restored your records from "+clWhen(row.created_at)+" \u2713")}
     else clView("Signed in. The cloud already has a copy from "+clWhen(row.created_at)+". Tap Restore from cloud to use it, or Back up now to replace it with this phone's records.")}).catch(function(e){clBusy(b,false);clErr(e)})};
 $("clFg").onclick=function(){var b=this,ph=clPhone($("clEm").value);if(!ph){clErr(new Error("Enter your phone number above first."));return}
-  clBusy(b,true,"Sending...");clReq("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestType:"PASSWORD_RESET",email:clMail(ph)})}).then(function(){clBusy(b,false);lkClear();clView("Reset request sent. Contact Imara DSB on WhatsApp to get the link for setting a new PIN.")}).catch(function(e){clBusy(b,false);clErr(e)})};
+  clBusy(b,true,"Sending...");clReq("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestType:"PASSWORD_RESET",email:clMail(ph)})}).then(function(){clBusy(b,false);lkClear();clView("Reset request sent. Call admin at 0718882349 to get the link for setting a new PIN.")}).catch(function(e){clBusy(b,false);clErr(e)})};
 $("clNow").onclick=function(){var b=this;clBusy(b,true,"Backing up\u2026");clBackup().then(function(){clBusy(b,false);clStatus();clView("Backed up \u2713")}).catch(function(e){clBusy(b,false);clErr(e)})};
 $("clRes").onclick=function(){var b=this;if(!cf(b,"Restore from cloud?","All records on this phone will be replaced with your latest cloud backup.","Restore",true))return;
   clBusy(b,true,"Restoring\u2026");clLatest().then(function(row){clBusy(b,false);if(!row){clView("No cloud backup found for this account yet.");return}var d=row.data;
@@ -667,7 +707,8 @@ $("clOut").onclick=function(){clSet(null);try{localStorage.removeItem(CT);localS
 function clAuto(){if(!clOn()||!clAuth()||!clReady()||demoMode)return;if(Date.now()-clLast()<864e5)return;if(!S.buildings||!S.buildings.length)return;clBackup().then(clStatus).catch(function(){})}
 document.addEventListener("visibilitychange",function(){if(document.hidden){if(clT){clearTimeout(clT);clT=null;clBackup().then(clStatus).catch(function(){})}}else clAuto()});
 /* ===== Compulsory sign-in screen (shown until the landlord is signed in) ===== */
-var gMode="up",gSkip=false,gNetFail=false;
+var inFrame=(function(){try{return window.self!==window.top}catch(e){return true}})();
+var gMode="up",gSkip=inFrame,gNetFail=false;
 function gateNeeded(){return clOn()&&!clAuth()&&!demoMode&&!gSkip}
 function gMsg(t,bad){var m=$("gMsg");m.textContent=t||"";m.style.color=bad?"var(--bad)":""}
 var gLocked=false,gLkT=null;
@@ -701,7 +742,7 @@ $("gGo").onclick=function(){var b=this,f=gForm();if(!f)return;gMsg("");
     if(!S.buildings||!S.buildings.length){S=d;save();try{localStorage.setItem(CR,"1");localStorage.setItem(CT,String(row.created_at))}catch(e){}gateDone();return}
     gateDone("Signed in. The cloud already has a copy from "+clWhen(row.created_at)+". Tap Restore from cloud to use it, or Back up now to replace it with this phone's records.")}).catch(function(e){clBusy(b,false);gErr(e);gLockUI()})};
 $("gFg").onclick=function(){var b=this,ph=clPhone($("gPh").value);if(!ph){gMsg("Enter your phone number above first.",1);return}
-  clBusy(b,true,"Sending...");clReq("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestType:"PASSWORD_RESET",email:clMail(ph)})}).then(function(){clBusy(b,false);lkClear();gLockUI();gMsg("Reset request sent. Contact Imara DSB on WhatsApp to get the link for setting a new PIN.")}).catch(function(e){clBusy(b,false);gMsg(e.message,1)})};
+  clBusy(b,true,"Sending...");clReq("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key="+FB.apiKey,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({requestType:"PASSWORD_RESET",email:clMail(ph)})}).then(function(){clBusy(b,false);lkClear();gLockUI();gMsg("Reset request sent. Call admin at 0718882349 to get the link for setting a new PIN.")}).catch(function(e){clBusy(b,false);gMsg(e.message,1)})};
 function eyeSet(ids,on){ids.forEach(function(id){var i=$(id);if(i){if(on)i.setAttribute("data-show","1");else i.removeAttribute("data-show")}});document.querySelectorAll("[data-eye]").forEach(function(x){if(x.getAttribute("data-eye").split(",").some(function(id){return ids.indexOf(id)>-1}))x.textContent=on?"Hide":"Show"})}
 document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-eye]"):null;if(!b)return;e.preventDefault();e.stopPropagation();var ids=b.getAttribute("data-eye").split(","),f=$(ids[0]);eyeSet(ids,!(f&&f.getAttribute("data-show")==="1"))},true);
 gateShow();
